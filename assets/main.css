@@ -68,6 +68,13 @@ blockquote {
 	font-style: italic;
 }
 
+.dark-img-bg {
+	background-color: #FFFFFF99;
+	border-radius: 3px;
+	padding: 5px;
+	box-sizing: border-box;
+}
+
 .container {
 	max-width: 800px;
 	margin: auto;
@@ -91,7 +98,6 @@ blockquote {
 
 .logo {
 	height: 100%;
-	aspect-ratio: 1 / 1;
 	object-fit: contain;
 }
 
@@ -136,3 +142,7 @@ blockquote {
 	padding: 15px;
 }
 
+
+img {
+	color-scheme: only light !important;
+}
