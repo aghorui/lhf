@@ -1,9 +1,13 @@
 # LatticeHashForest
 
-LatticeHashForest (LHF) is an attempt at efficient set operations based on a
-multi-faceted caching mechanism under the scope of performing data flow analysis
-on programs. Several speculations about the data have been made on the basis of
-this scope for its implementation, some of which are:
+LatticeHashForest (LHF) is a data representation caching mechanism that is meant
+to facilitate aggressive caching of redundant data, and operations performed on
+such redundant data. LHF aims to reduce both the memory footprint as well as the
+CPU time used by an application for every operation performed on its data when
+compared to naive storage and operations on it by reducing each unique instance
+of data to a unique integer identifier, and reducing the cost of performing
+any bulk operation on data as much as possible. It builds on the following
+assumptions for some given information system:
 
 1. Data is (often) redundant.
 2. Data is (often) redundantly computed.
@@ -11,10 +15,9 @@ this scope for its implementation, some of which are:
 4. There are (usually) set patterns and common input data used for the
    computation of new data.
 
-LHF Is a data structure that exploits the above properties to create both a
-memory and compute-efficient set operation system for data flow analyses. It is
-currently implemented as a single class in a C++ header-only library.
-(`lhf::LatticeHashForest`)
+The current LHF toolset consists of a C++ implementation of the mechanism, and
+a Python script that generates an automatically set-up interface from a given
+input description.
 
 LHF assigns a unique number to each unique set that is inserted or computed,
 which reduces operations, like checking for equality, to a simple integer
@@ -28,13 +31,11 @@ allowing for efficient access to already computed information. Other inferences
 from the operation, such as subset relations are also hashed in order to
 possibly speed up future operations.
 
-LHF is meant to be extended to fit the needs of a particular use case. The class
-should be derived and more operations or facilities should be implemented as
-required if in case LHF does not meet all needs. Although the ways in which the
-tight coupling between operations still needs to be ironed out.
+LHF is meant to be extended to fit the needs of a particular use case. The
+class should be derived and more operations or facilities should be implemented
+as required if in case the default LHF class does not meet all needs.
 
-This project is still in active development and hence errors and issues may
-arise frequently.
+This project is still in active development.
 
 ## Building (Test Programs) and Installing
 
