@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta charset="UTF-8" />
+	<title>LatticeHashForest</title>
+	<link rel="icon" type="image/x-icon" href="./assets/favicon.png" />
+	<link rel="stylesheet" type="text/css" href="./assets/main.css" />
+</head>
+<body>
+
+<div class="container">
+	<div class="header">
+		<img src="./assets/logo.svg" alt="Logo" class="logo" />
+		<h1 class="title">LatticeHashForest</h1>
+	</div>
+<p>LatticeHashForest (LHF) is a data representation caching mechanism that is meant
+to facilitate aggressive caching of redundant data, and operations performed on
+such redundant data. LHF aims to reduce both the memory footprint as well as the
+CPU time used by an application for every operation performed on its data when
+compared to naive storage and operations on it by reducing each unique instance
+of data to a unique integer identifier, and reducing the cost of performing
+any bulk operation on data as much as possible. It builds on the following
+assumptions for some given information system:</p>
+
+<ol>
+<li>Data is (often) redundant.</li>
+<li>Data is (often) redundantly computed.</li>
+<li>Data is (often) sparse.</li>
+<li>There are (usually) set patterns and common input data used for the
+computation of new data.</li>
+</ol>
+
+<p>The current LHF toolset consists of a C++ implementation of the mechanism, and
+a Python script that generates an automatically set-up interface from a given
+input description.</p>
+
+<p>LHF assigns a unique number to each unique set that is inserted or computed,
+which reduces operations, like checking for equality, to a simple integer
+comparison. In order to prevent duplicate sets, a mapping from the set to the
+unique integer is stored in a hash table. The set's contents are hashed.</p>
+
+<p>LHF hashes operations like unions, intersections and differences as well,
+and stores the mapping for each operation (a pair of integers denoting the two
+operands, to the result, which is another integer) in a separate hash table,
+allowing for efficient access to already computed information. Other inferences
+from the operation, such as subset relations are also hashed in order to
+possibly speed up future operations.</p>
+
+<p>LHF is meant to be extended to fit the needs of a particular use case. The
+class should be derived and more operations or facilities should be implemented
+as required if in case the default LHF class does not meet all needs.</p>
+
+<p>This project is still in active development.</p>
+
+<p style="text-align: center;">
+	<a href="https://github.com/aghorui/lhf/blob/master/doc/guide.md">
+		<img
+			src="./assets/lhf.svg"
+			alt="LHF Design"/>
+	</a>
+</p>
+
+
+<h2>Links:</h2>
+<p><a class="ext-link" href="https://github.com/aghorui/lhf">Github Repository</a></p>
+<p><a class="ext-link" href="https://github.com/aghorui/lhf/blob/master/doc/guide.md">Design Document and Manual</a></p>
+<p><a class="ext-link" href="./doxygen">Doxygen API Documentation</a></p>
+<p><a class="ext-link" href="./schema">JSON Description Language Schema Documentation</a></p>
+
+	</div>
+
+	<div class="footer">
+		<hr />
+		<i>Copyright (C) 2025 aghorui</i> <br/>
+	</div>
+</div>
+
+</body>
+</html>

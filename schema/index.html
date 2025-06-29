@@ -1,0 +1,2070 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Overpass:300,400,600,800">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="schema_doc.css">
+    <script src="https://use.fontawesome.com/facf9fa52c.js"></script>
+    <script src="schema_doc.min.js"></script>
+    <meta charset="utf-8"/>
+        
+    
+    <title>LHF Blueprint Schema</title>
+</head>
+<body onload="anchorOnLoad();" id="root"><div class="text-right">
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".collapse:not(.show)" aria-expanded="false">Expand all</button>
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target=".collapse.show" aria-expanded="false">Collapse all</button>
+        </div>
+
+    <div class="breadcrumbs"></div> <h1>LHF Blueprint Schema</h1><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Provides a complete description of an Blueprint (interconnections and functions) of LatticeHashForests.</p>
+</span> <span class="badge badge-info no-additional">No Additional Properties</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionlhf_version">
+    <div class="card">
+        <div class="card-header" id="headinglhf_version">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#lhf_version"
+                        aria-expanded="" aria-controls="lhf_version" onclick="setAnchor('#lhf_version')"><span class="property-name">lhf_version</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="lhf_version"
+             class="collapse property-definition-div" aria-labelledby="headinglhf_version"
+             data-parent="#accordionlhf_version">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#lhf_version" onclick="anchorLink('lhf_version')">lhf_version</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Minimum compatible version of LHF.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionnamespace">
+    <div class="card">
+        <div class="card-header" id="headingnamespace">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#namespace"
+                        aria-expanded="" aria-controls="namespace" onclick="setAnchor('#namespace')"><span class="property-name">namespace</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="namespace"
+             class="collapse property-definition-div" aria-labelledby="headingnamespace"
+             data-parent="#accordionnamespace">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#namespace" onclick="anchorLink('namespace')">namespace</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>The namespace to put the generated Blueprint in.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionscalar_definitions">
+    <div class="card">
+        <div class="card-header" id="headingscalar_definitions">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#scalar_definitions"
+                        aria-expanded="" aria-controls="scalar_definitions" onclick="setAnchor('#scalar_definitions')"><span class="property-name">scalar_definitions</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="scalar_definitions"
+             class="collapse property-definition-div" aria-labelledby="headingscalar_definitions"
+             data-parent="#accordionscalar_definitions">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions" onclick="anchorLink('scalar_definitions')">scalar_definitions</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>List of definitions of scalar values of the Blueprint (e.g, tuples, numbers, etc.). The keys act as identifiers for each definition.</p>
+</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionscalar_definitions_additionalProperties">
+    <div class="card">
+        <div class="card-header" id="headingscalar_definitions_additionalProperties">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#scalar_definitions_additionalProperties"
+                        aria-expanded="" aria-controls="scalar_definitions_additionalProperties" onclick="setAnchor('#scalar_definitions_additionalProperties')"><em><span class="property-name">Additional Properties</span></em></button>
+            </h2>
+        </div>
+
+        <div id="scalar_definitions_additionalProperties"
+             class="collapse property-definition-div" aria-labelledby="headingscalar_definitions_additionalProperties"
+             data-parent="#accordionscalar_definitions_additionalProperties">
+            <div class="card-body pl-5"><p class="additional-properties">Each additional property must conform to the following schema</p>
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions" onclick="anchorLink('scalar_definitions')">scalar_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties" onclick="anchorLink('scalar_definitions_additionalProperties')">ScalarDefinition</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes a scalar type used in the Blueprint. The key that refers to this description is used as the identifier for this description.</p>
+</span>
+
+     <span class="badge badge-info no-additional">No Additional Properties</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionscalar_definitions_additionalProperties_name">
+    <div class="card">
+        <div class="card-header" id="headingscalar_definitions_additionalProperties_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#scalar_definitions_additionalProperties_name"
+                        aria-expanded="" aria-controls="scalar_definitions_additionalProperties_name" onclick="setAnchor('#scalar_definitions_additionalProperties_name')"><span class="property-name">name</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="scalar_definitions_additionalProperties_name"
+             class="collapse property-definition-div" aria-labelledby="headingscalar_definitions_additionalProperties_name"
+             data-parent="#accordionscalar_definitions_additionalProperties_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions" onclick="anchorLink('scalar_definitions')">scalar_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties" onclick="anchorLink('scalar_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties_name" onclick="anchorLink('scalar_definitions_additionalProperties_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Actual C++ Identifier for this scalar (e.g. int, int*, double, structs ...)</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionscalar_definitions_additionalProperties_less">
+    <div class="card">
+        <div class="card-header" id="headingscalar_definitions_additionalProperties_less">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#scalar_definitions_additionalProperties_less"
+                        aria-expanded="" aria-controls="scalar_definitions_additionalProperties_less" onclick="setAnchor('#scalar_definitions_additionalProperties_less')"><span class="property-name">less</span></button>
+            </h2>
+        </div>
+
+        <div id="scalar_definitions_additionalProperties_less"
+             class="collapse property-definition-div" aria-labelledby="headingscalar_definitions_additionalProperties_less"
+             data-parent="#accordionscalar_definitions_additionalProperties_less">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions" onclick="anchorLink('scalar_definitions')">scalar_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties" onclick="anchorLink('scalar_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties_less" onclick="anchorLink('scalar_definitions_additionalProperties_less')">less</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Less-than functor for this scalar.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionscalar_definitions_additionalProperties_equal">
+    <div class="card">
+        <div class="card-header" id="headingscalar_definitions_additionalProperties_equal">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#scalar_definitions_additionalProperties_equal"
+                        aria-expanded="" aria-controls="scalar_definitions_additionalProperties_equal" onclick="setAnchor('#scalar_definitions_additionalProperties_equal')"><span class="property-name">equal</span></button>
+            </h2>
+        </div>
+
+        <div id="scalar_definitions_additionalProperties_equal"
+             class="collapse property-definition-div" aria-labelledby="headingscalar_definitions_additionalProperties_equal"
+             data-parent="#accordionscalar_definitions_additionalProperties_equal">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions" onclick="anchorLink('scalar_definitions')">scalar_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties" onclick="anchorLink('scalar_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties_equal" onclick="anchorLink('scalar_definitions_additionalProperties_equal')">equal</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Equality functor for this scalar.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionscalar_definitions_additionalProperties_hash">
+    <div class="card">
+        <div class="card-header" id="headingscalar_definitions_additionalProperties_hash">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#scalar_definitions_additionalProperties_hash"
+                        aria-expanded="" aria-controls="scalar_definitions_additionalProperties_hash" onclick="setAnchor('#scalar_definitions_additionalProperties_hash')"><span class="property-name">hash</span></button>
+            </h2>
+        </div>
+
+        <div id="scalar_definitions_additionalProperties_hash"
+             class="collapse property-definition-div" aria-labelledby="headingscalar_definitions_additionalProperties_hash"
+             data-parent="#accordionscalar_definitions_additionalProperties_hash">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions" onclick="anchorLink('scalar_definitions')">scalar_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties" onclick="anchorLink('scalar_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties_hash" onclick="anchorLink('scalar_definitions_additionalProperties_hash')">hash</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Hash generation functor for this scalar.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionscalar_definitions_additionalProperties_print">
+    <div class="card">
+        <div class="card-header" id="headingscalar_definitions_additionalProperties_print">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#scalar_definitions_additionalProperties_print"
+                        aria-expanded="" aria-controls="scalar_definitions_additionalProperties_print" onclick="setAnchor('#scalar_definitions_additionalProperties_print')"><span class="property-name">print</span></button>
+            </h2>
+        </div>
+
+        <div id="scalar_definitions_additionalProperties_print"
+             class="collapse property-definition-div" aria-labelledby="headingscalar_definitions_additionalProperties_print"
+             data-parent="#accordionscalar_definitions_additionalProperties_print">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions" onclick="anchorLink('scalar_definitions')">scalar_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties" onclick="anchorLink('scalar_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#scalar_definitions_additionalProperties_print" onclick="anchorLink('scalar_definitions_additionalProperties_print')">print</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Print functor for this scalar. NAME MAY CHANGE IN THE FUTURE.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionentity_definitions">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions"
+                        aria-expanded="" aria-controls="entity_definitions" onclick="setAnchor('#entity_definitions')"><span class="property-name">entity_definitions</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions"
+             data-parent="#accordionentity_definitions">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>List of definitions of entities (LHFs) that exist in the Blueprint. The keys act as identifiers for each definition.</p>
+</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionentity_definitions_additionalProperties">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions_additionalProperties">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions_additionalProperties"
+                        aria-expanded="" aria-controls="entity_definitions_additionalProperties" onclick="setAnchor('#entity_definitions_additionalProperties')"><em><span class="property-name">Additional Properties</span></em></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions_additionalProperties"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions_additionalProperties"
+             data-parent="#accordionentity_definitions_additionalProperties">
+            <div class="card-body pl-5"><p class="additional-properties">Each additional property must conform to the following schema</p>
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">EntityDefinition</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+
+     <span class="badge badge-info no-additional">No Additional Properties</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionentity_definitions_additionalProperties_name">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions_additionalProperties_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions_additionalProperties_name"
+                        aria-expanded="" aria-controls="entity_definitions_additionalProperties_name" onclick="setAnchor('#entity_definitions_additionalProperties_name')"><span class="property-name">name</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions_additionalProperties_name"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions_additionalProperties_name"
+             data-parent="#accordionentity_definitions_additionalProperties_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_name" onclick="anchorLink('entity_definitions_additionalProperties_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>C++ identifier for the resultant entity.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionentity_definitions_additionalProperties_var_name">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions_additionalProperties_var_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions_additionalProperties_var_name"
+                        aria-expanded="" aria-controls="entity_definitions_additionalProperties_var_name" onclick="setAnchor('#entity_definitions_additionalProperties_var_name')"><span class="property-name">var_name</span></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions_additionalProperties_var_name"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions_additionalProperties_var_name"
+             data-parent="#accordionentity_definitions_additionalProperties_var_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_var_name" onclick="anchorLink('entity_definitions_additionalProperties_var_name')">var_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Variable/member identifier for the resultant entity.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionentity_definitions_additionalProperties_user_exposed">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions_additionalProperties_user_exposed">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions_additionalProperties_user_exposed"
+                        aria-expanded="" aria-controls="entity_definitions_additionalProperties_user_exposed" onclick="setAnchor('#entity_definitions_additionalProperties_user_exposed')"><span class="property-name">user_exposed</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions_additionalProperties_user_exposed"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions_additionalProperties_user_exposed"
+             data-parent="#accordionentity_definitions_additionalProperties_user_exposed">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_user_exposed" onclick="anchorLink('entity_definitions_additionalProperties_user_exposed')">user_exposed</a></div><span class="badge badge-dark value-type">Type: boolean</span><br/>
+<span class="description"><p>Whether the entity is exposed externally for usage.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionentity_definitions_additionalProperties_interface">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions_additionalProperties_interface">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions_additionalProperties_interface"
+                        aria-expanded="" aria-controls="entity_definitions_additionalProperties_interface" onclick="setAnchor('#entity_definitions_additionalProperties_interface')"><span class="property-name">interface</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions_additionalProperties_interface"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions_additionalProperties_interface"
+             data-parent="#accordionentity_definitions_additionalProperties_interface">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_interface" onclick="anchorLink('entity_definitions_additionalProperties_interface')">interface</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>TODO</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionentity_definitions_additionalProperties_operations">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions_additionalProperties_operations">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions_additionalProperties_operations"
+                        aria-expanded="" aria-controls="entity_definitions_additionalProperties_operations" onclick="setAnchor('#entity_definitions_additionalProperties_operations')"><span class="property-name">operations</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions_additionalProperties_operations"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions_additionalProperties_operations"
+             data-parent="#accordionentity_definitions_additionalProperties_operations">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations" onclick="anchorLink('entity_definitions_additionalProperties_operations')">operations</a></div><span class="badge badge-dark value-type">Type: array of object</span><br/>
+<span class="description"><p>Custom operation descriptions supported by this entity.</p>
+</span>
+        
+
+        
+        
+
+         <span class="badge badge-info no-additional">No Additional Items</span><h4>Each item of this array must be:</h4>
+    <div class="card">
+        <div class="card-body items-definition" id="entity_definitions_additionalProperties_operations_items">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations" onclick="anchorLink('entity_definitions_additionalProperties_operations')">operations</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations_items" onclick="anchorLink('entity_definitions_additionalProperties_operations_items')">operations items</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionentity_definitions_additionalProperties_operations_items_name">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions_additionalProperties_operations_items_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions_additionalProperties_operations_items_name"
+                        aria-expanded="" aria-controls="entity_definitions_additionalProperties_operations_items_name" onclick="setAnchor('#entity_definitions_additionalProperties_operations_items_name')"><span class="property-name">name</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions_additionalProperties_operations_items_name"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions_additionalProperties_operations_items_name"
+             data-parent="#accordionentity_definitions_additionalProperties_operations_items_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations" onclick="anchorLink('entity_definitions_additionalProperties_operations')">operations</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations_items" onclick="anchorLink('entity_definitions_additionalProperties_operations_items')">operations items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations_items_name" onclick="anchorLink('entity_definitions_additionalProperties_operations_items_name')">name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>C++ identifier for this operation</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionentity_definitions_additionalProperties_operations_items_recursive">
+    <div class="card">
+        <div class="card-header" id="headingentity_definitions_additionalProperties_operations_items_recursive">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#entity_definitions_additionalProperties_operations_items_recursive"
+                        aria-expanded="" aria-controls="entity_definitions_additionalProperties_operations_items_recursive" onclick="setAnchor('#entity_definitions_additionalProperties_operations_items_recursive')"><span class="property-name">recursive</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="entity_definitions_additionalProperties_operations_items_recursive"
+             class="collapse property-definition-div" aria-labelledby="headingentity_definitions_additionalProperties_operations_items_recursive"
+             data-parent="#accordionentity_definitions_additionalProperties_operations_items_recursive">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions" onclick="anchorLink('entity_definitions')">entity_definitions</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties" onclick="anchorLink('entity_definitions_additionalProperties')">additionalProperties</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations" onclick="anchorLink('entity_definitions_additionalProperties_operations')">operations</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations_items" onclick="anchorLink('entity_definitions_additionalProperties_operations_items')">operations items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#entity_definitions_additionalProperties_operations_items_recursive" onclick="anchorLink('entity_definitions_additionalProperties_operations_items_recursive')">recursive</a></div><span class="badge badge-dark value-type">Type: boolean</span><br/>
+<span class="description"><p>Specifies whether operation propagates to any child entities. NAME MAY CHANGE.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint">
+    <div class="card">
+        <div class="card-header" id="headingblueprint">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint"
+                        aria-expanded="" aria-controls="blueprint" onclick="setAnchor('#blueprint')"><span class="property-name">blueprint</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint"
+             data-parent="#accordionblueprint">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a></div><span class="badge badge-dark value-type">Type: array</span><br/>
+<span class="description"><p>The list of blueprints of the data structures. Each member of the array is a new tree describing that strucutre.</p>
+</span>
+        
+
+        
+        
+
+         <span class="badge badge-info no-additional">No Additional Items</span><h4>Each item of this array must be:</h4>
+    <div class="card">
+        <div class="card-body items-definition" id="blueprint_items">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">BlueprintNode</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes a data structure within the Blueprint. This is a heterogeneous node.</p>
+</span>
+
+    <div class="one-of-value" id="blueprint_items_oneOf"><h2 class="handle">
+  <label>One of</label>
+</h2><ul class="nav nav-tabs" id="tabsblueprint_items_oneOf_oneOf" role="tablist"><li class="nav-item">
+            <a class="nav-link active oneOf-option"
+               id="blueprint_items_oneOf_i0" data-toggle="tab" href="#tab-pane_blueprint_items_oneOf_i0" role="tab"
+               onclick="setAnchor('#blueprint_items_oneOf_i0')"
+            >SetNode</a>
+        </li><li class="nav-item">
+            <a class="nav-link oneOf-option"
+               id="blueprint_items_oneOf_i1" data-toggle="tab" href="#tab-pane_blueprint_items_oneOf_i1" role="tab"
+               onclick="setAnchor('#blueprint_items_oneOf_i1')"
+            >MapNode</a>
+        </li><li class="nav-item">
+            <a class="nav-link oneOf-option"
+               id="blueprint_items_oneOf_i2" data-toggle="tab" href="#tab-pane_blueprint_items_oneOf_i2" role="tab"
+               onclick="setAnchor('#blueprint_items_oneOf_i2')"
+            >TupleNode</a>
+        </li><li class="nav-item">
+            <a class="nav-link oneOf-option"
+               id="blueprint_items_oneOf_i3" data-toggle="tab" href="#tab-pane_blueprint_items_oneOf_i3" role="tab"
+               onclick="setAnchor('#blueprint_items_oneOf_i3')"
+            >ScalarNode</a>
+        </li></ul>
+<div class="tab-content card"><div class="tab-pane fade card-body active show"
+             id="tab-pane_blueprint_items_oneOf_i0" role="tabpanel">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i0" onclick="anchorLink('blueprint_items_oneOf_i0')">SetNode</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes a set-like data structure. Accepts a parameter for member data.</p>
+</span>
+
+     <span class="badge badge-info no-additional">No Additional Properties</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionblueprint_items_oneOf_i0_type">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i0_type">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i0_type"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i0_type" onclick="setAnchor('#blueprint_items_oneOf_i0_type')"><span class="property-name">type</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i0_type"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i0_type"
+             data-parent="#accordionblueprint_items_oneOf_i0_type">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i0" onclick="anchorLink('blueprint_items_oneOf_i0')">item 0</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i0_type" onclick="anchorLink('blueprint_items_oneOf_i0_type')">type</a></div><span class="badge badge-dark value-type">Type: const</span><br/>
+<span class="description"><p>Discriminator field. Identifies this sub-block as a set node.</p>
+</span><span class="const-value" id="blueprint_items_oneOf_i0_type_const">Specific value: <code>"set"</code></span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i0_value">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i0_value">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i0_value"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i0_value" onclick="setAnchor('#blueprint_items_oneOf_i0_value')"><span class="property-name">value</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i0_value"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i0_value"
+             data-parent="#accordionblueprint_items_oneOf_i0_value">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i0" onclick="anchorLink('blueprint_items_oneOf_i0')">item 0</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i0_value" onclick="anchorLink('blueprint_items_oneOf_i0_value')">value</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes a data structure within the Blueprint. This is a heterogeneous node.</p>
+</span><a href="#blueprint_items" onclick="anchorLink('blueprint_items')" class="ref-link">Same definition as blueprint_items</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i0_use_as">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i0_use_as">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i0_use_as"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i0_use_as" onclick="setAnchor('#blueprint_items_oneOf_i0_use_as')"><span class="property-name">use_as</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i0_use_as"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i0_use_as"
+             data-parent="#accordionblueprint_items_oneOf_i0_use_as">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i0" onclick="anchorLink('blueprint_items_oneOf_i0')">item 0</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i0_use_as" onclick="anchorLink('blueprint_items_oneOf_i0_use_as')">use_as</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>The entity this member node is to be used as.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+        </div><div class="tab-pane fade card-body "
+             id="tab-pane_blueprint_items_oneOf_i1" role="tabpanel">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1" onclick="anchorLink('blueprint_items_oneOf_i1')">MapNode</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes a map-like data structure. Accepts a scalar parameter for the key, and any parameter for member data.</p>
+</span>
+
+     <span class="badge badge-info no-additional">No Additional Properties</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionblueprint_items_oneOf_i1_type">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i1_type">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i1_type"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i1_type" onclick="setAnchor('#blueprint_items_oneOf_i1_type')"><span class="property-name">type</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i1_type"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i1_type"
+             data-parent="#accordionblueprint_items_oneOf_i1_type">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1" onclick="anchorLink('blueprint_items_oneOf_i1')">item 1</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1_type" onclick="anchorLink('blueprint_items_oneOf_i1_type')">type</a></div><span class="badge badge-dark value-type">Type: const</span><br/>
+<span class="description"><p>Discriminator field. Identifies this sub-block as a map node.</p>
+</span><span class="const-value" id="blueprint_items_oneOf_i1_type_const">Specific value: <code>"map"</code></span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i1_key">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i1_key">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i1_key"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i1_key" onclick="setAnchor('#blueprint_items_oneOf_i1_key')"><span class="property-name">key</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i1_key"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i1_key"
+             data-parent="#accordionblueprint_items_oneOf_i1_key">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1" onclick="anchorLink('blueprint_items_oneOf_i1')">item 1</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1_key" onclick="anchorLink('blueprint_items_oneOf_i1_key')">key</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>The scalar type of the map's keys.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i1_value">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i1_value">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i1_value"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i1_value" onclick="setAnchor('#blueprint_items_oneOf_i1_value')"><span class="property-name">value</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i1_value"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i1_value"
+             data-parent="#accordionblueprint_items_oneOf_i1_value">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1" onclick="anchorLink('blueprint_items_oneOf_i1')">item 1</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1_value" onclick="anchorLink('blueprint_items_oneOf_i1_value')">value</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes a data structure within the Blueprint. This is a heterogeneous node.</p>
+</span><a href="#blueprint_items" onclick="anchorLink('blueprint_items')" class="ref-link">Same definition as blueprint_items</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i1_use_as">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i1_use_as">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i1_use_as"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i1_use_as" onclick="setAnchor('#blueprint_items_oneOf_i1_use_as')"><span class="property-name">use_as</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i1_use_as"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i1_use_as"
+             data-parent="#accordionblueprint_items_oneOf_i1_use_as">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1" onclick="anchorLink('blueprint_items_oneOf_i1')">item 1</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i1_use_as" onclick="anchorLink('blueprint_items_oneOf_i1_use_as')">use_as</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>The entity this member node is to be used as.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+        </div><div class="tab-pane fade card-body "
+             id="tab-pane_blueprint_items_oneOf_i2" role="tabpanel">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2" onclick="anchorLink('blueprint_items_oneOf_i2')">TupleNode</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes tuple-like data. Can accept any number of (ordered) parameters of different data types</p>
+</span>
+
+     <span class="badge badge-info no-additional">No Additional Properties</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionblueprint_items_oneOf_i2_type">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i2_type">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i2_type"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i2_type" onclick="setAnchor('#blueprint_items_oneOf_i2_type')"><span class="property-name">type</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i2_type"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i2_type"
+             data-parent="#accordionblueprint_items_oneOf_i2_type">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2" onclick="anchorLink('blueprint_items_oneOf_i2')">item 2</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2_type" onclick="anchorLink('blueprint_items_oneOf_i2_type')">type</a></div><span class="badge badge-dark value-type">Type: const</span><br/>
+<span class="description"><p>Discriminator field. Identifies this sub-block as a tuple node.</p>
+</span><span class="const-value" id="blueprint_items_oneOf_i2_type_const">Specific value: <code>"tuple"</code></span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i2_value">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i2_value">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i2_value"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i2_value" onclick="setAnchor('#blueprint_items_oneOf_i2_value')"><span class="property-name">value</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i2_value"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i2_value"
+             data-parent="#accordionblueprint_items_oneOf_i2_value">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2" onclick="anchorLink('blueprint_items_oneOf_i2')">item 2</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2_value" onclick="anchorLink('blueprint_items_oneOf_i2_value')">value</a></div><span class="badge badge-dark value-type">Type: array</span><br/>
+<span class="description"><p>List of definitions of the tuple's members.</p>
+</span>
+        
+
+        
+        
+
+         <span class="badge badge-info no-additional">No Additional Items</span><h4>Each item of this array must be:</h4>
+    <div class="card">
+        <div class="card-body items-definition" id="blueprint_items_oneOf_i2_value_items">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2" onclick="anchorLink('blueprint_items_oneOf_i2')">item 2</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2_value" onclick="anchorLink('blueprint_items_oneOf_i2_value')">value</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2_value_items" onclick="anchorLink('blueprint_items_oneOf_i2_value_items')">BlueprintNode</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes a data structure within the Blueprint. This is a heterogeneous node.</p>
+</span><a href="#blueprint_items" onclick="anchorLink('blueprint_items')" class="ref-link">Same definition as blueprint_items</a>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i2_use_as">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i2_use_as">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i2_use_as"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i2_use_as" onclick="setAnchor('#blueprint_items_oneOf_i2_use_as')"><span class="property-name">use_as</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i2_use_as"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i2_use_as"
+             data-parent="#accordionblueprint_items_oneOf_i2_use_as">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2" onclick="anchorLink('blueprint_items_oneOf_i2')">item 2</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i2_use_as" onclick="anchorLink('blueprint_items_oneOf_i2_use_as')">use_as</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>The entity this member node is to be used as.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+        </div><div class="tab-pane fade card-body "
+             id="tab-pane_blueprint_items_oneOf_i3" role="tabpanel">
+            
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3" onclick="anchorLink('blueprint_items_oneOf_i3')">ScalarNode</a></div><span class="badge badge-dark value-type">Type: object</span><br/>
+<span class="description"><p>Describes a singular scalar element.</p>
+</span>
+
+     <span class="badge badge-info no-additional">No Additional Properties</span>
+        
+
+        
+        
+
+        
+<div class="accordion" id="accordionblueprint_items_oneOf_i3_type">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i3_type">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i3_type"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i3_type" onclick="setAnchor('#blueprint_items_oneOf_i3_type')"><span class="property-name">type</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i3_type"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i3_type"
+             data-parent="#accordionblueprint_items_oneOf_i3_type">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3" onclick="anchorLink('blueprint_items_oneOf_i3')">item 3</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3_type" onclick="anchorLink('blueprint_items_oneOf_i3_type')">type</a></div><span class="badge badge-dark value-type">Type: const</span><br/>
+<span class="description"><p>Discriminator field. Identifies this sub-block as a scalar node.</p>
+</span><span class="const-value" id="blueprint_items_oneOf_i3_type_const">Specific value: <code>"scalar"</code></span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i3_value">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i3_value">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i3_value"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i3_value" onclick="setAnchor('#blueprint_items_oneOf_i3_value')"><span class="property-name">value</span> <span class="badge badge-warning required-property">Required</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i3_value"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i3_value"
+             data-parent="#accordionblueprint_items_oneOf_i3_value">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3" onclick="anchorLink('blueprint_items_oneOf_i3')">item 3</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3_value" onclick="anchorLink('blueprint_items_oneOf_i3_value')">value</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>The corresponding scalar type.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i3_var_name">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i3_var_name">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i3_var_name"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i3_var_name" onclick="setAnchor('#blueprint_items_oneOf_i3_var_name')"><span class="property-name">var_name</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i3_var_name"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i3_var_name"
+             data-parent="#accordionblueprint_items_oneOf_i3_var_name">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3" onclick="anchorLink('blueprint_items_oneOf_i3')">item 3</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3_var_name" onclick="anchorLink('blueprint_items_oneOf_i3_var_name')">var_name</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>Member/variable identifier for this scalar.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+<div class="accordion" id="accordionblueprint_items_oneOf_i3_use_as">
+    <div class="card">
+        <div class="card-header" id="headingblueprint_items_oneOf_i3_use_as">
+            <h2 class="mb-0">
+                <button class="btn btn-link property-name-button" type="button" data-toggle="collapse" data-target="#blueprint_items_oneOf_i3_use_as"
+                        aria-expanded="" aria-controls="blueprint_items_oneOf_i3_use_as" onclick="setAnchor('#blueprint_items_oneOf_i3_use_as')"><span class="property-name">use_as</span></button>
+            </h2>
+        </div>
+
+        <div id="blueprint_items_oneOf_i3_use_as"
+             class="collapse property-definition-div" aria-labelledby="headingblueprint_items_oneOf_i3_use_as"
+             data-parent="#accordionblueprint_items_oneOf_i3_use_as">
+            <div class="card-body pl-5">
+
+    <div class="breadcrumbs">root
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint" onclick="anchorLink('blueprint')">blueprint</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items" onclick="anchorLink('blueprint_items')">blueprint items</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf" onclick="anchorLink('blueprint_items_oneOf')">oneOf</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3" onclick="anchorLink('blueprint_items_oneOf_i3')">item 3</a>
+        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-right-short" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path
+                fill-rule="evenodd"
+                d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8z"
+            />
+        </svg>
+    <a href="#blueprint_items_oneOf_i3_use_as" onclick="anchorLink('blueprint_items_oneOf_i3_use_as')">use_as</a></div><span class="badge badge-dark value-type">Type: string</span><br/>
+<span class="description"><p>The entity this member node is to be used as.</p>
+</span>
+        
+
+        
+        
+
+        
+            </div>
+        </div>
+    </div>
+</div>
+        </div></div></div>
+        
+
+        
+        
+
+        
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <footer>
+        <p class="generated-by-footer">Generated using <a href="https://github.com/coveooss/json-schema-for-humans">json-schema-for-humans</a></p>
+    </footer></body>
+</html>

@@ -1,0 +1,17 @@
+<map id="src/include/lhf/profiling.hpp" name="src/include/lhf/profiling.hpp">
+<area shape="rect" id="Node000001" title="Enables basic code&#45;based profiling metrics in LHF." alt="" coords="213,5,391,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,71,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="260,33,85,80,83,75,259,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="95,79,157,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="275,33,169,76,167,71,273,28"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="181,79,242,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,33,239,72,235,68,286,29"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="266,79,338,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="305,31,305,65,299,65,299,31"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="363,79,409,104"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="317,29,363,67,360,72,314,33"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="434,79,503,104"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="330,28,430,71,428,76,328,33"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="528,79,583,104"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="344,28,515,76,514,81,343,33"/>
+</map>
