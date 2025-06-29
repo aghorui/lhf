@@ -1,0 +1,84 @@
+{% macro lhf_nesting(entity, lhf_namespace) -%}
+{%- if entity.nesting_type == NestingType.NONE -%}
+	{{ lhf_namespace }}::NestingNone<{{ entity.type_name }}>
+{%- elif entity.nesting_type == NestingType.BASE -%}
+	{{ lhf_namespace }}::NestingBase<{{ entity.type_name }}, {{ entity.nesting_elems | join(', ') }}>
+{%- elif entity.nesting_type == NestingType.IMPLICIT -%}
+	{{ lhf_namespace }}::NestingNone<{{ entity.type_name }}>
+{%- else -%}
+	{{ raise("Unhandled Nesting Type: " + entity.nesting_type) }}
+{%- endif -%}
+{%- endmacro %}
+
+{% macro lhf_declaration(entity, lhf_namespace, lhf_name) %}
+struct {{ entity.name }} : {{ lhf_namespace }}::{{ lhf_name }}<
+	{{ entity.type_name }},
+	{{ entity.less }},
+	{{ entity.hash }},
+	{{ entity.equal }},
+	{{ entity.print }},
+	{{ lhf_nesting(entity, lhf_namespace) }}
+	> {
+	explicit {{ entity.name }}(RefList reflist): {{ lhf_name }}(reflist) {}
+
+	// LHF-LEVEL COMPONENTS GO HERE
+};
+{% endmacro %}
+
+{% macro lhf_aliases(item) %}
+using {{ item.from }} = {{ item.to }};
+{% endmacro %}
+
+{%- macro lhf_constructor(entity) -%}
+	{{ entity.var_name }} ({ {{ entity.dependencies | join(', ') }} })
+{%- endmacro -%}
+
+{% macro lhf_interface_operation(entity, operation) %}
+	{{ entity.interface_name }} {{ operation }}(const {{ entity.interface_name }} &b) {
+		return {{ entity.interface_name }}(state, state.{{ entity.var_name }}.{{operation}}(set_index, b.set_index));
+	}
+{% endmacro %}
+
+{% macro lhf_interface(entity, state_struct_name) %}
+struct {{ entity.interface_name }} : InterfaceBase<{{ entity.name }}> {
+	struct Element {
+		{{ state_struct_name }} &state;
+		const {{ entity.name }}::PropertyElement &p;
+		Element({{ state_struct_name }} &state, const {{ entity.name }}::PropertyElement &p)
+			: state(state), p(p) {}
+
+		// ELEMENT INTERFACE GOES HERE
+	};
+
+	using ConstIterator = ConstIteratorImpl<Element, {{ state_struct_name }}>;
+
+	{{ state_struct_name }} &state;
+	{{ entity.interface_name }}({{ state_struct_name }} &state, Index set_index = Index()):
+		InterfaceBase(state.{{ entity.var_name }}, set_index),
+		state(state) {}
+
+	// CONTAINER INTERFACE GOES HERE
+
+	{{ lhf_interface_operation(entity, "set_union") }}
+	{{ lhf_interface_operation(entity, "set_difference") }}
+	{{ lhf_interface_operation(entity, "set_intersection") }}
+	{{ lhf_interface_operation(entity, "set_insert_single") }}
+	{{ lhf_interface_operation(entity, "set_remove_single") }}
+
+	bool contains(const {{ entity.name }}::PropertyElement &p) {
+		return state.{{ entity.var_name }}.contains(set_index, p);
+	}
+
+	ConstIterator begin() const {
+		return ConstIterator(get_value().begin(), state);
+	}
+
+	ConstIterator end() const {
+		return ConstIterator(get_value().end(), state);
+	}
+};
+{% endmacro %}
+
+{% macro interface_aliases(item) %}
+using {{ item.from }} = {{ item.to }};
+{%  endmacro %}

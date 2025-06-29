@@ -1,0 +1,10 @@
+**/*.o
+**/*.old
+lhf_test_benchmark_persistent
+lhf_test_benchmark
+lhf_test
+doc_generated/*
+problem_cases/*
+scratch_files/*
+build/*
+.cache/*

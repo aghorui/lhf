@@ -1,0 +1,240 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"title": "LHF Blueprint Schema",
+	"description": "Provides a complete description of an Blueprint (interconnections and functions) of LatticeHashForests.",
+	"type": "object",
+	"properties": {
+		"lhf_version": {
+			"type": "string",
+			"description": "Minimum compatible version of LHF."
+		},
+		"namespace": {
+			"type": "string",
+			"description": "The namespace to put the generated Blueprint in."
+		},
+		"scalar_definitions": {
+			"additionalProperties": {
+				"$ref": "#/$defs/ScalarDefinition"
+			},
+			"description": "List of definitions of scalar values of the Blueprint (e.g, tuples, numbers, etc.). The keys act as identifiers for each definition."
+		},
+		"entity_definitions": {
+			"additionalProperties": {
+				"$ref": "#/$defs/EntityDefinition"
+			},
+			"description": "List of definitions of entities (LHFs) that exist in the Blueprint. The keys act as identifiers for each definition."
+		},
+		"blueprint": {
+			"type": "array",
+			"description": "The list of blueprints of the data structures. Each member of the array is a new tree describing that strucutre.",
+			"items": {
+				"$ref": "#/$defs/BlueprintNode"
+			}
+		}
+	},
+	"required": [
+		"lhf_version",
+		"namespace",
+		"scalar_definitions",
+		"entity_definitions",
+		"blueprint"
+	],
+
+	"additionalProperties": false,
+
+	"$defs": {
+		"BlueprintNode": {
+			"oneOf": [
+				{ "$ref": "#/$defs/SetNode" },
+				{ "$ref": "#/$defs/MapNode" },
+				{ "$ref": "#/$defs/TupleNode" },
+				{ "$ref": "#/$defs/ScalarNode" }
+			],
+			"description": "Describes a data structure within the Blueprint. This is a heterogeneous node."
+		},
+		"SetNode": {
+			"type": "object",
+			"description": "Describes a set-like data structure. Accepts a parameter for member data.",
+			"properties": {
+				"type": {
+					"const": "set",
+					"description": "Discriminator field. Identifies this sub-block as a set node."
+				},
+				"value": {
+					"$ref": "#/$defs/BlueprintNode"
+				},
+				"use_as": {
+					"type": "string",
+					"description": "The entity this member node is to be used as."
+				}
+			},
+			"required": [
+				"type",
+				"value",
+				"use_as"
+			],
+			"additionalProperties": false
+		},
+		"MapNode": {
+			"type": "object",
+			"description": "Describes a map-like data structure. Accepts a scalar parameter for the key, and any parameter for member data.",
+			"properties": {
+				"type": {
+					"const": "map",
+					"description": "Discriminator field. Identifies this sub-block as a map node."
+				},
+				"key": {
+					"type": "string",
+					"description": "The scalar type of the map's keys."
+				},
+				"value": {
+					"$ref": "#/$defs/BlueprintNode"
+				},
+				"use_as": {
+					"type": "string",
+					"description": "The entity this member node is to be used as."
+				}
+			},
+			"required": [
+				"type",
+				"key",
+				"value",
+				"use_as"
+			],
+			"additionalProperties": false
+		},
+		"TupleNode": {
+			"type": "object",
+			"description": "Describes tuple-like data. Can accept any number of (ordered) parameters of different data types",
+			"properties": {
+				"type": {
+					"const": "tuple",
+					"description": "Discriminator field. Identifies this sub-block as a tuple node."
+				},
+				"value": {
+					"type": "array",
+					"description": "List of definitions of the tuple's members.",
+					"items": {
+						"$ref": "#/$defs/BlueprintNode"
+					}
+				},
+				"use_as": {
+					"type": "string",
+					"description": "The entity this member node is to be used as."
+				}
+			},
+			"required": [
+				"type",
+				"value",
+				"use_as"
+			],
+			"additionalProperties": false
+		},
+		"ScalarNode": {
+			"type": "object",
+			"description": "Describes a singular scalar element.",
+			"properties": {
+				"type": {
+					"const": "scalar",
+					"description": "Discriminator field. Identifies this sub-block as a scalar node."
+				},
+				"value": {
+					"type": "string",
+					"description": "The corresponding scalar type."
+				},
+				"var_name": {
+					"type": "string",
+					"description": "Member/variable identifier for this scalar."
+				},
+				"use_as": {
+					"type": "string",
+					"description": "The entity this member node is to be used as."
+				}
+			},
+			"required": [
+				"type",
+				"value"
+			],
+			"additionalProperties": false
+		},
+		"ScalarDefinition": {
+			"type": "object",
+			"description": "Describes a scalar type used in the Blueprint. The key that refers to this description is used as the identifier for this description.",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "Actual C++ Identifier for this scalar (e.g. int, int*, double, structs ...)"
+				},
+				"less": {
+					"type": "string",
+					"description": "Less-than functor for this scalar."
+				},
+				"equal": {
+					"type": "string",
+					"description": "Equality functor for this scalar."
+				},
+				"hash": {
+					"type": "string",
+					"description": "Hash generation functor for this scalar."
+				},
+				"print": {
+					"type": "string",
+					"description": "Print functor for this scalar. NAME MAY CHANGE IN THE FUTURE."
+				}
+			},
+			"required": [
+				"name"
+			],
+			"additionalProperties": false
+		},
+		"EntityDefinition": {
+			"type": "object",
+			"properties": {
+				"name": {
+					"type": "string",
+					"description": "C++ identifier for the resultant entity."
+				},
+				"var_name": {
+					"type": "string",
+					"description": "Variable/member identifier for the resultant entity."
+				},
+				"user_exposed": {
+					"type": "boolean",
+					"description": "Whether the entity is exposed externally for usage."
+				},
+				"interface": {
+					"type": "string",
+					"description": "TODO"
+				},
+				"operations": {
+					"type": "array",
+					"description": "Custom operation descriptions supported by this entity.",
+					"items": {
+						"type": "object",
+						"properties": {
+							"name": {
+								"type": "string",
+								"description": "C++ identifier for this operation"
+							},
+							"recursive": {
+								"type": "boolean",
+								"description": "Specifies whether operation propagates to any child entities. NAME MAY CHANGE."
+							}
+						},
+						"required": [
+							"name",
+							"recursive"
+						]
+					}
+				}
+			},
+			"required": [
+				"name",
+				"user_exposed",
+				"interface",
+				"operations"
+			],
+			"additionalProperties": false
+		}
+	}
+}
