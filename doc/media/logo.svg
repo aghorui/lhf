@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="400"
+   height="400"
+   viewBox="0 0 105.83333 105.83333"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <marker
+       style="overflow:visible"
+       id="Arrow1L"
+       refX="5"
+       refY="0"
+       orient="auto-start-reverse"
+       markerWidth="4.7490001"
+       markerHeight="5.7140002"
+       viewBox="0 0 8.75 5"
+       preserveAspectRatio="none"
+       markerUnits="strokeWidth">
+      <path
+         style="fill:context-stroke;fill-rule:evenodd;stroke:none"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="arrow1L"
+         transform="scale(-0.5)" />
+    </marker>
+  </defs>
+  <g
+     id="layer1">
+    <g
+       id="g2811"
+       transform="translate(-0.3701165,-2.2447408)">
+      <rect
+         style="fill:#f4eea6;fill-opacity:1;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         id="rect256-6"
+         width="15.807066"
+         height="9.7104263"
+         x="37.135921"
+         y="48.061451" />
+      <rect
+         style="fill:#f4eea6;fill-opacity:1;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         id="rect256-6-2"
+         width="15.807066"
+         height="9.7104263"
+         x="68.599754"
+         y="48.061451" />
+      <rect
+         style="fill:#f4eea6;fill-opacity:1;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         id="rect256-6-2-9"
+         width="15.807066"
+         height="9.7104263"
+         x="68.599754"
+         y="20.531258" />
+      <path
+         id="rect256-7-5-3-5"
+         style="fill:#d9f1f1;stroke:#000000;stroke-width:2.64583"
+         d="M 76.627266,74.345329 H 93.174561 V 90.402814 H 76.627266 Z m -15.807068,0 H 76.627266 V 90.402814 H 60.820198 Z m -15.807068,0 H 60.820198 V 90.402814 H 45.01313 Z m -15.807062,0 H 45.01313 V 90.402814 H 29.206068 Z m -15.807066,0 H 29.206068 V 90.402814 H 13.399002 Z" />
+      <path
+         id="rect256-7-5-3-5-9"
+         style="fill:#4dbfbf;fill-opacity:1;stroke:#000000;stroke-width:2.64583"
+         d="m 76.627266,90.402814 h 16.547295 v 6.00332 H 76.627266 Z m -15.807068,0 h 15.807068 v 6.00332 H 60.820198 Z m -15.807068,0 h 15.807068 v 6.00332 H 45.01313 Z m -15.807062,0 H 45.01313 v 6.00332 H 29.206068 Z m -15.807066,0 h 15.807066 v 6.00332 H 13.399002 Z" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         d="M 37.109601,74.345331 45.039454,57.771879"
+         id="path1338" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         d="M 52.916666,74.345331 45.039454,57.771881"
+         id="path1340" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         d="M 68.723734,74.345331 76.503291,57.771879"
+         id="path1342" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         d="M 84.530802,74.345331 76.503291,57.771879"
+         id="path1344" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         d="M 76.503291,48.061451 V 30.241684"
+         id="path1346" />
+      <path
+         style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         d="M 45.039454,48.061451 76.503291,30.241684"
+         id="path1348" />
+      <path
+         style="fill:none;stroke:#4da23a;stroke-width:2.64583;stroke-miterlimit:1.3;stroke-dasharray:none;stroke-opacity:1;marker-end:url(#Arrow1L);paint-order:stroke markers fill"
+         d="M 26.315314,39.15157 V 73.022417"
+         id="path1516" />
+      <ellipse
+         style="fill:#ff6868;fill-opacity:1;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
+         id="path1402"
+         cx="26.315313"
+         cy="29.179956"
+         rx="9.497694"
+         ry="9.971612" />
+    </g>
+  </g>
+</svg>

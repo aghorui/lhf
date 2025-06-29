@@ -905,14 +905,26 @@ public:
 
 	/**
 	 * The structure responsible for mapping property sets to their respective
-	 * unique indices.
+	 * unique indices. When a key-value pair is actually inserted into the map,
+	 * the key is a pointer to a valid storage location held by a member of
+	 * the property set storage vector.
 	 *
 	 * @note The reason the 'key type' of the map is a pointer to a property set
-	 * is because of several reasons:
+	 *       is because of several reasons:
 	 *
-	 * * jkjkj
-	 * * sdasda
-	 * * sasdsad
+	 *       * Allows us to query arbitrary/user created property sets on the
+	 *         map.
+	 *       * Makes it not necessary to actually directly store the property
+	 *         set as a key.
+	 *       * Saves us from having to do some sort of complicated manuever to
+	 *         reserve an index value temporarily and rewrite the hash and
+	 *         equality comparators to retrieve the property sets from the
+	 *         indices instead.
+	 *
+	 *       Careful handling, especially in the case of reallocating structures
+	 *       like vectors is needed so that the address of the data does not
+	 *       change. It must remain static for the duration of the existence of
+	 *       the LHF instance.
 	 */
 	using PropertySetMap =
 		std::unordered_map<
