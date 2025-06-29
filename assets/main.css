@@ -78,7 +78,6 @@ blockquote {
 .container {
 	max-width: 800px;
 	margin: auto;
-	text-align: justify;
 	font-family: Calibri, Noto Sans, sans-serif;
 	padding: 10px;
 }
