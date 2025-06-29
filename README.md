@@ -15,6 +15,10 @@ assumptions for some given information system:
 4. There are (usually) set patterns and common input data used for the
    computation of new data.
 
+LHF finds its main applications in the domain of compilers and code
+optimization, specifically in the field of data-flow analyses, such as Liveness
+Analysis and Points-to Analysis.
+
 The current LHF toolset consists of a C++ implementation of the mechanism, and
 a Python script that generates an automatically set-up interface from a given
 input description.
