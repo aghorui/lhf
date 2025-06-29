@@ -34,10 +34,6 @@
     <g
        id="g2811"
        transform="translate(-0.3701165,-2.2447408)">
-      <path
-         id="rect256"
-         style="fill:#d9f1f1;stroke:#000000;stroke-width:2.64583"
-         d="M 13.399002,74.345329 H 29.206068 V 90.402814 H 13.399002 Z" />
       <rect
          style="fill:#f4eea6;fill-opacity:1;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
          id="rect256-6"
@@ -60,41 +56,13 @@
          x="68.599754"
          y="20.531258" />
       <path
-         id="rect256-7"
-         style="fill:#d9f1f1;stroke:#000000;stroke-width:2.64583"
-         d="M 29.206068,74.345329 H 45.01313 V 90.402814 H 29.206068 Z" />
-      <path
-         id="rect256-7-5"
-         style="fill:#d9f1f1;stroke:#000000;stroke-width:2.64583"
-         d="M 45.01313,74.345329 H 60.820198 V 90.402814 H 45.01313 Z" />
-      <path
-         id="rect256-7-5-3"
-         style="fill:#d9f1f1;stroke:#000000;stroke-width:2.64583"
-         d="M 60.820198,74.345329 H 76.627266 V 90.402814 H 60.820198 Z" />
-      <path
          id="rect256-7-5-3-5"
          style="fill:#d9f1f1;stroke:#000000;stroke-width:2.64583"
-         d="M 76.627266,74.345329 H 93.174561 V 90.402814 H 76.627266 Z" />
-      <path
-         id="rect256-1"
-         style="fill:#4dbfbf;fill-opacity:1;stroke:#000000;stroke-width:2.64583"
-         d="m 13.399002,90.402814 h 15.807066 v 6.00332 H 13.399002 Z" />
-      <path
-         id="rect256-7-2"
-         style="fill:#4dbfbf;fill-opacity:1;stroke:#000000;stroke-width:2.64583"
-         d="M 29.206068,90.402814 H 45.01313 v 6.00332 H 29.206068 Z" />
-      <path
-         id="rect256-7-5-7"
-         style="fill:#4dbfbf;fill-opacity:1;stroke:#000000;stroke-width:2.64583"
-         d="m 45.01313,90.402814 h 15.807068 v 6.00332 H 45.01313 Z" />
-      <path
-         id="rect256-7-5-3-0"
-         style="fill:#4dbfbf;fill-opacity:1;stroke:#000000;stroke-width:2.64583"
-         d="m 60.820198,90.402814 h 15.807068 v 6.00332 H 60.820198 Z" />
+         d="M 76.627266,74.345329 H 93.174561 V 90.402814 H 76.627266 Z m -15.807068,0 H 76.627266 V 90.402814 H 60.820198 Z m -15.807068,0 H 60.820198 V 90.402814 H 45.01313 Z m -15.807062,0 H 45.01313 V 90.402814 H 29.206068 Z m -15.807066,0 H 29.206068 V 90.402814 H 13.399002 Z" />
       <path
          id="rect256-7-5-3-5-9"
          style="fill:#4dbfbf;fill-opacity:1;stroke:#000000;stroke-width:2.64583"
-         d="m 76.627266,90.402814 h 16.547295 v 6.00332 H 76.627266 Z" />
+         d="m 76.627266,90.402814 h 16.547295 v 6.00332 H 76.627266 Z m -15.807068,0 h 15.807068 v 6.00332 H 60.820198 Z m -15.807068,0 h 15.807068 v 6.00332 H 45.01313 Z m -15.807062,0 H 45.01313 v 6.00332 H 29.206068 Z m -15.807066,0 h 15.807066 v 6.00332 H 13.399002 Z" />
       <path
          style="fill:none;stroke:#000000;stroke-width:2.64583;stroke-dasharray:none;stroke-opacity:1"
          d="M 37.109601,74.345331 45.039454,57.771879"
