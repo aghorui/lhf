@@ -239,7 +239,7 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a6c9eed695252e41936158801b5e0358d" id="r_a6c9eed695252e41936158801b5e0358d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d10/lhf_8hpp.html#a6c9eed695252e41936158801b5e0358d">LHF_DEBUG</a>(x)</td></tr>
+<tr class="memitem:a6c9eed695252e41936158801b5e0358d" id="r_a6c9eed695252e41936158801b5e0358d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d10/lhf_8hpp.html#a6c9eed695252e41936158801b5e0358d">LHF_DEBUG</a>(x)&#160;&#160;&#160;{ x };</td></tr>
 <tr class="separator:a6c9eed695252e41936158801b5e0358d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad5ea15670344e7f60cc1050259e5adae" id="r_ad5ea15670344e7f60cc1050259e5adae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d10/lhf_8hpp.html#ad5ea15670344e7f60cc1050259e5adae">____LHF__STR</a>(x)&#160;&#160;&#160;#x</td></tr>
 <tr class="separator:ad5ea15670344e7f60cc1050259e5adae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -274,7 +274,7 @@ Macros</h2></td></tr>
 <tr class="memitem:a027a78ffbf52e16e5072ab94849c4fd6" id="r_a027a78ffbf52e16e5072ab94849c4fd6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d10/lhf_8hpp.html#a027a78ffbf52e16e5072ab94849c4fd6">LHF_PERFORM_BINARY_NESTED_OPERATION</a>(__op_name,  __reflist,  __arg1,  __arg2)&#160;&#160;&#160;	((__arg1) . template apply&lt;__NestingOperation_ ## __op_name&gt;((__reflist), (__arg2)))</td></tr>
 <tr class="memdesc:a027a78ffbf52e16e5072ab94849c4fd6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Actually enables the nesting. this must be placed in the operation body where the nested behaviour is needed.  <br /></td></tr>
 <tr class="separator:a027a78ffbf52e16e5072ab94849c4fd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b92952548c17847d09a4dba1b569feb" id="r_a6b92952548c17847d09a4dba1b569feb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d10/lhf_8hpp.html#a6b92952548c17847d09a4dba1b569feb">LHF_PERF_INC</a>(__oper,  __category)</td></tr>
+<tr class="memitem:a6b92952548c17847d09a4dba1b569feb" id="r_a6b92952548c17847d09a4dba1b569feb"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../df/d10/lhf_8hpp.html#a6b92952548c17847d09a4dba1b569feb">LHF_PERF_INC</a>(__oper,  __category)&#160;&#160;&#160;(perf[<a class="el" href="../../df/d10/lhf_8hpp.html#aec3c7cef49a0e6553a57f131b3ca1475">__LHF_STR</a>(__oper)] . __category ++)</td></tr>
 <tr class="memdesc:a6b92952548c17847d09a4dba1b569feb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Increments the invocation count of the given category and operator.  <br /></td></tr>
 <tr class="separator:a6b92952548c17847d09a4dba1b569feb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -332,6 +332,8 @@ Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Defines the LatticeHashForest structure and related tools. </p>
+
+<p class="definition">Definition in file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="ad5ea15670344e7f60cc1050259e5adae" name="ad5ea15670344e7f60cc1050259e5adae"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad5ea15670344e7f60cc1050259e5adae">&#9670;&#160;</a></span>____LHF__STR</h2>
@@ -348,6 +350,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00311">311</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -367,6 +371,8 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00313">313</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
+
 </div>
 </div>
 <a id="aec3c7cef49a0e6553a57f131b3ca1475" name="aec3c7cef49a0e6553a57f131b3ca1475"></a>
@@ -384,6 +390,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00312">312</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -408,7 +416,7 @@ Functions</h2></td></tr>
 <div class="line">            ret = <a class="code hl_namespace" href="../../db/de7/namespacelhf.html">lhf</a> . __op_name (c, d); \</div>
 <div class="line">        } \</div>
 <div class="line">    };</div>
-<div class="ttc" id="anamespacelhf_html"><div class="ttname"><a href="../../db/de7/namespacelhf.html">lhf</a></div><div class="ttdef"><b>Definition</b> lhf.hpp:28</div></div>
+<div class="ttc" id="anamespacelhf_html"><div class="ttname"><a href="../../db/de7/namespacelhf.html">lhf</a></div><div class="ttdef"><b>Definition</b> <a href="../../df/d10/lhf_8hpp_source.html#l00028">lhf.hpp:28</a></div></div>
 </div><!-- fragment -->
 <p>Declares a struct that enables the recursive/nesting behaviour of an operation. </p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -418,6 +426,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The set declaration. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00567">567</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -432,10 +442,12 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">x</td><td>)</td>
-          <td></td>
+          <td>&#160;&#160;&#160;{ x };</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00031">31</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -460,7 +472,7 @@ Functions</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td>&#160;&#160;&#160;(perf[<a class="el" href="../../df/d10/lhf_8hpp.html#aec3c7cef49a0e6553a57f131b3ca1475">__LHF_STR</a>(__oper)] . __category ++)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -474,6 +486,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00811">811</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -526,6 +540,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00586">586</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
+
 </div>
 </div>
 <a id="a068680b012ae912d899978f3fc48a494" name="a068680b012ae912d899978f3fc48a494"></a>
@@ -543,9 +559,21 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">    { \</div>
+<div class="line">    _Pragma(<span class="stringliteral">&quot;GCC diagnostic push&quot;</span>); \</div>
+<div class="line">    _Pragma(<span class="stringliteral">&quot;GCC diagnostic ignored \&quot;-Wtype-limits\&quot;&quot;</span>) \</div>
+<div class="line">    if ((__index.value) &lt; 0 || ((__index.value) &gt; property_sets.size() - 1)) { \</div>
+<div class="line">        <span class="keywordflow">throw</span> <a class="code hl_define" href="../../df/d10/lhf_8hpp.html#a8be81cafedcf3992c2edac1dbe2391f8">__LHF_EXCEPT</a>(<span class="stringliteral">&quot;Invalid index supplied&quot;</span>); \</div>
+<div class="line">    } \</div>
+<div class="line">    _Pragma(<span class="stringliteral">&quot;GCC diagnostic pop&quot;</span>) \</div>
+<div class="line">}</div>
+<div class="ttc" id="alhf_8hpp_html_a8be81cafedcf3992c2edac1dbe2391f8"><div class="ttname"><a href="../../df/d10/lhf_8hpp.html#a8be81cafedcf3992c2edac1dbe2391f8">__LHF_EXCEPT</a></div><div class="ttdeci">#define __LHF_EXCEPT(x)</div><div class="ttdef"><b>Definition</b> <a href="../../df/d10/lhf_8hpp_source.html#l00313">lhf.hpp:313</a></div></div>
+</div><!-- fragment -->
 <p>Check whether the index is a valid index within the property set. </p>
-<dl class="section note"><dt>Note</dt><dd>Signed/unsigned is made to be ignored here for the sanity checking. </dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Signed/unsigned is made to be ignored here for the sanity checking.</dd></dl>
+<p>Check whether the index is a valid index within the property set. </p><dl class="section note"><dt>Note</dt><dd>Signed/unsigned is made to be ignored here for the sanity checking. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00381">381</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -572,6 +600,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00354">354</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -600,8 +630,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">    <span class="keywordflow">if</span> ((__index1) == (__index2)) { \</div>
+<div class="line">        <span class="keywordflow">throw</span> <a class="code hl_define" href="../../df/d10/lhf_8hpp.html#a8be81cafedcf3992c2edac1dbe2391f8">__LHF_EXCEPT</a>(<span class="stringliteral">&quot;Equal set condition not handled by caller&quot;</span>); \</div>
+<div class="line">    }</div>
+</div><!-- fragment -->
 <p>Check whether the pair of indexes are unequal. Used for sanity checking. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00396">396</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -630,8 +665,13 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">    <a class="code hl_define" href="../../df/d10/lhf_8hpp.html#a068680b012ae912d899978f3fc48a494">LHF_PROPERTY_SET_INDEX_VALID</a>(__index1); \</div>
+<div class="line">    LHF_PROPERTY_SET_INDEX_VALID(__index2);</div>
+<div class="ttc" id="alhf_8hpp_html_a068680b012ae912d899978f3fc48a494"><div class="ttname"><a href="../../df/d10/lhf_8hpp.html#a068680b012ae912d899978f3fc48a494">LHF_PROPERTY_SET_INDEX_VALID</a></div><div class="ttdeci">#define LHF_PROPERTY_SET_INDEX_VALID(__index)</div><div class="ttdoc">Check whether the index is a valid index within the property set.</div><div class="ttdef"><b>Definition</b> <a href="../../df/d10/lhf_8hpp_source.html#l00381">lhf.hpp:381</a></div></div>
+</div><!-- fragment -->
 <p>Check whether the pair of indexes is a valid within the property set. </p>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00391">391</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -669,6 +709,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00418">418</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -714,6 +756,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00430">430</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
+
 </div>
 </div>
 <a id="af8ccfd04fddc4f0881183410e2e7592e" name="af8ccfd04fddc4f0881183410e2e7592e"></a>
@@ -750,6 +794,8 @@ Functions</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00440">440</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>

@@ -1,9 +1,11 @@
 <map id="lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting &gt;" name="lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting &gt;">
-<area shape="rect" id="Node000001" title="The main LatticeHashForest structure. This class can be used as&#45;is with a type or derived for additio..." alt="" coords="788,27,988,97"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="345,5,631,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="645,59,788,59,788,65,645,65"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="149,49,264,75"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="278,59,345,59,345,65,278,65"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="5,49,44,75"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="58,59,149,59,149,65,58,65"/>
+<area shape="rect" id="Node000001" title="The main LatticeHashForest structure. This class can be used as&#45;is with a type or derived for additio..." alt="" coords="788,30,988,99"/>
+<area shape="rect" id="Node000002" href="$dd/d7a/structlhf_1_1PerformanceStatistics.html" title="Utility class for enabling code&#45;based profiling." alt="" coords="401,5,575,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="589,27,788,50,787,56,588,32"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="345,55,631,168"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="644,90,788,74,788,79,645,96"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="149,99,264,124"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="278,109,345,109,345,114,278,114"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,99,44,124"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="58,109,149,109,149,114,58,114"/>
 </map>

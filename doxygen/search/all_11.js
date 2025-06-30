@@ -13,7 +13,7 @@ var searchData=
   ['size_5fof_10',['size_of',['../dd/dad/classlhf_1_1LatticeHashForest.html#a7b22da80f8872bd7e633ddd6a05fd735',1,'lhf::LatticeHashForest']]],
   ['source_20api_20documentation_11',['LatticeHashForest Source/API Documentation',['../index.html',1,'']]],
   ['started_12',['started',['../d1/d0b/structlhf_1_1PerformanceStatistics_1_1Duration.html#a7b80b7d81af5816fec5ab78cd414ace7',1,'lhf::PerformanceStatistics::Duration']]],
-  ['stat_13',['stat',['../d9/d6e/structlhf_1_1____CalcTime.html#ab846cb6d418e283a739a5c1325e493ae',1,'lhf::__CalcTime']]],
+  ['stat_13',['stat',['../dd/dad/classlhf_1_1LatticeHashForest.html#ac52fd3f95a4e172e3873f2660eed1b40',1,'lhf::LatticeHashForest::stat'],['../d9/d6e/structlhf_1_1____CalcTime.html#ab846cb6d418e283a739a5c1325e493ae',1,'lhf::__CalcTime::stat']]],
   ['store_5fsubset_14',['store_subset',['../dd/dad/classlhf_1_1LatticeHashForest.html#a3750d5ffcc41989ea1461729b9ee455a',1,'lhf::LatticeHashForest']]],
   ['string_15',['string',['../dd/d7a/structlhf_1_1PerformanceStatistics.html#ab5cb9cb066ac50a1a7a26b8cf3811625',1,'lhf::PerformanceStatistics::String'],['../db/de7/namespacelhf.html#ae7ca81fc8cdcde73d2342c1baae7999b',1,'lhf::String']]],
   ['subset_16',['SUBSET',['../db/de7/namespacelhf.html#add0d6019caf347ac22e629def177c441a2d28c7111e4fb7a40b3e936aa479f3c7',1,'lhf']]],
