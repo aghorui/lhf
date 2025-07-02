@@ -9,9 +9,9 @@ of data to a unique integer identifier, and reducing the cost of performing
 any bulk operation on data as much as possible. It builds on the following
 assumptions for some given information system:
 
-1. Data is (often) redundant.
-2. Data is (often) redundantly computed.
-3. Data is (often) sparse.
+1. Data is often repetitive.
+2. Data is often redundantly computed.
+3. Data is often sparse.
 4. There are (usually) set patterns and common input data used for the
    computation of new data.
 
