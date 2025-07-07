@@ -26,7 +26,6 @@ TEST(LHF_BasicChecks, nonempty_set_is_not_index_0) {
 	ASSERT_NE(l.register_set({ 1, 2, 3, 4 }).value, lhf::EMPTY_SET_VALUE);
 }
 
-
 TEST(LHF_BasicChecks, set_index_is_consistent) {
 	LHF l;
 	ASSERT_EQ(l.register_set({ 1, 2, 3, 4 }).value, l.register_set({ 1, 2, 3, 4 }).value);
@@ -107,3 +106,12 @@ TEST(LHF_BasicChecks, set_intersection_integrity_check) {
 	ASSERT_EQ(c, l.set_intersection(c, a));
 }
 
+TEST(LHF_BasicChecks, property_set_out_of_bounds_throws_exception) {
+	LHF l;
+	l.register_set({ 1, 2, 3, 4 });
+	l.register_set_single(2);
+	l.register_set_single(3);
+	l.register_set_single(4);
+	l.register_set_single(5);
+	ASSERT_THROW(l.get_value(Index(99999999)), lhf::AssertError);
+}

@@ -3,8 +3,6 @@
 #include <cassert>
 #include <random>
 
-#define LHF_ENABLE_DEBUG
-#define LHF_ENABLE_PERFORMANCE_METRICS
 #include "lhf/lhf.hpp"
 
 enum Operations {

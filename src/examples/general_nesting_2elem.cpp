@@ -1,7 +1,5 @@
 #include <iostream>
 
-#define LHF_ENABLE_DEBUG
-#define LHF_ENABLE_PERFORMANCE_METRICS
 #include "lhf/lhf.hpp"
 
 int main() {

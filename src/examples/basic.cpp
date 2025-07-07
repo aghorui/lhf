@@ -1,7 +1,4 @@
 #include <iostream>
-
-#define LHF_ENABLE_DEBUG
-#define LHF_ENABLE_PERFORMANCE_METRICS
 #include "lhf/lhf.hpp"
 
 int main() {
@@ -26,7 +23,7 @@ int main() {
 	l.set_remove_single(c, 24);
 
 	for (const LHF::PropertyElement &e : l.get_value(c)) {
-
+		std::cout << e.to_string() << std::endl;
 	}
 
 	std::cout << l.dump() << std::endl;

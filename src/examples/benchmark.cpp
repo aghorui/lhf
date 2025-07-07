@@ -3,8 +3,6 @@
 #include <sstream>
 #include <cassert>
 
-#define LHF_ENABLE_DEBUG
-#define LHF_ENABLE_PERFORMANCE_METRICS
 #include "lhf/lhf.hpp"
 
 int main(int argc, char **argv) {

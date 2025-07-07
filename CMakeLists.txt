@@ -34,23 +34,30 @@ target_include_directories(lhf INTERFACE
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
+
 set(
 	ENABLE_PERFORMANCE_METRICS
 	ON
 	CACHE BOOL
-	"Enable performance measuring routines in the project.")
+	"Enable performance measuring routines in the project (for compiling tests and examples).")
 
 set(
 	DISABLE_INTEGRITY_CHECKS
 	OFF
 	CACHE BOOL
-	"Disable integrity checks (such as on set registration) and possibly introduce undefined behaviour.")
+	"Disable integrity checks (such as on set registration) and possibly introduce undefined behaviour. (for compiling tests and examples).")
 
 set(
 	ENABLE_DEBUG
 	ON
 	CACHE BOOL
-	"Enable debugging routines in the project.")
+	"Enable debugging routines in the project (for compiling tests and examples).")
+
+set(
+	ENABLE_PERFORMANCE_METRICS
+	ON
+	CACHE BOOL
+	"Enable performance measuring routines in the project. (for compiling tests and examples).")
 
 set(
 	ENABLE_TESTS
@@ -122,6 +129,7 @@ if(ENABLE_TESTS)
 
 	foreach(TEST_SOURCE ${TEST_SOURCES})
 		get_filename_component(TEST_NAME ${TEST_SOURCE} NAME_WE)
+		set(TEST_NAME "test_${TEST_NAME}")
 		add_executable("${TEST_NAME}" "${TEST_SOURCE}")
 		target_include_directories("${TEST_NAME}" PRIVATE "${INCLUDE_ROOT}")
 		target_link_libraries("${TEST_NAME}" lhf)

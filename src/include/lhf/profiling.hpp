@@ -11,8 +11,12 @@
 #include <cstdint>
 #include <iostream>
 #include <map>
+#include <mutex>
 #include <sstream>
 #include <string>
+#include <thread>
+
+#include "lhf_config.hpp"
 
 namespace lhf {
 
@@ -25,6 +29,12 @@ struct PerformanceStatistics {
 	using TimePoint = std::chrono::steady_clock::time_point;
 	template <typename K, typename V> using Map = std::map<K, V>;
 
+	using Mutex = std::mutex;
+	using WriteLock = std::lock_guard<std::mutex>;
+	using ThreadID = std::thread::id;
+
+	std::mutex mutex;
+
 	struct Duration {
 		bool started = false;
 		TimePoint t1;
@@ -32,30 +42,38 @@ struct PerformanceStatistics {
 		long double duration = 0;
 
 		long double get_curr_duration_ms() {
-			return (std::chrono::duration_cast<std::chrono::microseconds>(t2.time_since_epoch())
-						.count() -
-					std::chrono::duration_cast<std::chrono::microseconds>(t1.time_since_epoch())
-						.count()) /
-				   1000.0;
+			using namespace std::chrono;
+			return (duration_cast<microseconds>(t2.time_since_epoch()).count() -
+					duration_cast<microseconds>(t1.time_since_epoch()).count()) /
+				    1000.0;
 		}
 
 		long double get_cumul_duration_ms() { return duration; }
 	};
 
 	Map<String, Count> counters;
-	Map<String, Duration> timers;
+	Map<ThreadID, Map<String, Duration>> timers;
 
 	// Timer Functions
 
+	static inline const ThreadID currthread() {
+		return std::this_thread::get_id();
+	}
+
 	Duration &get_timer(const String &s) {
-		if (timers.count(s) == 0) {
-			timers[s] = Duration{};
+		if (timers.count(std::this_thread::get_id()) == 0) {
+			timers[std::this_thread::get_id()] = {};
 		}
 
-		return timers[s];
+		if (timers[std::this_thread::get_id()].count(s) == 0) {
+			timers[std::this_thread::get_id()][s] = Duration{};
+		}
+
+		return timers[std::this_thread::get_id()][s];
 	}
 
 	void timer_start(const String &s) {
+		WriteLock m(mutex);
 		auto &d = get_timer(s);
 		assert(!d.started && "timer already started");
 		d.started = true;
@@ -63,6 +81,7 @@ struct PerformanceStatistics {
 	}
 
 	void timer_end(const String &s) {
+		WriteLock m(mutex);
 		auto &d = get_timer(s);
 		assert(d.started && "timer already stopped");
 		d.started = false;
@@ -80,7 +99,10 @@ struct PerformanceStatistics {
 		return counters[s];
 	}
 
-	void inc_counter(const String &s) { get_counter(s)++; }
+	void inc_counter(const String &s) {
+		WriteLock m(mutex);
+		get_counter(s)++;
+	}
 
 	// dump
 
@@ -99,10 +121,15 @@ struct PerformanceStatistics {
 				 << "'" << k.first << "'"
 				 << ": " << k.second << endl;
 		}
-		for (auto k : timers) {
-			s << "    "
+		for (auto t : timers) {
+			if (timers.size() > 1) {
+				s << "Thread " << t.first << ":" << endl;
+			}
+			for (auto k : t.second) {
+				s << "    "
 				 << "'" << k.first << "'"
 				 << ": " << k.second.get_cumul_duration_ms() << " ms" << endl;
+			}
 		}
 
 		return s.str();
@@ -113,13 +140,16 @@ struct PerformanceStatistics {
  * @brief      The object used to enable the duration capturing mechanism.
  */
 struct __CalcTime {
-	const std::string key;
+	std::string key;
 	PerformanceStatistics &stat;
 
-	__CalcTime(PerformanceStatistics &stat, const std::string key)
-		: key(key), stat(stat) { stat.timer_start(key); }
+	__CalcTime(PerformanceStatistics &stat, const std::string &key): key(key), stat(stat) {
+		stat.timer_start(key);
+	}
 
-	~__CalcTime() { stat.timer_end(key); }
+	~__CalcTime() {
+		stat.timer_end(key);
+	}
 };
 
 /**

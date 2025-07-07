@@ -6,9 +6,13 @@
 #ifndef LHF_HPP
 #define LHF_HPP
 
+#include <array>
+#include <atomic>
 #include <cstddef>
 #include <iostream>
 #include <memory>
+#include <mutex>
+#include <shared_mutex>
 #include <sstream>
 #include <stdexcept>
 #include <tuple>
@@ -33,6 +37,18 @@ namespace lhf {
 #define LHF_DEBUG(x)
 #endif
 
+using Size = std::size_t;
+
+using String = std::string;
+
+using RWMutex = std::shared_mutex;
+
+using ReadLock = std::shared_lock<RWMutex>;
+
+using WriteLock = std::lock_guard<RWMutex>;
+
+using IndexValue = Size;
+
 template<typename T>
 using UniquePointer = std::unique_ptr<T>;
 
@@ -50,10 +66,6 @@ using HashSet = std::unordered_set<T>;
 
 template<typename T>
 using OrderedSet = std::set<T>;
-
-using String = std::string;
-
-using IndexValue = std::size_t;
 
 template<typename T>
 using DefaultLess = std::less<T>;
@@ -82,22 +94,22 @@ struct AbsentValueAccessError : public std::invalid_argument {
 };
 
 /**
- * @brief      Describes an optional value of some type T. The value may either
- *             be present or absent.
+ * @brief      Describes an optional reference of some type T. The value may
+ *             either be present or absent.
  *
  * @tparam     T    The type.
  */
 template<typename T>
-class Optional {
+class OptionalRef {
 	const T *value = nullptr;
-	Optional(): value(nullptr) {}
+	OptionalRef(): value(nullptr) {}
 
 public:
-	Optional(const T &value): value(value) {}
+	OptionalRef(const T &value): value(value) {}
 
 	/// Explicitly creates an absent value.
-	static Optional absent() {
-		return Optional();
+	static OptionalRef absent() {
+		return OptionalRef();
 	}
 
 	/// Informs if the value is present.
@@ -108,6 +120,43 @@ public:
 	/// Gets the underlying value. Throws an exception if it is absent.
 	const T &get() {
 		if (value) {
+			return value;
+		} else {
+			throw AbsentValueAccessError("Tried to access an absent value. "
+				                         "A check is likely missing.");
+		}
+	}
+};
+
+/**
+ * @brief      Describes an optional of some type T. The value may  either be
+ *             present or absent.
+ *
+ * @tparam     T    The type.
+ */
+template<typename T>
+class Optional {
+	const T value{};
+	const bool present = false;
+
+	Optional() {}
+
+public:
+	Optional(const T &value): value(value), present(true) {}
+
+	/// Explicitly creates an absent value.
+	static Optional absent() {
+		return Optional();
+	}
+
+	/// Informs if the value is present.
+	bool is_present() {
+		return present;
+	}
+
+	/// Gets the underlying value. Throws an exception if it is absent.
+	const T &get() {
+		if (present) {
 			return value;
 		} else {
 			throw AbsentValueAccessError("Tried to access an absent value. "
@@ -130,7 +179,7 @@ enum SubsetRelation {
 
 // The index of the empty set. The first set that will ever be inserted
 // in the property set value storage is the empty set.
-static const constexpr std::size_t EMPTY_SET_VALUE = 0;
+static const constexpr Size EMPTY_SET_VALUE = 0;
 
 /**
  * @brief      Composes a preexisting hash with another variable. Useful for
@@ -145,7 +194,7 @@ static const constexpr std::size_t EMPTY_SET_VALUE = 0;
  * @return     The composed hash
  */
 template<typename T, typename Hash = DefaultHash<T>>
-inline std::size_t compose_hash(const std::size_t prev, T next) {
+inline Size compose_hash(const Size prev, T next) {
 	return prev ^ (Hash()(next) + 0x9e3779b9 + (prev << 6) + (prev >> 2));
 }
 
@@ -182,7 +231,7 @@ inline std::ostream &operator<<(std::ostream &os, const OperationNode &op) {
 
 template <>
 struct std::hash<lhf::OperationNode> {
-	std::size_t operator()(const lhf::OperationNode& k) const {
+	lhf::Size operator()(const lhf::OperationNode& k) const {
 		return
 			std::hash<lhf::IndexValue>()(k.left) ^
 			(std::hash<lhf::IndexValue>()(k.right) << 1);
@@ -281,7 +330,7 @@ template<
 	typename ElementT,
 	typename ElementHash = DefaultHash<ElementT>>
 struct SetHash {
-	std::size_t operator()(const SetT *k) const {
+	Size operator()(const SetT *k) const {
 		// Adapted from boost::hash_combine
 		size_t hash_value = 0;
 		for (const auto &value : *k) {
@@ -406,6 +455,14 @@ static inline void verify_property_set_integrity(const PropertySetT &cont) {
 
 #endif
 
+#define LHF_ENABLE_PARALLEL
+
+#ifdef LHF_ENABLE_PARALLEL
+#define LHF_PARALLEL(__x) __x
+#else
+#define LHF_PARALLEL(__x)
+#endif
+
 /**
  * @def LHF_PUSH_ONE(__cont, __val)
  * @brief      Pushes one element to a PropertySet. Use this when implementing
@@ -451,7 +508,7 @@ struct NestingNone {
 	static constexpr bool is_nested = false;
 
 	/// Compile-time value that says there are no nested children.
-	static constexpr std::size_t num_children = 0;
+	static constexpr Size num_children = 0;
 
 	/// Placeholder value to mark the reference lists and value lists as empty.
 	struct Empty {
@@ -531,7 +588,7 @@ struct NestingNone {
 		}
 
 		struct Hash {
-			std::size_t operator()(const PropertyElement &p) const {
+			Size operator()(const PropertyElement &p) const {
 				return PropertyHash()(p.value);
 			}
 		};
@@ -553,6 +610,64 @@ struct NestingNone {
 	};
 
 };
+
+template<typename T>
+class OperationMap {
+public:
+	using Map = HashMap<T, IndexValue>;
+
+protected:
+	Map data;
+	LHF_PARALLEL(mutable RWMutex mutex;)
+
+public:
+	Optional<IndexValue> find(const T &key) const {
+		LHF_PARALLEL(ReadLock m(mutex);)
+		auto value = data.find(key);
+		if (value == data.end()) {
+			return Optional<IndexValue>::absent();
+		} else {
+			return value->second;
+		}
+	}
+
+	void insert(typename Map::value_type &&v) {
+		LHF_PARALLEL(WriteLock m(mutex);)
+		data.insert(std::move(v));
+	}
+
+	Size size() const {
+		LHF_PARALLEL(ReadLock m(mutex);)
+		return data.size();
+	}
+
+	typename Map::const_iterator begin() const {
+		return data.begin();
+	}
+
+	typename Map::const_iterator end() const {
+		return data.end();
+	}
+
+	String to_string() const {
+		LHF_PARALLEL(ReadLock m(mutex);)
+		std::stringstream s;
+
+		for (auto i : data) {
+			s << "      {" << i.first << " -> " << i.second << "} \n";
+		}
+
+		return s.str();
+	}
+
+};
+
+
+#define LHF_BINARY_OPERATION(__op_name) \
+protected: \
+	BinaryOperationMap opmap_ ## __op_name = {}; \
+	RWMutex opmmap_ ## __op_name ## _mutex; \
+public:
 
 /**
  * @def        LHF_BINARY_NESTED_OPERATION(__op_name)
@@ -600,7 +715,7 @@ struct NestingBase {
 
 	/// Compile-time value that says that the number of nested children
 	/// are equal to the number of parameters in the template parameter pack.
-	static constexpr std::size_t num_children = sizeof...(ChildT);
+	static constexpr Size num_children = sizeof...(ChildT);
 
 	/// Reference list. References to all the nested LHFs are presented here.
 	using LHFReferenceList = std::tuple<ChildT&...>;
@@ -676,7 +791,7 @@ struct NestingBase {
 		 * @tparam     Operation  The operation to perform on each child.
 		 * @tparam     Indices    Parameter pack to enable template iteration.
 		 */
-		template <typename Operation, std::size_t... Indices>
+		template <typename Operation, Size... Indices>
 		void apply_internal(
 			ChildValueList &ret,
 			const LHFReferenceList &lhf,
@@ -740,7 +855,7 @@ struct NestingBase {
 		}
 
 		struct Hash {
-			std::size_t operator()(const PropertyElement &p) const {
+			Size operator()(const PropertyElement &p) const {
 				return PropertyHash()(p.key);
 			}
 		};
@@ -838,7 +953,9 @@ template <
 	typename PropertyHash = DefaultHash<PropertyT>,
 	typename PropertyEqual = DefaultEqual<PropertyT>,
 	typename PropertyPrinter = DefaultPrinter<PropertyT>,
-	typename Nesting = NestingNone<PropertyT>>
+	typename Nesting = NestingNone<PropertyT>,
+	Size BLOCK_SIZE = LHF_DEFAULT_BLOCK_SIZE,
+	Size BLOCK_MASK = LHF_DEFAULT_BLOCK_MASK>
 class LatticeHashForest {
 public:
 	/**
@@ -880,7 +997,7 @@ public:
 		}
 
 		struct Hash {
-			std::size_t operator()(const Index &idx) const {
+			Size operator()(const Index &idx) const {
 				return DefaultHash<IndexValue>()(idx.value);
 			}
 		};
@@ -938,8 +1055,8 @@ public:
 				PropertyElement,
 				typename PropertyElement::FullEqual>>;
 
-	using UnaryOperationMap = HashMap<IndexValue, IndexValue>;
-	using BinaryOperationMap = HashMap<OperationNode, IndexValue>;
+	using UnaryOperationMap = OperationMap<IndexValue>;
+	using BinaryOperationMap = OperationMap<OperationNode>;
 	using RefList = typename Nesting::LHFReferenceList;
 
 protected:
@@ -950,36 +1067,62 @@ protected:
 	HashMap<String, OperationPerf> perf;
 #endif
 
+#ifdef LHF_ENABLE_PARALLEL
+	struct PropertySetStorage {
+		Vector<Vector<UniquePointer<PropertySet>>> data = {};
+
+		mutable RWMutex mutex;
+
+		std::atomic<Size> total_elems = 0;
+		std::atomic<Size> block_base = 0;
+
+		PropertySetStorage() {
+			data.push_back({});
+			data.back().reserve(BLOCK_SIZE);
+		}
+
+		const UniquePointer<PropertySet> &at(const Index &idx) const {
+			ReadLock m(mutex);
+			if (idx.value >= block_base) {
+				return data.back().at(idx.value & BLOCK_MASK);
+			} else {
+				return data.at((idx.value & (~BLOCK_MASK)) >> 5).at(idx.value & BLOCK_MASK);
+			}
+		}
+
+		Index push_back(UniquePointer<PropertySet> &&p) {
+			WriteLock m(mutex);
+			if (data.back().size() >= BLOCK_SIZE) {
+				data.push_back({});
+				data.back().reserve(BLOCK_SIZE);
+				block_base += BLOCK_SIZE;
+			}
+			data.back().push_back(std::move(p));
+			total_elems++;
+			return Index(total_elems - 1);
+		}
+
+		Size size() const {
+			return total_elems;
+		}
+	};
+
+	PropertySetStorage property_sets;
+#else
 	// The property set storage array.
 	Vector<UniquePointer<PropertySet>> property_sets = {};
+#endif
 
 	// The property set -> Index in storage array mapping.
+	RWMutex property_set_map_mutex;
 	PropertySetMap property_set_map = {};
 
 	BinaryOperationMap unions = {};
 	BinaryOperationMap intersections = {};
 	BinaryOperationMap differences = {};
+
+	mutable RWMutex subsets_mutex;
 	HashMap<OperationNode, SubsetRelation> subsets = {};
-
-	/**
-	 * @brief      Returns whether we currently know whether a is a subset or a
-	 *             superset of b.
-	 *
-	 * @param[in]  a     The first set
-	 * @param[in]  b     The second set
-	 *
-	 * @return     Enum value telling if it's a subset, superset or unknown
-	 */
-	SubsetRelation is_subset(const Index &a, const Index &b) const {
-		LHF_PROPERTY_SET_PAIR_VALID(a, b)
-		auto i = subsets.find({a.value, b.value});
-
-		if (i == subsets.end()) {
-			return UNKNOWN;
-		} else {
-			return i->second;
-		}
-	}
 
 	/**
 	 * @brief      Stores index `a` as the subset of index `b` if a < b,
@@ -992,6 +1135,8 @@ protected:
 		LHF_PROPERTY_SET_PAIR_VALID(a, b)
 		LHF_PROPERTY_SET_PAIR_UNEQUAL(a, b)
 		__lhf_calc_functime(stat);
+
+		LHF_PARALLEL(WriteLock m(subsets_mutex);)
 
 		// We need to maintain the operation pair in index-order here as well.
 		if (a > b) {
@@ -1012,6 +1157,28 @@ public:
 	}
 
 	/**
+	 * @brief      Returns whether we currently know whether a is a subset or a
+	 *             superset of b.
+	 *
+	 * @param[in]  a     The first set
+	 * @param[in]  b     The second set
+	 *
+	 * @return     Enum value telling if it's a subset, superset or unknown
+	 */
+	SubsetRelation is_subset(const Index &a, const Index &b) const {
+		LHF_PROPERTY_SET_PAIR_VALID(a, b)
+		LHF_PARALLEL(ReadLock m(subsets_mutex);)
+
+		auto i = subsets.find({a.value, b.value});
+
+		if (i == subsets.end()) {
+			return UNKNOWN;
+		} else {
+			return i->second;
+		}
+	}
+
+	/**
 	 * @brief         Inserts a (or gets an existing) single-element set into
 	 *                property set storage.
 	 *
@@ -1027,18 +1194,28 @@ public:
 		UniquePointer<PropertySet> new_set =
 			UniquePointer<PropertySet>(new PropertySet{c});
 
+		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
 		auto cursor = property_set_map.find(new_set.get());
+		bool present = cursor != property_set_map.end();
 
-		if (cursor == property_set_map.end()) {
+		if (!present) {
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 			LHF_PERF_INC(property_sets, cold_misses);
+
 			property_sets.push_back(std::move(new_set));
 			IndexValue ret = property_sets.size() - 1;
-			property_set_map.insert(std::make_pair(property_sets[ret].get(), ret));
-			return Index(ret);
-		}
 
-		LHF_PERF_INC(property_sets, hits);
-		return Index(cursor->second);
+			LHF_PARALLEL(property_set_map_mutex.lock();)
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
+			LHF_PARALLEL(property_set_map_mutex.unlock();)
+
+			return Index(ret);
+		} else {
+			LHF_PERF_INC(property_sets, hits);
+			IndexValue idx = cursor->second;
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+			return Index(idx);
+		}
 	}
 
 	/**
@@ -1057,20 +1234,30 @@ public:
 		UniquePointer<PropertySet> new_set =
 			UniquePointer<PropertySet>(new PropertySet{c});
 
+		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
 		auto cursor = property_set_map.find(new_set.get());
+		bool present = cursor != property_set_map.end();
 
-		if (cursor == property_set_map.end()) {
+		if (!present) {
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 			LHF_PERF_INC(property_sets, cold_misses);
+
 			property_sets.push_back(std::move(new_set));
 			IndexValue ret = property_sets.size() - 1;
-			property_set_map.insert(std::make_pair(property_sets[ret].get(), ret));
+
+			LHF_PARALLEL(property_set_map_mutex.lock();)
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
+			LHF_PARALLEL(property_set_map_mutex.unlock();)
+
 			cold = true;
 			return Index(ret);
+		} else {
+			LHF_PERF_INC(property_sets, hits);
+			IndexValue idx = cursor->second;
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+			cold = false;
+			return Index(idx);
 		}
-
-		LHF_PERF_INC(property_sets, hits);
-		cold = false;
-		return Index(cursor->second);
 	}
 
 	/**
@@ -1113,19 +1300,29 @@ public:
 			LHF_PROPERTY_SET_INTEGRITY_VALID(c);
 		}
 
+		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
 		auto cursor = property_set_map.find(&c);
+		bool present = cursor != property_set_map.end();
 
-		if (cursor == property_set_map.end()) {
+		if (!present) {
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 			LHF_PERF_INC(property_sets, cold_misses);
+
 			UniquePointer<PropertySet> new_set(new PropertySet(c));
 			property_sets.push_back(std::move(new_set));
 			IndexValue ret = property_sets.size() - 1;
-			property_set_map.insert(std::make_pair(property_sets[ret].get(), ret));
-			return Index(ret);
-		}
 
-		LHF_PERF_INC(property_sets, hits);
-		return Index(cursor->second);
+			LHF_PARALLEL(property_set_map_mutex.lock();)
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
+			LHF_PARALLEL(property_set_map_mutex.unlock();)
+
+			return Index(ret);
+		} else {
+			LHF_PERF_INC(property_sets, hits);
+			IndexValue idx = cursor->second;
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+			return Index(idx);
+		}
 	}
 
 	/**
@@ -1148,21 +1345,32 @@ public:
 			LHF_PROPERTY_SET_INTEGRITY_VALID(c);
 		}
 
+		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
 		auto cursor = property_set_map.find(&c);
+		bool present = cursor != property_set_map.end();
 
-		if (cursor == property_set_map.end()) {
+		if (!present) {
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 			LHF_PERF_INC(property_sets, cold_misses);
+
 			UniquePointer<PropertySet> new_set(new PropertySet(c));
 			property_sets.push_back(std::move(new_set));
 			IndexValue ret = property_sets.size() - 1;
-			property_set_map.insert(std::make_pair(property_sets[ret].get(), ret));
+
+			LHF_PARALLEL(property_set_map_mutex.lock();)
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
+			LHF_PARALLEL(property_set_map_mutex.unlock();)
+
 			cold = true;
 			return Index(ret);
-		}
+		} else {
+			LHF_PERF_INC(property_sets, hits);
+			IndexValue idx = cursor->second;
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 
-		LHF_PERF_INC(property_sets, hits);
-		cold = false;
-		return Index(cursor->second);
+			cold = false;
+			return Index(idx);
+		}
 	}
 
 	template <bool disable_integrity_check = false>
@@ -1173,18 +1381,28 @@ public:
 			LHF_PROPERTY_SET_INTEGRITY_VALID(c);
 		}
 
+		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
 		auto cursor = property_set_map.find(&c);
-		if (cursor == property_set_map.end()) {
+		bool present = cursor != property_set_map.end();
+
+		if (!present) {
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 			LHF_PERF_INC(property_sets, cold_misses);
+
 			UniquePointer<PropertySet> new_set(new PropertySet(c));
 			property_sets.push_back(std::move(new_set));
 			IndexValue ret = property_sets.size() - 1;
-			property_set_map.insert(std::make_pair(property_sets[ret].get(), ret));
-			return Index(ret);
-		}
 
-		LHF_PERF_INC(property_sets, hits);
-		return Index(cursor->second);
+			LHF_PARALLEL(property_set_map_mutex.lock();)
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
+			LHF_PARALLEL(property_set_map_mutex.unlock();)
+			return Index(ret);
+		} else {
+			LHF_PERF_INC(property_sets, hits);
+			IndexValue idx = cursor->second;
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+			return Index(idx);
+		}
 	}
 
 	template <bool disable_integrity_check = false>
@@ -1195,20 +1413,32 @@ public:
 			LHF_PROPERTY_SET_INTEGRITY_VALID(c);
 		}
 
+		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
 		auto cursor = property_set_map.find(&c);
-		if (cursor == property_set_map.end()) {
+		bool present = cursor != property_set_map.end();
+
+		if (!present) {
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 			LHF_PERF_INC(property_sets, cold_misses);
+
 			UniquePointer<PropertySet> new_set(new PropertySet(c));
 			property_sets.push_back(std::move(new_set));
 			IndexValue ret = property_sets.size() - 1;
-			property_set_map.insert(std::make_pair(property_sets[ret].get(), ret));
+
+			LHF_PARALLEL(property_set_map_mutex.lock();)
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
+			LHF_PARALLEL(property_set_map_mutex.unlock();)
+
 			cold = true;
 			return Index(ret);
-		}
+		} else {
+			LHF_PERF_INC(property_sets, hits);
+			IndexValue idx = cursor->second;
+			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 
-		LHF_PERF_INC(property_sets, hits);
-		cold = false;
-		return Index(cursor->second);
+			cold = false;
+			return Index(idx);
+		}
 	}
 
 	/**
@@ -1220,7 +1450,7 @@ public:
 	 */
 	inline const PropertySet &get_value(const Index &index) const {
 		LHF_PROPERTY_SET_INDEX_VALID(index);
-		return *property_sets[index.value].get();
+		return *property_sets.at(index.value).get();
 	}
 
 	/**
@@ -1229,7 +1459,7 @@ public:
 	 *
 	 * @return     The count.
 	 */
-	inline std::size_t property_set_count() const {
+	inline Size property_set_count() const {
 		return property_sets.size();
 	}
 
@@ -1240,7 +1470,7 @@ public:
 	 *
 	 * @return     size of the set.
 	 */
-	inline std::size_t size_of(const Index &index) const {
+	inline Size size_of(const Index &index) const {
 		if (index == EMPTY_SET_VALUE) {
 			return 0;
 		} else {
@@ -1262,7 +1492,7 @@ public:
 	}
 
 	static inline bool less_key(const PropertyElement &a, const PropertyT &b) {
-		return a.get_key() < b;
+		return PropertyLess()(a.get_key(), b);
 	}
 
 	/**
@@ -1279,7 +1509,7 @@ public:
 	}
 
 	static inline bool equal_key(const PropertyElement &a, const PropertyT &b) {
-		return a.get_key() == b;
+		return PropertyEqual()(a.get_key(), b);
 	}
 
 	/**
@@ -1292,9 +1522,9 @@ public:
 	 * @return     An optional that contains a property element if the key was
 	 *             found.
 	 */
-	inline Optional<PropertyElement> find_key(const Index &index, const PropertyT &p) const {
+	inline OptionalRef<PropertyElement> find_key(const Index &index, const PropertyT &p) const {
 		if (is_empty(index)) {
-			return Optional<PropertyElement>::absent();
+			return OptionalRef<PropertyElement>::absent();
 		}
 
 		const PropertySet &s = get_value(index);
@@ -1307,11 +1537,11 @@ public:
 			}
 		} else {
 			// Binary search implementation
-			std::size_t low = 0;
-			std::size_t high = s.size() - 1;
+			Size low = 0;
+			Size high = s.size() - 1;
 
 			while (low <= high) {
-				std::size_t mid = low + (high - low) / 2;
+				Size mid = low + (high - low) / 2;
 
 				if (equal_key(s[mid], p)) {
 					return true;
@@ -1323,7 +1553,7 @@ public:
 			}
 		}
 
-		return Optional<PropertyElement>::absent();
+		return OptionalRef<PropertyElement>::absent();
 	}
 
 	/**
@@ -1350,11 +1580,11 @@ public:
 			}
 		} else {
 			// Binary search implementation
-			std::size_t low = 0;
-			std::size_t high = s.size() - 1;
+			Size low = 0;
+			Size high = s.size() - 1;
 
 			while (low <= high) {
-				std::size_t mid = low + (high - low) / 2;
+				Size mid = low + (high - low) / 2;
 
 				if (equal(s[mid], prop)) {
 					return true;
@@ -1378,6 +1608,7 @@ public:
 	 *
 	 * @return     Index of the new property set.
 	 */
+	LHF_BINARY_OPERATION(set_union)
 	LHF_BINARY_NESTED_OPERATION(set_union)
 	Index set_union(const Index &_a, const Index &_b) {
 		LHF_PROPERTY_SET_PAIR_VALID(_a, _b);
@@ -1411,7 +1642,7 @@ public:
 
 		auto cursor = unions.find({a.value, b.value});
 
-		if (cursor == unions.end()) {
+		if (!cursor.is_present()) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -1474,10 +1705,10 @@ public:
 				LHF_PERF_INC(unions, edge_misses);
 			}
 			return Index(ret);
+		} else {
+			LHF_PERF_INC(unions, hits);
+			return Index(cursor.get());
 		}
-
-		LHF_PERF_INC(unions, hits);
-		return Index(cursor->second);
 	}
 
 	/**
@@ -1523,7 +1754,7 @@ public:
 
 		auto cursor = differences.find({a.value, b.value});
 
-		if (cursor == differences.end()) {
+		if (!cursor.is_present()) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -1580,10 +1811,10 @@ public:
 			}
 
 			return Index(ret);
+		} else {
+			LHF_PERF_INC(differences, hits);
+			return Index(cursor.get());
 		}
-
-		LHF_PERF_INC(differences, hits);
-		return Index(cursor->second);
 	}
 
 	/**
@@ -1663,7 +1894,7 @@ public:
 
 		auto cursor = intersections.find({a.value, b.value});
 
-		if (cursor == intersections.end()) {
+		if (!cursor.is_present()) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -1717,7 +1948,7 @@ public:
 		}
 
 		LHF_PERF_INC(intersections, hits);
-		return Index(cursor->second);
+		return Index(cursor.get());
 	}
 
 
@@ -1743,7 +1974,7 @@ public:
 	Index set_filter(
 		Index s,
 		std::function<bool(const PropertyT &)> filter_func,
-		HashMap<IndexValue, IndexValue> &cache) {
+		UnaryOperationMap &cache) {
 		LHF_PROPERTY_SET_INDEX_VALID(s);
 		__lhf_calc_functime(stat);
 
@@ -1753,7 +1984,7 @@ public:
 
 		auto cursor = cache.find(s);
 
-		if (cursor == cache.end()) {
+		if (!cursor.is_present()) {
 			PropertySet new_set;
 			for (PropertyT value : get_value(s)) {
 				if (filter_func(value)) {
@@ -1776,7 +2007,7 @@ public:
 		}
 
 		LHF_PERF_INC(filter, hits);
-		return Index(cursor->second);
+		return Index(cursor.get());
 	}
 
 	/**
@@ -1797,8 +2028,8 @@ public:
 		return s.str();
 	}
 
-	String property_set_to_string(const Index &idx) {
-		return  property_set_to_string(get_value(idx));
+	String property_set_to_string(const Index &idx) const {
+		return property_set_to_string(get_value(idx));
 	}
 
 	/**
@@ -1808,38 +2039,36 @@ public:
 	 */
 	String dump() const {
 		std::stringstream s;
+
 		s << "{\n";
 
 		s << "    " << "Unions: " << "(Count: " << unions.size() << ")\n";
-		for (auto i : unions) {
-			s << "      {" << i.first << " -> " << i.second << "} \n";
-		}
-
+		s << unions.to_string();
 		s << "\n";
+
 		s << "    " << "Differences:" << "(Count: " << differences.size() << ")\n";
-		for (auto i : differences) {
-			s << "      {" << i.first << " -> " << i.second << "} \n";
-		}
-
+		s << differences.to_string();
 		s << "\n";
+
 		s << "    " << "Intersections: " << "(Count: " << intersections.size() << ")\n";
-		for (auto i : intersections) {
-			s << "      {" << i.first << " -> " << i.second << "} \n";
-		}
-
+		s << intersections.to_string();
 		s << "\n";
+
 		s << "    " << "Subsets: " << "(Count: " << subsets.size() << ")\n";
+		subsets_mutex.lock_shared();
 		for (auto i : subsets) {
 			s << "      " << i.first << " -> " << (i.second == SUBSET ? "sub" : "sup") << "\n";
 		}
-
+		subsets_mutex.unlock_shared();
 		s << "\n";
-		s << "    " << "PropertySets: " << "(Count: " << property_set_map.size() << ")\n";
+
+		s << "    " << "PropertySets: " << "(Count: " << property_sets.size() << ")\n";
 		for (size_t i = 0; i < property_sets.size(); i++) {
 			s << "      "
-				<< i << " : " << property_set_to_string(*property_sets[i].get()) << "\n";
+				<< i << " : " << property_set_to_string(*property_sets.at(i).get()) << "\n";
 		}
 		s << "}\n";
+
 		return s.str();
 	}
 
