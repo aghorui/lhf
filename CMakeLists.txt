@@ -34,7 +34,6 @@ target_include_directories(lhf INTERFACE
 	$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
 )
 
-
 set(
 	ENABLE_PERFORMANCE_METRICS
 	ON
@@ -60,6 +59,24 @@ set(
 	"Enable performance measuring routines in the project. (for compiling tests and examples).")
 
 set(
+	ENABLE_PARALLEL
+	OFF
+	CACHE BOOL
+	"Enable parallelization (for compiling tests and examples). Cannot be used with ENABLE_TBB.")
+
+set(
+	ENABLE_TBB
+	OFF
+	CACHE BOOL
+	"Enable TBB-based parallelization (for compiling tests and examples). Cannot be used with ENABLE_PARLLEL.")
+
+set(
+	ENABLE_EVICTION
+	OFF
+	CACHE BOOL
+	"Enables the ability to evict sets (for compiling tests and examples).")
+
+set(
 	ENABLE_TESTS
 	OFF
 	CACHE BOOL
@@ -77,10 +94,19 @@ add_compile_options(
 	"-Wno-unused-function"
 	"-g")
 
-
 file(GLOB INCLUDE_FILES "${INCLUDE_ROOT}/lhf/*.hpp")
 file(GLOB EXAMPLE_SOURCES "${SRC_ROOT}/examples/*.cpp")
 file(GLOB TEST_SOURCES "${SRC_ROOT}/tests/*.cpp")
+
+if(ENABLE_PARALLEL AND ENABLE_TBB)
+	message(FATAL_ERROR "ENABLE_PARALLEL and ENABLE_TBB are mutually exclusive." )
+elseif(ENABLE_PARALLEL)
+	target_compile_definitions(lhf INTERFACE LHF_ENABLE_PARALLEL)
+elseif(ENABLE_TBB)
+	find_package(TBB REQUIRED)
+	target_compile_definitions(lhf INTERFACE LHF_ENABLE_TBB)
+	target_link_libraries(lhf INTERFACE TBB::tbb)
+endif()
 
 if(ENABLE_PERFORMANCE_METRICS)
 	target_compile_definitions(lhf INTERFACE LHF_ENABLE_PERFORMANCE_METRICS)

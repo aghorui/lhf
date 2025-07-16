@@ -1,3 +1,9 @@
+// #define LHF_ENABLE_PARALLEL
+#include <iterator>
+#include <oneapi/tbb/concurrent_map.h>
+#include <oneapi/tbb/concurrent_vector.h>
+#define LHF_ENABLE_EVICTION
+
 /**
  * @file lhf.hpp
  * @brief Defines the LatticeHashForest structure and related tools.
@@ -6,7 +12,6 @@
 #ifndef LHF_HPP
 #define LHF_HPP
 
-#include <array>
 #include <atomic>
 #include <cstddef>
 #include <iostream>
@@ -25,6 +30,10 @@
 #include <functional>
 #include <algorithm>
 #include <string>
+
+#ifdef LHF_ENABLE_TBB
+#include <tbb/tbb.h>
+#endif
 
 #include "lhf_config.hpp"
 #include "profiling.hpp"
@@ -137,9 +146,9 @@ public:
 template<typename T>
 class Optional {
 	const T value{};
-	const bool present = false;
+	const bool present;
 
-	Optional() {}
+	Optional(): present(false) {}
 
 public:
 	Optional(const T &value): value(value), present(true) {}
@@ -278,6 +287,30 @@ struct SetLess {
 };
 
 /**
+ * @brief      Hasher for set types.
+ *
+ * @tparam     SetT      The set type (like std::set or std::unordered_set)
+ * @tparam     ElementT  The element type of the set (the first template param
+ *                       of SetT)
+ * @tparam     ElementHash The hasher for the element.
+ */
+template<
+	typename SetT,
+	typename ElementT,
+	typename ElementHash = DefaultHash<ElementT>>
+struct SetHash {
+	Size operator()(const SetT *k) const {
+		// Adapted from boost::hash_combine
+		size_t hash_value = 0;
+		for (const auto &value : *k) {
+			hash_value = compose_hash<ElementT, ElementHash>(hash_value, value);
+		}
+
+		return hash_value;
+	}
+};
+
+/**
  * @brief      Generic Equality comparator for set types.
  *
  * @tparam     SetT      The set type (like std::set or std::unordered_set)
@@ -317,29 +350,21 @@ struct SetEqual {
 	}
 };
 
-/**
- * @brief      Hasher for set types.
- *
- * @tparam     SetT      The set type (like std::set or std::unordered_set)
- * @tparam     ElementT  The element type of the set (the first template param
- *                       of SetT)
- * @tparam     ElementHash The hasher for the element.
- */
-template<
-	typename SetT,
-	typename ElementT,
-	typename ElementHash = DefaultHash<ElementT>>
-struct SetHash {
-	Size operator()(const SetT *k) const {
-		// Adapted from boost::hash_combine
-		size_t hash_value = 0;
-		for (const auto &value : *k) {
-			hash_value = compose_hash<ElementT, ElementHash>(hash_value, value);
-		}
+#ifdef LHF_ENABLE_TBB
 
-		return hash_value;
+template<typename T, typename Hash, typename Equal>
+struct TBBHashCompare {
+	Size hash(const T v) const {
+		return Hash()(v);
+	}
+
+	bool equal(const T a, const T b) const {
+		return Equal()(a, b);
 	}
 };
+
+#endif
+
 
 /**
  * @brief      Struct that is thrown on an assertion failure.
@@ -455,9 +480,7 @@ static inline void verify_property_set_integrity(const PropertySetT &cont) {
 
 #endif
 
-#define LHF_ENABLE_PARALLEL
-
-#ifdef LHF_ENABLE_PARALLEL
+#if defined(LHF_ENABLE_PARALLEL) && !defined(LHF_ENABLE_TBB)
 #define LHF_PARALLEL(__x) __x
 #else
 #define LHF_PARALLEL(__x)
@@ -611,27 +634,85 @@ struct NestingNone {
 
 };
 
-template<typename T>
-class OperationMap {
+#ifdef LHF_ENABLE_TBB
+
+template<typename MapClass>
+class MapAdapter {
 public:
-	using Map = HashMap<T, IndexValue>;
+	using Map = MapClass;
+	using Key = typename Map::key_type;
+	using MappedType = typename Map::mapped_type;
+	using KeyValuePair = typename Map::value_type;
+
+protected:
+	using Accessor = typename Map::const_accessor;
+	Map data;
+
+public:
+	Optional<MappedType> find(const Key &key) const {
+		Accessor acc;
+		bool found = data.find(acc, key);
+		if (!found) {
+			return Optional<MappedType>::absent();
+		} else {
+			return acc->second;
+		}
+	}
+
+	void insert(KeyValuePair &&v) {
+		data.insert(std::move(v));
+	}
+
+	Size size() const {
+		return data.size();
+	}
+
+	typename Map::const_iterator begin() const {
+		return data.begin();
+	}
+
+	typename Map::const_iterator end() const {
+		return data.end();
+	}
+
+	String to_string() const {
+		std::stringstream s;
+
+		for (auto i : data) {
+			s << "      {" << i.first << " -> " << i.second << "} \n";
+		}
+
+		return s.str();
+	}
+
+};
+
+#else
+
+template<typename MapClass>
+class MapAdapter {
+public:
+	using Map = MapClass;
+	using Key = typename Map::key_type;
+	using MappedType = typename Map::mapped_type;
+	using KeyValuePair = typename Map::value_type;
 
 protected:
 	Map data;
 	LHF_PARALLEL(mutable RWMutex mutex;)
 
 public:
-	Optional<IndexValue> find(const T &key) const {
+	Optional<MappedType> find(const Key &key) const {
 		LHF_PARALLEL(ReadLock m(mutex);)
 		auto value = data.find(key);
 		if (value == data.end()) {
-			return Optional<IndexValue>::absent();
+			return Optional<MappedType>::absent();
 		} else {
 			return value->second;
 		}
 	}
 
-	void insert(typename Map::value_type &&v) {
+	void insert(KeyValuePair &&v) {
 		LHF_PARALLEL(WriteLock m(mutex);)
 		data.insert(std::move(v));
 	}
@@ -662,12 +743,23 @@ public:
 
 };
 
+#endif
 
-#define LHF_BINARY_OPERATION(__op_name) \
-protected: \
-	BinaryOperationMap opmap_ ## __op_name = {}; \
-	RWMutex opmmap_ ## __op_name ## _mutex; \
-public:
+#ifdef LHF_ENABLE_TBB
+
+template<typename K, typename V>
+using  InternalMap = MapAdapter<tbb::concurrent_hash_map<K, V>>;
+
+#else
+
+template<typename K, typename V>
+using InternalMap = MapAdapter<HashMap<K, V>>;
+
+#endif
+
+template<typename T>
+using OperationMap =  InternalMap<T, IndexValue>;
+
 
 /**
  * @def        LHF_BINARY_NESTED_OPERATION(__op_name)
@@ -959,8 +1051,8 @@ template <
 class LatticeHashForest {
 public:
 	/**
-	 * @brief      Index returned by an operation. The struct ensures type
-	 *             safety and possible future extensions.
+	 * @brief      Index returned by an operation. Being defined inside the
+	 *             class ensures type safety and possible future extensions.
 	 */
 	struct Index {
 		IndexValue value;
@@ -1020,6 +1112,18 @@ public:
 	 */
 	using PropertySet = std::vector<PropertyElement>;
 
+	using PropertySetHash =
+		SetHash<
+			PropertySet,
+			PropertyElement,
+			typename PropertyElement::Hash>;
+
+	using PropertySetFullEqual =
+		SetEqual<
+			PropertySet,
+			PropertyElement,
+			typename PropertyElement::FullEqual>;
+
 	/**
 	 * The structure responsible for mapping property sets to their respective
 	 * unique indices. When a key-value pair is actually inserted into the map,
@@ -1043,17 +1147,21 @@ public:
 	 *       change. It must remain static for the duration of the existence of
 	 *       the LHF instance.
 	 */
+#ifdef LHF_ENABLE_TBB
 	using PropertySetMap =
-		std::unordered_map<
+		MapAdapter<tbb::concurrent_hash_map<
 			const PropertySet *, IndexValue,
-			SetHash<
-				PropertySet,
-				PropertyElement,
-				typename PropertyElement::Hash>,
-			SetEqual<
-				PropertySet,
-				PropertyElement,
-				typename PropertyElement::FullEqual>>;
+			TBBHashCompare<
+				const PropertySet *,
+				PropertySetHash,
+				PropertySetFullEqual>>>;
+#else
+	using PropertySetMap =
+		MapAdapter<std::unordered_map<
+			const PropertySet *, IndexValue,
+			PropertySetHash,
+			PropertySetFullEqual>>;
+#endif
 
 	using UnaryOperationMap = OperationMap<IndexValue>;
 	using BinaryOperationMap = OperationMap<OperationNode>;
@@ -1067,32 +1175,151 @@ protected:
 	HashMap<String, OperationPerf> perf;
 #endif
 
-#ifdef LHF_ENABLE_PARALLEL
-	struct PropertySetStorage {
-		Vector<Vector<UniquePointer<PropertySet>>> data = {};
+	struct PropertySetHolder {
+		using PtrContainer = UniquePointer<PropertySet>;
+		using Ptr = typename PtrContainer::pointer;
+
+		mutable PtrContainer ptr;
+
+		PropertySetHolder(Ptr &&p): ptr(p) {}
+
+		Ptr get() const {
+			return ptr.get();
+		}
+
+		bool is_evicted() const {
+#ifdef LHF_ENABLE_EVICTION
+			return ptr.get() == nullptr;
+#else
+			return false;
+#endif
+		}
+
+#ifdef LHF_ENABLE_EVICTION
+
+		void evict() {
+#if LHF_DEBUG
+			if (!is_present()) {
+				throw AssertError("Tried to evict an already absent property set");
+			}
+#endif
+			ptr.release();
+		}
+
+		void reassign(Ptr &&p) {
+#if LHF_DEBUG
+			if (is_present()) {
+				throw AssertError("Tried to reassign when a property set is already present");
+			}
+#endif
+			ptr.reset(p);
+		}
+
+		void swap(PropertySetHolder &p) {
+#if LHF_DEBUG
+			if (is_present()) {
+				throw AssertError("Tried to reassign when a property set is already present");
+			} else if (!p.is_present()) {
+				throw AssertError("Attempted to swap to a null pointer");
+			}
+#endif
+			ptr.swap(p.ptr);
+		}
+
+#endif
+	};
+
+#if defined(LHF_ENABLE_TBB)
+
+	class PropertySetStorage {
+	protected:
+		/// @note Not marking this as mutable will not allow us to get a
+		///       non-const reference on index-based access. Non-constness
+		//        is important for eviction to work.
+		mutable tbb::concurrent_vector<PropertySetHolder> data = {};
+
+	public:
+		/**
+		 * @brief      Retuns a mutable reference to the property set holder at
+		 *             a given set index. This is useful for eviction based
+		 *             functions.
+		 *
+		 * @param[in]  idx   Set index
+		 *
+		 * @return     A mutable propety set holder reference.
+		 */
+		PropertySetHolder &at_mutable(const Index &idx) const {
+			return data.at(idx.value);
+		}
+
+		const PropertySetHolder &at(const Index &idx) const {
+			return data.at(idx.value);
+		}
+
+		Index push_back(PropertySetHolder &&p) {
+			auto it = data.push_back(std::move(p));
+			return it - data.begin();
+		}
+
+		Size size() const {
+			return data.size();
+		}
+	};
+
+#elif defined(LHF_ENABLE_PARALLEL)
+
+	class PropertySetStorage {
+	protected:
+		/// @note Not marking this as mutable will not allow us to get a
+		///       non-const reference on index-based access. Non-constness
+		//        is important for eviction to work.
+		mutable Vector<Vector<PropertySetHolder>> data = {};
 
 		mutable RWMutex mutex;
+		mutable RWMutex realloc_mutex;
 
 		std::atomic<Size> total_elems = 0;
 		std::atomic<Size> block_base = 0;
 
+	public:
 		PropertySetStorage() {
 			data.push_back({});
 			data.back().reserve(BLOCK_SIZE);
 		}
 
-		const UniquePointer<PropertySet> &at(const Index &idx) const {
-			ReadLock m(mutex);
+		/**
+		 * @brief      Retuns a mutable reference to the property set holder at
+		 *             a given set index. This is useful for eviction based
+		 *             functions.
+		 *
+		 * @param[in]  idx   Set index
+		 *
+		 * @return     A mutable propety set holder reference.
+		 */
+		PropertySetHolder &at_mutable(const Index &idx) const {
+			ReadLock m(realloc_mutex);
 			if (idx.value >= block_base) {
 				return data.back().at(idx.value & BLOCK_MASK);
 			} else {
+				// TODO fix this
 				return data.at((idx.value & (~BLOCK_MASK)) >> 5).at(idx.value & BLOCK_MASK);
 			}
 		}
 
-		Index push_back(UniquePointer<PropertySet> &&p) {
+		const PropertySetHolder &at(const Index &idx) const {
+			ReadLock m(realloc_mutex);
+			if (idx.value >= block_base) {
+				return data.back().at(idx.value & BLOCK_MASK);
+			} else {
+				// TODO fix this
+				return data.at((idx.value & (~BLOCK_MASK)) >> 5).at(idx.value & BLOCK_MASK);
+			}
+		}
+
+		Index push_back(PropertySetHolder &&p) {
 			WriteLock m(mutex);
 			if (data.back().size() >= BLOCK_SIZE) {
+				WriteLock r(realloc_mutex);
 				data.push_back({});
 				data.back().reserve(BLOCK_SIZE);
 				block_base += BLOCK_SIZE;
@@ -1107,22 +1334,56 @@ protected:
 		}
 	};
 
-	PropertySetStorage property_sets;
 #else
-	// The property set storage array.
-	Vector<UniquePointer<PropertySet>> property_sets = {};
+
+	class PropertySetStorage {
+	protected:
+		/// @note Not marking this as mutable will not allow us to get a
+		///       non-const reference on index-based access. Non-constness
+		//        is important for eviction to work.
+		mutable Vector<PropertySetHolder> data = {};
+
+	public:
+		/**
+		 * @brief      Retuns a mutable reference to the property set holder at
+		 *             a given set index. This is useful for eviction based
+		 *             functions.
+		 *
+		 * @param[in]  idx   Set index
+		 *
+		 * @return     A mutable propety set holder reference.
+		 */
+		PropertySetHolder &at_mutable(const Index &idx) const {
+			return data.at(idx.value);
+		}
+
+		const PropertySetHolder &at(const Index &idx) const {
+			return data.at(idx.value);
+		}
+
+		Index push_back(PropertySetHolder &&p) {
+			data.push_back(std::move(p));
+			return data.size() - 1;
+		}
+
+		Size size() const {
+			return data.size();
+		}
+	};
+
 #endif
 
+	// The property set storage array.
+	PropertySetStorage property_sets = {};
+
 	// The property set -> Index in storage array mapping.
-	RWMutex property_set_map_mutex;
 	PropertySetMap property_set_map = {};
 
 	BinaryOperationMap unions = {};
 	BinaryOperationMap intersections = {};
 	BinaryOperationMap differences = {};
 
-	mutable RWMutex subsets_mutex;
-	HashMap<OperationNode, SubsetRelation> subsets = {};
+	InternalMap<OperationNode, SubsetRelation> subsets = {};
 
 	/**
 	 * @brief      Stores index `a` as the subset of index `b` if a < b,
@@ -1135,8 +1396,6 @@ protected:
 		LHF_PROPERTY_SET_PAIR_VALID(a, b)
 		LHF_PROPERTY_SET_PAIR_UNEQUAL(a, b)
 		__lhf_calc_functime(stat);
-
-		LHF_PARALLEL(WriteLock m(subsets_mutex);)
 
 		// We need to maintain the operation pair in index-order here as well.
 		if (a > b) {
@@ -1167,14 +1426,13 @@ public:
 	 */
 	SubsetRelation is_subset(const Index &a, const Index &b) const {
 		LHF_PROPERTY_SET_PAIR_VALID(a, b)
-		LHF_PARALLEL(ReadLock m(subsets_mutex);)
 
 		auto i = subsets.find({a.value, b.value});
 
-		if (i == subsets.end()) {
+		if (!i.is_present()) {
 			return UNKNOWN;
 		} else {
-			return i->second;
+			return i.get();
 		}
 	}
 
@@ -1191,30 +1449,23 @@ public:
 	Index register_set_single(const PropertyElement &c) {
 		__lhf_calc_functime(stat);
 
-		UniquePointer<PropertySet> new_set =
-			UniquePointer<PropertySet>(new PropertySet{c});
+		PropertySetHolder new_set = PropertySetHolder(new PropertySet{c});
 
-		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
-		auto cursor = property_set_map.find(new_set.get());
-		bool present = cursor != property_set_map.end();
+		auto result = property_set_map.find(new_set.get());
 
-		if (!present) {
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+		if (!result.is_present()) {
 			LHF_PERF_INC(property_sets, cold_misses);
 
-			property_sets.push_back(std::move(new_set));
-			IndexValue ret = property_sets.size() - 1;
+			Index ret = property_sets.push_back(std::move(new_set));
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 
-			LHF_PARALLEL(property_set_map_mutex.lock();)
-			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
-			LHF_PARALLEL(property_set_map_mutex.unlock();)
-
-			return Index(ret);
+			return ret;
+		} if (is_evicted(result.get())) {
+			property_sets.at_mutable(result.get()).swap(new_set);
+			return Index(result.get());
 		} else {
 			LHF_PERF_INC(property_sets, hits);
-			IndexValue idx = cursor->second;
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
-			return Index(idx);
+			return Index(result.get());
 		}
 	}
 
@@ -1231,32 +1482,25 @@ public:
 	Index register_set_single(const PropertyElement &c, bool &cold) {
 		__lhf_calc_functime(stat);
 
-		UniquePointer<PropertySet> new_set =
-			UniquePointer<PropertySet>(new PropertySet{c});
+		PropertySetHolder new_set = PropertySetHolder(new PropertySet{c});
+		auto result = property_set_map.find(new_set.get());
 
-		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
-		auto cursor = property_set_map.find(new_set.get());
-		bool present = cursor != property_set_map.end();
-
-		if (!present) {
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+		if (!result.is_present()) {
 			LHF_PERF_INC(property_sets, cold_misses);
 
-			property_sets.push_back(std::move(new_set));
-			IndexValue ret = property_sets.size() - 1;
-
-			LHF_PARALLEL(property_set_map_mutex.lock();)
-			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
-			LHF_PARALLEL(property_set_map_mutex.unlock();)
+			Index ret = property_sets.push_back(std::move(new_set));
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 
 			cold = true;
-			return Index(ret);
+			return ret;
+		} else if (is_evicted(result.get())) {
+			property_sets.at_mutable(result.get()).swap(new_set);
+			cold = false;
+			return Index(result.get());
 		} else {
 			LHF_PERF_INC(property_sets, hits);
-			IndexValue idx = cursor->second;
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
 			cold = false;
-			return Index(idx);
+			return Index(result.get());
 		}
 	}
 
@@ -1300,28 +1544,22 @@ public:
 			LHF_PROPERTY_SET_INTEGRITY_VALID(c);
 		}
 
-		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
-		auto cursor = property_set_map.find(&c);
-		bool present = cursor != property_set_map.end();
+		auto result = property_set_map.find(&c);
 
-		if (!present) {
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+		if (!result.is_present()) {
 			LHF_PERF_INC(property_sets, cold_misses);
 
-			UniquePointer<PropertySet> new_set(new PropertySet(c));
-			property_sets.push_back(std::move(new_set));
-			IndexValue ret = property_sets.size() - 1;
+			PropertySetHolder new_set(new PropertySet(c));
+			Index ret = property_sets.push_back(std::move(new_set));
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 
-			LHF_PARALLEL(property_set_map_mutex.lock();)
-			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
-			LHF_PARALLEL(property_set_map_mutex.unlock();)
-
-			return Index(ret);
+			return ret;
+		} else if (is_evicted(result.get())) {
+			property_sets.at_mutable(result.get()).reassign(new PropertySet(c));
+			return Index(result.get());
 		} else {
 			LHF_PERF_INC(property_sets, hits);
-			IndexValue idx = cursor->second;
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
-			return Index(idx);
+			return Index(result.get());
 		}
 	}
 
@@ -1345,31 +1583,25 @@ public:
 			LHF_PROPERTY_SET_INTEGRITY_VALID(c);
 		}
 
-		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
-		auto cursor = property_set_map.find(&c);
-		bool present = cursor != property_set_map.end();
+		auto result = property_set_map.find(&c);
 
-		if (!present) {
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+		if (!result.is_present()) {
 			LHF_PERF_INC(property_sets, cold_misses);
 
-			UniquePointer<PropertySet> new_set(new PropertySet(c));
-			property_sets.push_back(std::move(new_set));
-			IndexValue ret = property_sets.size() - 1;
-
-			LHF_PARALLEL(property_set_map_mutex.lock();)
-			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
-			LHF_PARALLEL(property_set_map_mutex.unlock();)
+			PropertySetHolder new_set(new PropertySet(c));
+			Index ret = property_sets.push_back(std::move(new_set));
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 
 			cold = true;
 			return Index(ret);
+		} else if (is_evicted(result.get())) {
+			property_sets.at_mutable(result.get()).reassign(new PropertySet(c));
+			cold = false;
+			return Index(result.get());
 		} else {
 			LHF_PERF_INC(property_sets, hits);
-			IndexValue idx = cursor->second;
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
-
 			cold = false;
-			return Index(idx);
+			return Index(result.get());
 		}
 	}
 
@@ -1381,27 +1613,21 @@ public:
 			LHF_PROPERTY_SET_INTEGRITY_VALID(c);
 		}
 
-		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
-		auto cursor = property_set_map.find(&c);
-		bool present = cursor != property_set_map.end();
+		auto result = property_set_map.find(&c);
 
-		if (!present) {
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+		if (!result.is_present()) {
 			LHF_PERF_INC(property_sets, cold_misses);
 
-			UniquePointer<PropertySet> new_set(new PropertySet(c));
-			property_sets.push_back(std::move(new_set));
-			IndexValue ret = property_sets.size() - 1;
-
-			LHF_PARALLEL(property_set_map_mutex.lock();)
-			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
-			LHF_PARALLEL(property_set_map_mutex.unlock();)
-			return Index(ret);
+			PropertySetHolder new_set(new PropertySet(c));
+			Index ret = property_sets.push_back(std::move(new_set));
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
+			return ret;
+		} else if (is_evicted(result.get())) {
+			property_sets.at_mutable(result.get()).reassign(new PropertySet(c));
+			return Index(result.get());
 		} else {
 			LHF_PERF_INC(property_sets, hits);
-			IndexValue idx = cursor->second;
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
-			return Index(idx);
+			return Index(result.get());
 		}
 	}
 
@@ -1413,33 +1639,46 @@ public:
 			LHF_PROPERTY_SET_INTEGRITY_VALID(c);
 		}
 
-		LHF_PARALLEL(property_set_map_mutex.lock_shared();)
-		auto cursor = property_set_map.find(&c);
-		bool present = cursor != property_set_map.end();
+		auto result = property_set_map.find(&c);
 
-		if (!present) {
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
+		if (!result.is_present()) {
 			LHF_PERF_INC(property_sets, cold_misses);
 
-			UniquePointer<PropertySet> new_set(new PropertySet(c));
-			property_sets.push_back(std::move(new_set));
-			IndexValue ret = property_sets.size() - 1;
-
-			LHF_PARALLEL(property_set_map_mutex.lock();)
-			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret));
-			LHF_PARALLEL(property_set_map_mutex.unlock();)
+			PropertySetHolder new_set(new PropertySet(c));
+			Index ret = property_sets.push_back(std::move(new_set));
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 
 			cold = true;
-			return Index(ret);
+			return ret;
+		} else if (is_evicted(result.get())) {
+			property_sets.at_mutable(result.get()).reassign(new PropertySet(c));
+			cold = false;
+			return Index(result.get());
 		} else {
 			LHF_PERF_INC(property_sets, hits);
-			IndexValue idx = cursor->second;
-			LHF_PARALLEL(property_set_map_mutex.unlock_shared();)
-
 			cold = false;
-			return Index(idx);
+			return Index(result.get());
 		}
 	}
+
+	bool is_evicted(const Index &index) const {
+#ifdef LHF_ENABLE_EVICTION
+		return property_sets.at(index.value).is_evicted();
+#else
+		return false;
+#endif
+	}
+
+#ifdef LHF_ENABLE_EVICTION
+	void evict_set(const Index &index) {
+#ifdef LHF_DEBUG
+		if (index.is_empty()) {
+			throw AssertError("Tried to evict the empty set");
+		}
+#endif
+		property_sets.at_mutable(index.value).evict();
+	}
+#endif
 
 	/**
 	 * @brief      Gets the actual property set specified by index.
@@ -1450,6 +1689,11 @@ public:
 	 */
 	inline const PropertySet &get_value(const Index &index) const {
 		LHF_PROPERTY_SET_INDEX_VALID(index);
+#ifdef LHF_DEBUG
+		if (is_evicted(index)) {
+			throw AssertError("Tried to access and evicted set");
+		}
+#endif
 		return *property_sets.at(index.value).get();
 	}
 
@@ -1608,7 +1852,6 @@ public:
 	 *
 	 * @return     Index of the new property set.
 	 */
-	LHF_BINARY_OPERATION(set_union)
 	LHF_BINARY_NESTED_OPERATION(set_union)
 	Index set_union(const Index &_a, const Index &_b) {
 		LHF_PROPERTY_SET_PAIR_VALID(_a, _b);
@@ -1640,9 +1883,9 @@ public:
 			return Index(a);
 		}
 
-		auto cursor = unions.find({a.value, b.value});
+		auto result = unions.find({a.value, b.value});
 
-		if (!cursor.is_present()) {
+		if (!result.is_present() || is_evicted(result.get())) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -1685,18 +1928,24 @@ public:
 			LHF_PUSH_RANGE(new_set, cursor_2, cursor_end_2);
 
 			bool cold = false;
-			Index ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
+			Index ret;
 
-			unions.insert({{a.value, b.value}, ret.value});
-
-
-			if (ret == a) {
-				store_subset(b, ret);
-			} else if (ret == b) {
-				store_subset(a, ret);
+			if (result.is_present() && is_evicted(result.get())) {
+				ret = result.get();
+				property_sets.at_mutable(ret).reassign(new PropertySet(std::move(new_set)));
 			} else {
-				store_subset(a, ret);
-				store_subset(b, ret);
+				ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
+
+				unions.insert({{a.value, b.value}, ret.value});
+
+				if (ret == a) {
+					store_subset(b, ret);
+				} else if (ret == b) {
+					store_subset(a, ret);
+				} else {
+					store_subset(a, ret);
+					store_subset(b, ret);
+				}
 			}
 
 			if (cold) {
@@ -1704,10 +1953,11 @@ public:
 			} else {
 				LHF_PERF_INC(unions, edge_misses);
 			}
+
 			return Index(ret);
 		} else {
 			LHF_PERF_INC(unions, hits);
-			return Index(cursor.get());
+			return Index(result.get());
 		}
 	}
 
@@ -1752,9 +2002,9 @@ public:
 			return Index(a);
 		}
 
-		auto cursor = differences.find({a.value, b.value});
+		auto result = differences.find({a.value, b.value});
 
-		if (!cursor.is_present()) {
+		if (!result.is_present() || is_evicted(result.get())) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -1791,17 +2041,24 @@ public:
 			}
 
 			bool cold = false;
-			Index ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
-			differences.insert({{a.value, b.value}, ret.value});
+			Index ret;
 
-			if (ret != a) {
-				store_subset(ret, a);
+			if (result.is_present() && is_evicted(result.get())) {
+				ret = result.get();
+				property_sets.at_mutable(ret).reassign(new PropertySet(std::move(new_set)));
 			} else {
-				intersections.insert({
-					{
-						std::min(a.value, b.value),
-						std::max(a.value, b.value)
-					}, EMPTY_SET_VALUE});
+				ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
+				differences.insert({{a.value, b.value}, ret.value});
+
+				if (ret != a) {
+					store_subset(ret, a);
+				} else {
+					intersections.insert({
+						{
+							std::min(a.value, b.value),
+							std::max(a.value, b.value)
+						}, EMPTY_SET_VALUE});
+				}
 			}
 
 			if (cold) {
@@ -1813,7 +2070,7 @@ public:
 			return Index(ret);
 		} else {
 			LHF_PERF_INC(differences, hits);
-			return Index(cursor.get());
+			return Index(result.get());
 		}
 	}
 
@@ -1892,9 +2149,9 @@ public:
 			return Index(b);
 		}
 
-		auto cursor = intersections.find({a.value, b.value});
+		auto result = intersections.find({a.value, b.value});
 
-		if (!cursor.is_present()) {
+		if (!result.is_present() || is_evicted(result.get())) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -1927,16 +2184,23 @@ public:
 			}
 
 			bool cold = false;
-			Index ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
-			intersections.insert({{a.value, b.value}, ret.value});
+			Index ret;
 
-			if (ret != a) {
-				store_subset(ret, a);
-			} else if (ret != b) {
-				store_subset(ret, b);
+			if (result.is_present() && is_evicted(result.get())) {
+				ret = result.get();
+				property_sets.at_mutable(ret).reassign(new PropertySet(std::move(new_set)));
 			} else {
-				store_subset(ret, a);
-				store_subset(ret, b);
+				ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
+				intersections.insert({{a.value, b.value}, ret.value});
+
+				if (ret != a) {
+					store_subset(ret, a);
+				} else if (ret != b) {
+					store_subset(ret, b);
+				} else {
+					store_subset(ret, a);
+					store_subset(ret, b);
+				}
 			}
 
 			if (cold) {
@@ -1948,7 +2212,7 @@ public:
 		}
 
 		LHF_PERF_INC(intersections, hits);
-		return Index(cursor.get());
+		return Index(result.get());
 	}
 
 
@@ -1968,12 +2232,13 @@ public:
 	 *                              potentially result in a faster filtering.
 	 *
 	 * @todo Implement sort bound optimization
+	 * @todo Implement bounding as a separate function instead
 	 *
 	 * @return     Index of the filtered set.
 	 */
 	Index set_filter(
 		Index s,
-		std::function<bool(const PropertyT &)> filter_func,
+		std::function<bool(const PropertyElement &)> filter_func,
 		UnaryOperationMap &cache) {
 		LHF_PROPERTY_SET_INDEX_VALID(s);
 		__lhf_calc_functime(stat);
@@ -1982,20 +2247,26 @@ public:
 			return s;
 		}
 
-		auto cursor = cache.find(s);
+		auto result = cache.find(s.value);
 
-		if (!cursor.is_present()) {
+		if (!result.is_present() || is_evicted(result.get())) {
 			PropertySet new_set;
-			for (PropertyT value : get_value(s)) {
+			for (const PropertyElement &value : get_value(s)) {
 				if (filter_func(value)) {
 					LHF_PUSH_ONE(new_set, value);
 				}
 			}
 
 			bool cold;
-			Index new_index = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
+			Index ret;
 
-			cache.insert({s, new_index.value});
+			if (result.is_present() && is_evicted(result.get())) {
+				ret = result.get();
+				property_sets.at_mutable(ret).reassign(new PropertySet(std::move(new_set)));
+			} else {
+				ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
+				cache.insert(std::make_pair(s.value, ret.value));
+			}
 
 			if (cold) {
 				LHF_PERF_INC(filter, cold_misses);
@@ -2003,11 +2274,11 @@ public:
 				LHF_PERF_INC(filter, edge_misses);
 			}
 
-			return Index(new_index);
+			return Index(ret);
+		} else {
+			LHF_PERF_INC(filter, hits);
+			return Index(result.get());
 		}
-
-		LHF_PERF_INC(filter, hits);
-		return Index(cursor.get());
 	}
 
 	/**
@@ -2034,8 +2305,6 @@ public:
 
 	/**
 	 * @brief      Dumps the current state of the LHF to a string.
-	 *
-	 * @return     The dumped value.
 	 */
 	String dump() const {
 		std::stringstream s;
@@ -2055,11 +2324,9 @@ public:
 		s << "\n";
 
 		s << "    " << "Subsets: " << "(Count: " << subsets.size() << ")\n";
-		subsets_mutex.lock_shared();
 		for (auto i : subsets) {
 			s << "      " << i.first << " -> " << (i.second == SUBSET ? "sub" : "sup") << "\n";
 		}
-		subsets_mutex.unlock_shared();
 		s << "\n";
 
 		s << "    " << "PropertySets: " << "(Count: " << property_sets.size() << ")\n";
@@ -2079,7 +2346,7 @@ public:
 
 #ifdef LHF_ENABLE_PERFORMANCE_METRICS
 	/**
-	 * @brief      Dumps a performance information
+	 * @brief      Dumps performance information as a string.
 	 * @note       Conditionally enabled if `LHF_ENABLE_PERFORMANCE_METRICS` is
 	 *             set.
 	 * @return     String containing performance information as a human-readable
