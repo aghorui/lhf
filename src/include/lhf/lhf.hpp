@@ -114,7 +114,7 @@ class OptionalRef {
 	OptionalRef(): value(nullptr) {}
 
 public:
-	OptionalRef(const T &value): value(value) {}
+	OptionalRef(const T &value): value(&value) {}
 
 	/// Explicitly creates an absent value.
 	static OptionalRef absent() {
@@ -129,7 +129,7 @@ public:
 	/// Gets the underlying value. Throws an exception if it is absent.
 	const T &get() {
 		if (value) {
-			return value;
+			return *value;
 		} else {
 			throw AbsentValueAccessError("Tried to access an absent value. "
 				                         "A check is likely missing.");
@@ -559,14 +559,17 @@ struct NestingNone {
 		typename PropertyEqual,
 		typename PropertyPrinter>
 	struct PropertyElement {
+	public:
 		/// Key type is made available here if required by user.
 		using InterfaceKeyType = PropertyT;
 
 		/// Value type is made available here if required by user.
 		using InterfaceValueType = PropertyT;
 
+	protected:
 		PropertyT value;
 
+	public:
 		PropertyElement(const PropertyT &value): value(value) {}
 
 		/**
@@ -831,15 +834,18 @@ struct NestingBase {
 		typename PropertyEqual,
 		typename PropertyPrinter>
 	struct PropertyElement {
+	public:
 		/// Key type is made available here if required by user.
 		using InterfaceKeyType = PropertyT;
 
 		/// Value type is made available here if required by user.
 		using InterfaceValueType = PropertyT;
 
+	private:
 		PropertyT key;
 		ChildValueList value;
 
+	public:
 		PropertyElement(
 			const PropertyT &key,
 			const ChildValueList &value):
@@ -1739,6 +1745,10 @@ public:
 		return PropertyLess()(a.get_key(), b);
 	}
 
+	static inline bool less_key(const PropertyElement &a, const PropertyElement &b) {
+		return PropertyLess()(a.get_key(), b.get_key());
+	}
+
 	/**
 	 * @brief      Equality comparator for operations. You MUST use this
 	 *             instead of directly using anything else like "<"
@@ -1754,6 +1764,10 @@ public:
 
 	static inline bool equal_key(const PropertyElement &a, const PropertyT &b) {
 		return PropertyEqual()(a.get_key(), b);
+	}
+
+	static inline bool equal_key(const PropertyElement &a, const PropertyElement &b) {
+		return PropertyEqual()(a.get_key(), b.get_key());
 	}
 
 	/**
@@ -1775,7 +1789,7 @@ public:
 
 		if (s.size() <= LHF_SORTED_VECTOR_BINARY_SEARCH_THRESHOLD) {
 			for (PropertyElement i : s) {
-				if (equal(i, p)) {
+				if (equal_key(i, p)) {
 					return i;
 				}
 			}
@@ -1788,7 +1802,7 @@ public:
 				Size mid = low + (high - low) / 2;
 
 				if (equal_key(s[mid], p)) {
-					return true;
+					return OptionalRef<PropertyElement>(s[mid]);
 				} else if (less_key(s[mid], p)) {
 					low = mid + 1;
 				} else {
@@ -1818,7 +1832,7 @@ public:
 
 		if (s.size() <= LHF_SORTED_VECTOR_BINARY_SEARCH_THRESHOLD) {
 			for (PropertyElement i : s) {
-				if (equal(i, prop)) {
+				if (equal_key(i, prop)) {
 					return true;
 				}
 			}
@@ -1830,9 +1844,9 @@ public:
 			while (low <= high) {
 				Size mid = low + (high - low) / 2;
 
-				if (equal(s[mid], prop)) {
+				if (equal_key(s[mid], prop)) {
 					return true;
-				} else if (less(s[mid], prop)) {
+				} else if (less_key(s[mid], prop)) {
 					low = mid + 1;
 				} else {
 					high = mid - 1;

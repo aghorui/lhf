@@ -53,12 +53,6 @@ set(
 	"Enable debugging routines in the project (for compiling tests and examples).")
 
 set(
-	ENABLE_PERFORMANCE_METRICS
-	ON
-	CACHE BOOL
-	"Enable performance measuring routines in the project. (for compiling tests and examples).")
-
-set(
 	ENABLE_PARALLEL
 	OFF
 	CACHE BOOL
