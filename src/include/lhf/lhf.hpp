@@ -122,7 +122,7 @@ public:
 	}
 
 	/// Informs if the value is present.
-	bool is_present() {
+	bool is_present() const {
 		return value != nullptr;
 	}
 
@@ -1788,18 +1788,18 @@ public:
 		const PropertySet &s = get_value(index);
 
 		if (s.size() <= LHF_SORTED_VECTOR_BINARY_SEARCH_THRESHOLD) {
-			for (PropertyElement i : s) {
+			for (const PropertyElement &i : s) {
 				if (equal_key(i, p)) {
-					return i;
+					return OptionalRef<PropertyElement>(i);
 				}
 			}
 		} else {
 			// Binary search implementation
-			Size low = 0;
-			Size high = s.size() - 1;
+			long int low = 0;
+			long int high = s.size() - 1;
 
 			while (low <= high) {
-				Size mid = low + (high - low) / 2;
+				long int mid = low + (high - low) / 2;
 
 				if (equal_key(s[mid], p)) {
 					return OptionalRef<PropertyElement>(s[mid]);
@@ -1838,12 +1838,14 @@ public:
 			}
 		} else {
 			// Binary search implementation
-			Size low = 0;
-			Size high = s.size() - 1;
+			long int low = 0;
+			long int high = s.size() - 1;
 
 			while (low <= high) {
-				Size mid = low + (high - low) / 2;
-
+				long int mid = low + (high - low) / 2;
+				LHF_DEBUG(
+					assert(mid >= 0 && mid >= 0 && high >= 0);
+				);
 				if (equal_key(s[mid], prop)) {
 					return true;
 				} else if (less_key(s[mid], prop)) {

@@ -147,6 +147,107 @@ TEST(LHF_BasicChecks, set_filter_check) {
 	ASSERT_TRUE(f.is_empty());
 }
 
+TEST(LHF_BasicChecks, set_contains_tests) {
+	LHF l;
+	Index empty = l.register_set({});
+	Index one_elem = l.register_set({ 2 });
+	Index ten_elem = l.register_set({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+
+	ASSERT_FALSE(l.contains(empty, 10));
+	ASSERT_FALSE(l.contains(empty, -1));
+	ASSERT_FALSE(l.contains(empty, -500000));
+	ASSERT_FALSE(l.contains(empty, 50000000));
+
+	ASSERT_FALSE(l.contains(one_elem, 10));
+	ASSERT_FALSE(l.contains(one_elem, -1));
+	ASSERT_FALSE(l.contains(one_elem, -500000));
+	ASSERT_FALSE(l.contains(one_elem, 50000000));
+	ASSERT_TRUE(l.contains(one_elem, 2));
+
+	ASSERT_FALSE(l.contains(ten_elem, 13));
+	ASSERT_FALSE(l.contains(ten_elem, -1));
+	ASSERT_FALSE(l.contains(ten_elem, 50000000));
+	ASSERT_TRUE(l.contains(ten_elem, 1));
+	ASSERT_TRUE(l.contains(ten_elem, 2));
+	ASSERT_TRUE(l.contains(ten_elem, 3));
+	ASSERT_TRUE(l.contains(ten_elem, 4));
+	ASSERT_TRUE(l.contains(ten_elem, 5));
+	ASSERT_TRUE(l.contains(ten_elem, 6));
+	ASSERT_TRUE(l.contains(ten_elem, 7));
+	ASSERT_TRUE(l.contains(ten_elem, 8));
+	ASSERT_TRUE(l.contains(ten_elem, 9));
+	ASSERT_TRUE(l.contains(ten_elem, 10));
+}
+
+#define ___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(__set, __value) \
+{ \
+		auto result = l.find_key((__set), (__value)); \
+		ASSERT_TRUE(result.is_present()); \
+		ASSERT_EQ(result.get().get_key(), (__value)); \
+}
+
+TEST(LHF_BasicChecks, set_find_key_tests) {
+	LHF l;
+	Index empty = l.register_set({});
+	Index one_elem = l.register_set({ 2 });
+	Index ten_elem = l.register_set({ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 });
+
+	// Section 1
+	ASSERT_FALSE(l.find_key(empty, 10).is_present());
+	ASSERT_FALSE(l.find_key(empty, -1).is_present());
+	ASSERT_FALSE(l.find_key(empty, -500000).is_present());
+	ASSERT_FALSE(l.find_key(empty, 50000000).is_present());
+
+	// Section 2
+	ASSERT_FALSE(l.find_key(one_elem, 10).is_present());
+	ASSERT_FALSE(l.find_key(one_elem, -1).is_present());
+	ASSERT_FALSE(l.find_key(one_elem, -500000).is_present());
+	ASSERT_FALSE(l.find_key(one_elem, 50000000).is_present());
+
+	{
+		const auto result = l.find_key(one_elem, 2);
+		ASSERT_TRUE(result.is_present());
+	}
+
+	// Section 3
+	ASSERT_FALSE(l.find_key(ten_elem, 13).is_present());
+	ASSERT_FALSE(l.find_key(ten_elem, -1).is_present());
+	ASSERT_FALSE(l.find_key(ten_elem, 50000000).is_present());
+
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 1);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 2);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 3);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 4);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 5);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 6);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 7);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 8);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 9);
+	___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(ten_elem, 10);
+}
+
+TEST(LHF_BasicChecks, set_find_key_bsearch_tests) {
+	LHF l;
+
+	// Create a vector with elements greater than threshold
+	lhf::Vector<LHF::PropertyElement> acc;
+	for (int i = 0; i < LHF_SORTED_VECTOR_BINARY_SEARCH_THRESHOLD; i++) {
+		acc.push_back(i);
+	}
+
+	for (int i = 0; i < 12; i++) {
+		acc.push_back(LHF_SORTED_VECTOR_BINARY_SEARCH_THRESHOLD + 1000 + i);
+	}
+
+	Index s = l.register_set(acc);
+
+	ASSERT_FALSE(l.find_key(s, -1).is_present());
+	ASSERT_FALSE(l.find_key(s, 50000000).is_present());
+
+	for (size_t i = 0; i < acc.size(); i++) {
+		___LHF_BASICTESTS_FIND_KEY_TEST_EXISTENCE_EQUALITY(s, acc[i].get_key());
+	}
+}
 
 #ifdef LHF_ENABLE_DEBUG
 TEST(LHF_BasicChecks, property_set_out_of_bounds_throws_exception) {
