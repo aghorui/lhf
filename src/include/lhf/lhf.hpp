@@ -1,9 +1,3 @@
-// #define LHF_ENABLE_PARALLEL
-#include <iterator>
-#include <oneapi/tbb/concurrent_map.h>
-#include <oneapi/tbb/concurrent_vector.h>
-#define LHF_ENABLE_EVICTION
-
 /**
  * @file lhf.hpp
  * @brief Defines the LatticeHashForest structure and related tools.
@@ -12,12 +6,9 @@
 #ifndef LHF_HPP
 #define LHF_HPP
 
-#include <atomic>
 #include <cstddef>
 #include <iostream>
 #include <memory>
-#include <mutex>
-#include <shared_mutex>
 #include <sstream>
 #include <stdexcept>
 #include <tuple>
@@ -31,8 +22,16 @@
 #include <algorithm>
 #include <string>
 
+#ifdef LHF_ENABLE_PARALLEL
+#include <atomic>
+#include <mutex>
+#include <shared_mutex>
+#endif
+
 #ifdef LHF_ENABLE_TBB
 #include <tbb/tbb.h>
+#include <tbb/concurrent_map.h>
+#include <tbb/concurrent_vector.h>
 #endif
 
 #include "lhf_config.hpp"
@@ -50,11 +49,15 @@ using Size = std::size_t;
 
 using String = std::string;
 
+#ifdef LHF_ENABLE_PARALLEL
+
 using RWMutex = std::shared_mutex;
 
 using ReadLock = std::shared_lock<RWMutex>;
 
 using WriteLock = std::lock_guard<RWMutex>;
+
+#endif
 
 using IndexValue = Size;
 
@@ -352,6 +355,15 @@ struct SetEqual {
 
 #ifdef LHF_ENABLE_TBB
 
+/**
+ * @brief      Comparison operator specifically meant to accomodate TBB data
+ *             structures. Please check out the more basic components before
+ *             coming to this.
+ *
+ * @tparam     T      Element type. Typically PropertyElement.
+ * @tparam     Hash   Hashing. Typically PropertySetHash.
+ * @tparam     Equal  Equality. Typically PropertySetEqual.
+ */
 template<typename T, typename Hash, typename Equal>
 struct TBBHashCompare {
 	Size hash(const T v) const {
@@ -484,6 +496,12 @@ static inline void verify_property_set_integrity(const PropertySetT &cont) {
 #define LHF_PARALLEL(__x) __x
 #else
 #define LHF_PARALLEL(__x)
+#endif
+
+#ifdef LHF_ENABLE_EVICTION
+#define LHF_EVICTION(__x) __x
+#else
+#define LHF_EVICTION(__x)
 #endif
 
 /**
@@ -637,6 +655,15 @@ struct NestingNone {
 
 };
 
+/**
+ * @def        MapAdapter
+ * @brief      Enables the interface used by LHF for using a map data structure
+ *             for any given map implementation. This preprocessor if-ladder
+ *             should be expanded as needed for any newer implementations.
+ *
+ * @tparam     MapClass The Map implementation to adapt.
+ */
+
 #ifdef LHF_ENABLE_TBB
 
 template<typename MapClass>
@@ -748,6 +775,12 @@ public:
 
 #endif
 
+
+/**
+ * @def        InternalMap
+ * @brief      Convenience declaration for using simple maps in LHF.
+ */
+
 #ifdef LHF_ENABLE_TBB
 
 template<typename K, typename V>
@@ -760,6 +793,10 @@ using InternalMap = MapAdapter<HashMap<K, V>>;
 
 #endif
 
+/**
+ * Defines the map of operations in LHF. Template parameter can be used to set
+ * an operation of any arity.
+ */
 template<typename T>
 using OperationMap =  InternalMap<T, IndexValue>;
 
@@ -1466,10 +1503,12 @@ public:
 			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 
 			return ret;
-		} if (is_evicted(result.get())) {
+		}
+		LHF_EVICTION(else if (is_evicted(result.get())) {
 			property_sets.at_mutable(result.get()).swap(new_set);
 			return Index(result.get());
-		} else {
+		})
+		else {
 			LHF_PERF_INC(property_sets, hits);
 			return Index(result.get());
 		}
@@ -1499,11 +1538,13 @@ public:
 
 			cold = true;
 			return ret;
-		} else if (is_evicted(result.get())) {
+		}
+		LHF_EVICTION(else if (is_evicted(result.get())) {
 			property_sets.at_mutable(result.get()).swap(new_set);
 			cold = false;
 			return Index(result.get());
-		} else {
+		})
+		else {
 			LHF_PERF_INC(property_sets, hits);
 			cold = false;
 			return Index(result.get());
@@ -1532,16 +1573,6 @@ public:
 		std::sort(c.begin(), c.end());
 	}
 
-	/**
-	 * @brief         Inserts a (or gets an existing) set into property set
-	 *                storage.
-	 *
-	 * @param[in]  c  The property set.
-	 *
-	 * @return        Index of the newly created set.
-	 *
-	 * @todo          Check whether the cache hit check can be removed.
-	 */
 	template <bool disable_integrity_check = false>
 	Index register_set(const PropertySet &c) {
 		__lhf_calc_functime(stat);
@@ -1558,29 +1589,18 @@ public:
 			PropertySetHolder new_set(new PropertySet(c));
 			Index ret = property_sets.push_back(std::move(new_set));
 			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
-
 			return ret;
-		} else if (is_evicted(result.get())) {
+		}
+		LHF_EVICTION(else if (is_evicted(result.get())) {
 			property_sets.at_mutable(result.get()).reassign(new PropertySet(c));
 			return Index(result.get());
-		} else {
+		})
+		else {
 			LHF_PERF_INC(property_sets, hits);
 			return Index(result.get());
 		}
 	}
 
-	/**
-	 * @brief         Inserts a (or gets an existing) set into property set
-	 *                storage, and reports whether this set was already
-	 *                present or not.
-	 *
-	 * @param[in]  c     The property set.
-	 * @param[out] cold  Report if this was a cold miss.
-	 *
-	 * @return        Index of the newly created/existing set.
-	 *
-	 * @todo          Check whether the cache hit check can be removed.
-	 */
 	template <bool disable_integrity_check = false>
 	Index register_set(const PropertySet &c, bool &cold) {
 		__lhf_calc_functime(stat);
@@ -1599,12 +1619,14 @@ public:
 			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 
 			cold = true;
-			return Index(ret);
-		} else if (is_evicted(result.get())) {
+			return ret;
+		}
+		LHF_EVICTION(else if (is_evicted(result.get())) {
 			property_sets.at_mutable(result.get()).reassign(new PropertySet(c));
 			cold = false;
 			return Index(result.get());
-		} else {
+		})
+		else {
 			LHF_PERF_INC(property_sets, hits);
 			cold = false;
 			return Index(result.get());
@@ -1628,10 +1650,12 @@ public:
 			Index ret = property_sets.push_back(std::move(new_set));
 			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 			return ret;
-		} else if (is_evicted(result.get())) {
+		}
+		LHF_EVICTION(else if (is_evicted(result.get())) {
 			property_sets.at_mutable(result.get()).reassign(new PropertySet(c));
 			return Index(result.get());
-		} else {
+		})
+		else {
 			LHF_PERF_INC(property_sets, hits);
 			return Index(result.get());
 		}
@@ -1656,24 +1680,24 @@ public:
 
 			cold = true;
 			return ret;
-		} else if (is_evicted(result.get())) {
+		}
+		LHF_EVICTION(else if (is_evicted(result.get())) {
 			property_sets.at_mutable(result.get()).reassign(new PropertySet(c));
 			cold = false;
 			return Index(result.get());
-		} else {
+		})
+		else {
 			LHF_PERF_INC(property_sets, hits);
 			cold = false;
 			return Index(result.get());
 		}
 	}
 
-	bool is_evicted(const Index &index) const {
 #ifdef LHF_ENABLE_EVICTION
+	bool is_evicted(const Index &index) const {
 		return property_sets.at(index.value).is_evicted();
-#else
-		return false;
-#endif
 	}
+#endif
 
 #ifdef LHF_ENABLE_EVICTION
 	void evict_set(const Index &index) {
@@ -1695,7 +1719,7 @@ public:
 	 */
 	inline const PropertySet &get_value(const Index &index) const {
 		LHF_PROPERTY_SET_INDEX_VALID(index);
-#ifdef LHF_DEBUG
+#if defined(LHF_DEBUG) && defined(LHF_ENABLE_EVICTION)
 		if (is_evicted(index)) {
 			throw AssertError("Tried to access and evicted set");
 		}
@@ -1843,9 +1867,6 @@ public:
 
 			while (low <= high) {
 				long int mid = low + (high - low) / 2;
-				LHF_DEBUG(
-					assert(mid >= 0 && mid >= 0 && high >= 0);
-				);
 				if (equal_key(s[mid], prop)) {
 					return true;
 				} else if (less_key(s[mid], prop)) {
@@ -1901,7 +1922,7 @@ public:
 
 		auto result = unions.find({a.value, b.value});
 
-		if (!result.is_present() || is_evicted(result.get())) {
+		if (!result.is_present() LHF_EVICTION(|| is_evicted(result.get()))) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -1946,10 +1967,10 @@ public:
 			bool cold = false;
 			Index ret;
 
-			if (result.is_present() && is_evicted(result.get())) {
+			LHF_EVICTION(if (result.is_present() && is_evicted(result.get())) {
 				ret = result.get();
 				property_sets.at_mutable(ret).reassign(new PropertySet(std::move(new_set)));
-			} else {
+			} else) {
 				ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
 
 				unions.insert({{a.value, b.value}, ret.value});
@@ -2020,7 +2041,7 @@ public:
 
 		auto result = differences.find({a.value, b.value});
 
-		if (!result.is_present() || is_evicted(result.get())) {
+		if (!result.is_present() LHF_EVICTION(|| is_evicted(result.get()))) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -2059,10 +2080,10 @@ public:
 			bool cold = false;
 			Index ret;
 
-			if (result.is_present() && is_evicted(result.get())) {
+			LHF_EVICTION(if (result.is_present() && is_evicted(result.get())) {
 				ret = result.get();
 				property_sets.at_mutable(ret).reassign(new PropertySet(std::move(new_set)));
-			} else {
+			} else) {
 				ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
 				differences.insert({{a.value, b.value}, ret.value});
 
@@ -2167,7 +2188,7 @@ public:
 
 		auto result = intersections.find({a.value, b.value});
 
-		if (!result.is_present() || is_evicted(result.get())) {
+		if (!result.is_present() LHF_EVICTION(|| is_evicted(result.get()))) {
 			PropertySet new_set;
 			const PropertySet &first = get_value(a);
 			const PropertySet &second = get_value(b);
@@ -2202,10 +2223,10 @@ public:
 			bool cold = false;
 			Index ret;
 
-			if (result.is_present() && is_evicted(result.get())) {
+			LHF_EVICTION(if (result.is_present() && is_evicted(result.get())) {
 				ret = result.get();
 				property_sets.at_mutable(ret).reassign(new PropertySet(std::move(new_set)));
-			} else {
+			} else){
 				ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
 				intersections.insert({{a.value, b.value}, ret.value});
 
@@ -2265,7 +2286,7 @@ public:
 
 		auto result = cache.find(s.value);
 
-		if (!result.is_present() || is_evicted(result.get())) {
+		if (!result.is_present() LHF_EVICTION(|| is_evicted(result.get()))) {
 			PropertySet new_set;
 			for (const PropertyElement &value : get_value(s)) {
 				if (filter_func(value)) {
@@ -2276,10 +2297,10 @@ public:
 			bool cold;
 			Index ret;
 
-			if (result.is_present() && is_evicted(result.get())) {
+			LHF_EVICTION(if (result.is_present() && is_evicted(result.get())) {
 				ret = result.get();
 				property_sets.at_mutable(ret).reassign(new PropertySet(std::move(new_set)));
-			} else {
+			} else) {
 				ret = LHF_REGISTER_SET_INTERNAL(std::move(new_set), cold);
 				cache.insert(std::make_pair(s.value, ret.value));
 			}

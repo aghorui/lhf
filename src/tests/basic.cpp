@@ -249,6 +249,43 @@ TEST(LHF_BasicChecks, set_find_key_bsearch_tests) {
 	}
 }
 
+TEST(LHF_BasicChecks, set_insert_single_integrity) {
+	LHF l;
+
+	Index a = l.register_set({});
+	ASSERT_EQ(a.value, lhf::EMPTY_SET_VALUE);
+	a = l.set_insert_single(a, 1);
+	ASSERT_EQ(a, l.register_set({ 1 }));
+	a = l.set_insert_single(a, 9);
+	ASSERT_EQ(a, l.register_set({ 1, 9 }));
+	a = l.set_insert_single(a, 21313222);
+	ASSERT_EQ(a, l.register_set({ 1, 9, 21313222 }));
+	a = l.set_insert_single(a, -123);
+	ASSERT_EQ(a, l.register_set({ -123, 1, 9, 21313222 }));
+	a = l.set_insert_single(a, 4);
+	ASSERT_EQ(a, l.register_set({ -123, 1, 4, 9, 21313222 }));
+	a = l.set_insert_single(a, 3);
+	ASSERT_EQ(a, l.register_set({ -123, 1, 3, 4, 9, 21313222 }));
+}
+
+TEST(LHF_BasicChecks, set_remove_single_integrity) {
+	LHF l;
+
+	Index a = l.register_set({ -123, 1, 3, 4, 9, 21313222 });
+	a = l.set_remove_single(a, 1);
+	ASSERT_EQ(a, l.register_set({ -123, 3, 4, 9, 21313222 }));
+	a = l.set_remove_single(a, 9);
+	ASSERT_EQ(a, l.register_set({ -123, 3, 4, 21313222 }));
+	a = l.set_remove_single(a, 21313222);
+	ASSERT_EQ(a, l.register_set({ -123, 3, 4 }));
+	a = l.set_remove_single(a, -123);
+	ASSERT_EQ(a, l.register_set({ 3, 4 }));
+	a = l.set_remove_single(a, 4);
+	ASSERT_EQ(a, l.register_set({ 3 }));
+	a = l.set_remove_single(a, 3);
+	ASSERT_EQ(a.value, lhf::EMPTY_SET_VALUE);
+}
+
 #ifdef LHF_ENABLE_DEBUG
 TEST(LHF_BasicChecks, property_set_out_of_bounds_throws_exception) {
 	LHF l;
