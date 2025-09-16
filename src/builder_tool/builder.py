@@ -264,6 +264,7 @@ class Config:
 	"""
 	def __init__(self) -> None:
 		self.blueprintfile: Path = Path()
+		self.no_static: bool = False
 		self.include_files: List[Path] = []
 		self.compile_command: str = ""
 		self.include_dirs: List[Path] = []
@@ -285,6 +286,7 @@ class Config:
 		return \
 			 "Config {\n" + \
 			f"    Blp. file path: {self.blueprintfile}\n" \
+			f"    Static: {self.no_static}\n" \
 			f"    Include files: {self.include_files}\n" \
 			f"    Include dirs: {self.include_files}\n" \
 			f"    LHF header file path: {self.lhf_header}\n" \
@@ -379,13 +381,19 @@ def initialize_config() -> Config:
 		format='[%(levelname)s] %(message)s')
 
 	parser = argparse.ArgumentParser(
-		description="Convert an LHF blueprint description to code.",
+		description="Convert an LHF blueprint description to code. WARNING: "
+		            "This tool is experiemntal.",
 		epilog="clang-format must be installed in your system if you want "
 		       "the generated output to be fomatted automatically for you.")
 
 	parser.add_argument(
 		'bfile',
 		help="Path to the configuration/blueprint file")
+
+	parser.add_argument(
+		'--no-static', '-ns',
+		action='store_true',
+		help="Do not generate static global LHFs. Thread a state object instead.")
 
 	parser.add_argument(
 		'--include-file', '-i',
@@ -737,7 +745,7 @@ def get_names_from_node(
 			                 f"present in processed nodes but not yet present.")
 
 		if existing_defs[blp.value].entity_valid:
-			print("IMPLICIT NESTING")
+			# print("IMPLICIT NESTING")
 			return LHFClassDefinition(
 				is_tuple=False,
 				entity_valid=True,
@@ -749,7 +757,7 @@ def get_names_from_node(
 				dependencies=[]
 			)
 		else:
-			print("NO NESTING")
+			# print("NO NESTING")
 			return LHFClassDefinition(
 				is_tuple=False,
 				entity_valid=True,
@@ -838,7 +846,13 @@ def generate_output(
 	:returns:   Path to the output file
 	:rtype:     Path
 	"""
-	t: Template = tenv.get_template("lhf_definition.jinja2.cpp")
+
+	t: Template
+
+	if config.no_static:
+		t = tenv.get_template("lhf_definition.jinja2.cpp")
+	else:
+		t = tenv.get_template("lhf_definition_static.jinja2.cpp")
 
 	visited_nodes = set()
 

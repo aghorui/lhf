@@ -1693,6 +1693,67 @@ public:
 		}
 	}
 
+	template<typename Iterator, bool disable_integrity_check = false>
+	Index register_set(Iterator begin, Iterator end) {
+		__lhf_calc_functime(stat);
+
+		PropertySetHolder new_set(new PropertySet(begin, end));
+
+		if (!disable_integrity_check) {
+			LHF_PROPERTY_SET_INTEGRITY_VALID(*new_set.get());
+		}
+
+		auto result = property_set_map.find(new_set.get());
+
+		if (!result.is_present()) {
+			LHF_PERF_INC(property_sets, cold_misses);
+
+			Index ret = property_sets.push_back(std::move(new_set));
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
+			return ret;
+		}
+		LHF_EVICTION(else if (is_evicted(result.get())) {
+			property_sets.at_mutable(result.get()).reassign(std::move(new_set));
+			return Index(result.get());
+		})
+		else {
+			LHF_PERF_INC(property_sets, hits);
+			return Index(result.get());
+		}
+	}
+
+	template<typename Iterator, bool disable_integrity_check = false>
+	Index register_set(Iterator begin, Iterator end, bool &cold) {
+		__lhf_calc_functime(stat);
+
+		PropertySetHolder new_set(new PropertySet(begin, end));
+
+		if (!disable_integrity_check) {
+			LHF_PROPERTY_SET_INTEGRITY_VALID(*new_set.get());
+		}
+
+		auto result = property_set_map.find(new_set.get());
+
+		if (!result.is_present()) {
+			LHF_PERF_INC(property_sets, cold_misses);
+
+			Index ret = property_sets.push_back(std::move(new_set));
+			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
+			cold = true;
+			return ret;
+		}
+		LHF_EVICTION(else if (is_evicted(result.get())) {
+			property_sets.at_mutable(result.get()).reassign(std::move(new_set));
+			cold = false;
+			return Index(result.get());
+		})
+		else {
+			LHF_PERF_INC(property_sets, hits);
+			cold = false;
+			return Index(result.get());
+		}
+	}
+
 #ifdef LHF_ENABLE_EVICTION
 	bool is_evicted(const Index &index) const {
 		return property_sets.at(index.value).is_evicted();

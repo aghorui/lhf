@@ -286,6 +286,16 @@ TEST(LHF_BasicChecks, set_remove_single_integrity) {
 	ASSERT_EQ(a.value, lhf::EMPTY_SET_VALUE);
 }
 
+
+TEST(LHF_BasicChecks, register_set_iter_test) {
+	LHF l;
+	std::set<int> payload = { 1, 9, 2, 3, 4, 23, 7, 4, 4, 4, 4, 2 };
+	Index a = l.register_set(payload.begin(), payload.end());
+	Index b = l.register_set({ 1, 2, 3, 4, 7, 9, 23 });
+	ASSERT_EQ(a, b);
+}
+
+
 #ifdef LHF_ENABLE_DEBUG
 TEST(LHF_BasicChecks, property_set_out_of_bounds_throws_exception) {
 	LHF l;
