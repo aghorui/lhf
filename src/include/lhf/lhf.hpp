@@ -631,6 +631,11 @@ struct NestingNone {
 			return PropertyPrinter()(value);
 		}
 
+		friend std::ostream& operator<<(std::ostream& os, const PropertyElement& obj) {
+			os << obj.to_string();
+			return os;
+		}
+
 		struct Hash {
 			Size operator()(const PropertyElement &p) const {
 				return PropertyHash()(p.value);
