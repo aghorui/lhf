@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['operationnode_0',['OperationNode',['../dc/d7b/structlhf_1_1OperationNode.html',1,'lhf']]],
-  ['operationperf_1',['OperationPerf',['../d2/d00/structlhf_1_1OperationPerf.html',1,'lhf']]],
-  ['optional_2',['Optional',['../d9/d04/classlhf_1_1Optional.html',1,'lhf']]]
+  ['nestingbase_0',['NestingBase',['../dc/d6e/structlhf_1_1NestingBase.html',1,'lhf']]],
+  ['nestingnone_1',['NestingNone',['../d6/da2/structlhf_1_1NestingNone.html',1,'lhf']]]
 ];

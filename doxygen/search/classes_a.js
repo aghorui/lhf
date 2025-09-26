@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['performancestatistics_0',['PerformanceStatistics',['../dd/d7a/structlhf_1_1PerformanceStatistics.html',1,'lhf']]],
-  ['propertyelement_1',['propertyelement',['../db/d3d/structlhf_1_1NestingBase_1_1PropertyElement.html',1,'lhf::NestingBase&lt; PropertyT, ChildT &gt;::PropertyElement&lt; PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter &gt;'],['../d6/dd0/structlhf_1_1NestingNone_1_1PropertyElement.html',1,'lhf::NestingNone&lt; PropertyT &gt;::PropertyElement&lt; PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter &gt;']]]
+  ['operationnode_0',['OperationNode',['../dc/d7b/structlhf_1_1OperationNode.html',1,'lhf']]],
+  ['operationperf_1',['OperationPerf',['../d2/d00/structlhf_1_1OperationPerf.html',1,'lhf']]],
+  ['optional_2',['Optional',['../d9/d04/classlhf_1_1Optional.html',1,'lhf']]],
+  ['optionalref_3',['OptionalRef',['../d0/d5c/classlhf_1_1OptionalRef.html',1,'lhf']]]
 ];

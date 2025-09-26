@@ -1,9 +1,11 @@
 <map id="lhf::__CalcTime" name="lhf::__CalcTime">
-<area shape="rect" id="Node000001" title="The object used to enable the duration capturing mechanism." alt="" coords="123,183,238,208"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="29,95,109,120"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,127,167,180,164,185,93,131"/>
+<area shape="rect" id="Node000001" title="The object used to enable the duration capturing mechanism." alt="" coords="86,196,201,221"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="29,108,109,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="90,142,135,194,131,197,86,146"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,5,132,45"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="71,59,71,94,66,94,66,59"/>
-<area shape="rect" id="Node000004" href="$dd/d7a/structlhf_1_1PerformanceStatistics.html" title="Utility class for enabling code&#45;based profiling." alt="" coords="133,95,306,120"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="211,134,188,183,184,181,206,131"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="71,59,71,108,66,108,66,59"/>
+<area shape="rect" id="Node000004" href="$dd/d7a/structlhf_1_1PerformanceStatistics.html" title="Utility class for enabling code&#45;based profiling." alt="" coords="133,108,306,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="202,146,156,197,152,194,198,142"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="177,13,261,38"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="222,52,222,108,217,108,217,52"/>
 </map>

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['value_0',['value',['../d6/dd0/structlhf_1_1NestingNone_1_1PropertyElement.html#ae65f76864775ea83d761ff58f559af6f',1,'lhf::NestingNone::PropertyElement::value'],['../db/d3d/structlhf_1_1NestingBase_1_1PropertyElement.html#a4e32542c23fc5faeb083b3485537a689',1,'lhf::NestingBase::PropertyElement::value'],['../d4/dfc/structlhf_1_1LatticeHashForest_1_1Index.html#a424e18fa4926e63a013e6220ab670b9e',1,'lhf::LatticeHashForest::Index::value'],['../de/d22/structlhf_1_1Deduplicator_1_1Index.html#a7ea00de544b7c46a4073f7f62c3ecd2e',1,'lhf::Deduplicator::Index::value']]]
+  ['unions_0',['unions',['../dd/dad/classlhf_1_1LatticeHashForest.html#aacf138a80224da8795fa79b6445b46d8',1,'lhf::LatticeHashForest']]]
 ];

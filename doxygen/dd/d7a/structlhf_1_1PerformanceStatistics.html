@@ -78,6 +78,7 @@ $(function() {
 <a href="#nested-classes">Classes</a> &#124;
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="../../d5/dd9/structlhf_1_1PerformanceStatistics-members.html">List of all members</a>  </div>
   <div class="headertitle"><div class="title">lhf::PerformanceStatistics Struct Reference</div></div>
@@ -88,6 +89,16 @@ $(function() {
  <a href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Collaboration diagram for lhf::PerformanceStatistics:</div>
+<div class="dyncontent">
+<div class="center"><img src="../../d4/d9b/structlhf_1_1PerformanceStatistics__coll__graph.png" border="0" usemap="#alhf_1_1PerformanceStatistics_coll__map" alt="Collaboration graph"/></div>
+<map name="alhf_1_1PerformanceStatistics_coll__map" id="alhf_1_1PerformanceStatistics_coll__map">
+<area shape="rect" title="Utility class for enabling code&#45;based profiling." alt="" coords="5,93,179,119"/>
+<area shape="rect" title=" " alt="" coords="50,5,134,31"/>
+<area shape="poly" title=" " alt="" coords="95,45,95,93,89,93,89,45"/>
+</map>
+<center><span class="legend">[<a href="../../graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -105,6 +116,12 @@ Public Types</h2></td></tr>
 <tr class="memitem:a9ff3ceb32841be951ad2f34e70d31ebf" id="r_a9ff3ceb32841be951ad2f34e70d31ebf"><td class="memTemplParams" colspan="2">template&lt;typename K , typename V &gt; </td></tr>
 <tr class="memitem:a9ff3ceb32841be951ad2f34e70d31ebf"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a9ff3ceb32841be951ad2f34e70d31ebf">Map</a> = std::map&lt; K, V &gt;</td></tr>
 <tr class="separator:a9ff3ceb32841be951ad2f34e70d31ebf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aacfedcba9bc5e0997b37c4cb70333444" id="r_aacfedcba9bc5e0997b37c4cb70333444"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#aacfedcba9bc5e0997b37c4cb70333444">Mutex</a> = std::mutex</td></tr>
+<tr class="separator:aacfedcba9bc5e0997b37c4cb70333444"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa53207786287150039bb2f92dd04da6f" id="r_aa53207786287150039bb2f92dd04da6f"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#aa53207786287150039bb2f92dd04da6f">WriteLock</a> = std::lock_guard&lt; std::mutex &gt;</td></tr>
+<tr class="separator:aa53207786287150039bb2f92dd04da6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0309fde14819006efd34a9d1e3d5b69c" id="r_a0309fde14819006efd34a9d1e3d5b69c"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a0309fde14819006efd34a9d1e3d5b69c">ThreadID</a> = std::thread::id</td></tr>
+<tr class="separator:a0309fde14819006efd34a9d1e3d5b69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -121,17 +138,24 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aab9702606a10cf87b10c832c8e0fb055" id="r_aab9702606a10cf87b10c832c8e0fb055"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#ab5cb9cb066ac50a1a7a26b8cf3811625">String</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#aab9702606a10cf87b10c832c8e0fb055">dump</a> () const</td></tr>
 <tr class="separator:aab9702606a10cf87b10c832c8e0fb055"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a44d14a20ba3ccf4746abf2c2b7c5a281" id="r_a44d14a20ba3ccf4746abf2c2b7c5a281"><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a0309fde14819006efd34a9d1e3d5b69c">ThreadID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a44d14a20ba3ccf4746abf2c2b7c5a281">currthread</a> ()</td></tr>
+<tr class="separator:a44d14a20ba3ccf4746abf2c2b7c5a281"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
+<tr class="memitem:a1ab22b291709b07b024d3f4953fe210c" id="r_a1ab22b291709b07b024d3f4953fe210c"><td class="memItemLeft" align="right" valign="top">std::mutex&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a1ab22b291709b07b024d3f4953fe210c">mutex</a></td></tr>
+<tr class="separator:a1ab22b291709b07b024d3f4953fe210c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad305303eb6b03b2c54793666e330828a" id="r_ad305303eb6b03b2c54793666e330828a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a9ff3ceb32841be951ad2f34e70d31ebf">Map</a>&lt; <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#ab5cb9cb066ac50a1a7a26b8cf3811625">String</a>, <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#ad8a796c0062a50adf083f83752e45e91">Count</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#ad305303eb6b03b2c54793666e330828a">counters</a></td></tr>
 <tr class="separator:ad305303eb6b03b2c54793666e330828a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84a3a468995c787b7acff8a374d61ba0" id="r_a84a3a468995c787b7acff8a374d61ba0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a9ff3ceb32841be951ad2f34e70d31ebf">Map</a>&lt; <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#ab5cb9cb066ac50a1a7a26b8cf3811625">String</a>, <a class="el" href="../../d1/d0b/structlhf_1_1PerformanceStatistics_1_1Duration.html">Duration</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a84a3a468995c787b7acff8a374d61ba0">timers</a></td></tr>
-<tr class="separator:a84a3a468995c787b7acff8a374d61ba0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af343e364908375bef205206c98efdb1f" id="r_af343e364908375bef205206c98efdb1f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a9ff3ceb32841be951ad2f34e70d31ebf">Map</a>&lt; <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a0309fde14819006efd34a9d1e3d5b69c">ThreadID</a>, <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a9ff3ceb32841be951ad2f34e70d31ebf">Map</a>&lt; <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#ab5cb9cb066ac50a1a7a26b8cf3811625">String</a>, <a class="el" href="../../d1/d0b/structlhf_1_1PerformanceStatistics_1_1Duration.html">Duration</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#af343e364908375bef205206c98efdb1f">timers</a></td></tr>
+<tr class="separator:af343e364908375bef205206c98efdb1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Utility class for enabling code-based profiling. </p>
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00022">22</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="ad8a796c0062a50adf083f83752e45e91" name="ad8a796c0062a50adf083f83752e45e91"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8a796c0062a50adf083f83752e45e91">&#9670;&#160;</a></span>Count</h2>
@@ -145,7 +169,7 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00023">23</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00027">27</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
 </div>
 </div>
@@ -163,7 +187,23 @@ template&lt;typename K , typename V &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00026">26</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00030">30</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aacfedcba9bc5e0997b37c4cb70333444" name="aacfedcba9bc5e0997b37c4cb70333444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aacfedcba9bc5e0997b37c4cb70333444">&#9670;&#160;</a></span>Mutex</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#aacfedcba9bc5e0997b37c4cb70333444">lhf::PerformanceStatistics::Mutex</a> =  std::mutex</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00032">32</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
 </div>
 </div>
@@ -179,7 +219,23 @@ template&lt;typename K , typename V &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00024">24</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00028">28</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+
+</div>
+</div>
+<a id="a0309fde14819006efd34a9d1e3d5b69c" name="a0309fde14819006efd34a9d1e3d5b69c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0309fde14819006efd34a9d1e3d5b69c">&#9670;&#160;</a></span>ThreadID</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a0309fde14819006efd34a9d1e3d5b69c">lhf::PerformanceStatistics::ThreadID</a> =  std::thread::id</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00034">34</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
 </div>
 </div>
@@ -195,11 +251,54 @@ template&lt;typename K , typename V &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00025">25</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00029">29</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa53207786287150039bb2f92dd04da6f" name="aa53207786287150039bb2f92dd04da6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa53207786287150039bb2f92dd04da6f">&#9670;&#160;</a></span>WriteLock</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">using <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#aa53207786287150039bb2f92dd04da6f">lhf::PerformanceStatistics::WriteLock</a> =  std::lock_guard&lt;std::mutex&gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00033">33</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a44d14a20ba3ccf4746abf2c2b7c5a281" name="a44d14a20ba3ccf4746abf2c2b7c5a281"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44d14a20ba3ccf4746abf2c2b7c5a281">&#9670;&#160;</a></span>currthread()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static const <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a0309fde14819006efd34a9d1e3d5b69c">ThreadID</a> lhf::PerformanceStatistics::currthread </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00059">59</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+
+</div>
+</div>
 <a id="aab9702606a10cf87b10c832c8e0fb055" name="aab9702606a10cf87b10c832c8e0fb055"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aab9702606a10cf87b10c832c8e0fb055">&#9670;&#160;</a></span>dump()</h2>
 
@@ -223,9 +322,9 @@ template&lt;typename K , typename V &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00087">87</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00109">109</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01859">lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting &gt;::dump_perf()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../df/d10/lhf_8hpp_source.html#l02458">lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting, BLOCK_SIZE, BLOCK_MASK &gt;::dump_perf()</a>.</p>
 
 </div>
 </div>
@@ -253,9 +352,9 @@ template&lt;typename K , typename V &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00094">94</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00083">inc_counter()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00102">inc_counter()</a>.</p>
 
 </div>
 </div>
@@ -283,9 +382,9 @@ template&lt;typename K , typename V &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00050">50</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00063">63</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00065">timer_end()</a>, and <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00058">timer_start()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00083">timer_end()</a>, and <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00075">timer_start()</a>.</p>
 
 </div>
 </div>
@@ -313,7 +412,7 @@ template&lt;typename K , typename V &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00083">83</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00102">102</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
 </div>
 </div>
@@ -341,9 +440,9 @@ template&lt;typename K , typename V &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00065">65</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00083">83</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00122">lhf::__CalcTime::~__CalcTime()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00150">lhf::__CalcTime::~__CalcTime()</a>.</p>
 
 </div>
 </div>
@@ -371,9 +470,9 @@ template&lt;typename K , typename V &gt; </div>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00058">58</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00075">75</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00119">lhf::__CalcTime::__CalcTime()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00146">lhf::__CalcTime::__CalcTime()</a>.</p>
 
 </div>
 </div>
@@ -390,27 +489,45 @@ template&lt;typename K , typename V &gt; </div>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00045">45</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00054">54</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00087">dump()</a>, and <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00075">get_counter()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00109">dump()</a>, and <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00094">get_counter()</a>.</p>
 
 </div>
 </div>
-<a id="a84a3a468995c787b7acff8a374d61ba0" name="a84a3a468995c787b7acff8a374d61ba0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84a3a468995c787b7acff8a374d61ba0">&#9670;&#160;</a></span>timers</h2>
+<a id="a1ab22b291709b07b024d3f4953fe210c" name="a1ab22b291709b07b024d3f4953fe210c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1ab22b291709b07b024d3f4953fe210c">&#9670;&#160;</a></span>mutex</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a9ff3ceb32841be951ad2f34e70d31ebf">Map</a>&lt;<a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#ab5cb9cb066ac50a1a7a26b8cf3811625">String</a>, <a class="el" href="../../d1/d0b/structlhf_1_1PerformanceStatistics_1_1Duration.html">Duration</a>&gt; lhf::PerformanceStatistics::timers</td>
+          <td class="memname">std::mutex lhf::PerformanceStatistics::mutex</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00046">46</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00036">36</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00087">dump()</a>, and <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00050">get_timer()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00102">inc_counter()</a>, <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00083">timer_end()</a>, and <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00075">timer_start()</a>.</p>
+
+</div>
+</div>
+<a id="af343e364908375bef205206c98efdb1f" name="af343e364908375bef205206c98efdb1f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af343e364908375bef205206c98efdb1f">&#9670;&#160;</a></span>timers</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a9ff3ceb32841be951ad2f34e70d31ebf">Map</a>&lt;<a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a0309fde14819006efd34a9d1e3d5b69c">ThreadID</a>, <a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#a9ff3ceb32841be951ad2f34e70d31ebf">Map</a>&lt;<a class="el" href="../../dd/d7a/structlhf_1_1PerformanceStatistics.html#ab5cb9cb066ac50a1a7a26b8cf3811625">String</a>, <a class="el" href="../../d1/d0b/structlhf_1_1PerformanceStatistics_1_1Duration.html">Duration</a>&gt; &gt; lhf::PerformanceStatistics::timers</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00055">55</a> of file <a class="el" href="../../d2/de4/profiling_8hpp_source.html">profiling.hpp</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00109">dump()</a>, and <a class="el" href="../../d2/de4/profiling_8hpp_source.html#l00063">get_timer()</a>.</p>
 
 </div>
 </div>

@@ -107,7 +107,7 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-types" name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:af0ee555533d7e023871bafd75c90e276" id="r_af0ee555533d7e023871bafd75c90e276"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d75/structlhf_1_1Deduplicator.html#af0ee555533d7e023871bafd75c90e276">PropertyMap</a> = std::unordered_map&lt; PropertyT *, <a class="el" href="../../db/de7/namespacelhf.html#a123764939316c473285acb3243bf403a">IndexValue</a>, PropertyHash, PropertyEqual &gt;</td></tr>
+<tr class="memitem:af0ee555533d7e023871bafd75c90e276" id="r_af0ee555533d7e023871bafd75c90e276"><td class="memItemLeft" align="right" valign="top">using&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d75/structlhf_1_1Deduplicator.html#af0ee555533d7e023871bafd75c90e276">PropertyMap</a> = std::unordered_map&lt; PropertyT *, <a class="el" href="../../db/de7/namespacelhf.html#ac3f9d4ac7f62c36b7e290272f2e6dbd9">IndexValue</a>, PropertyHash, PropertyEqual &gt;</td></tr>
 <tr class="separator:af0ee555533d7e023871bafd75c90e276"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -141,7 +141,7 @@ struct lhf::Deduplicator&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqua
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01893">1893</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l02492">2492</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 </div><h2 class="groupheader">Member Typedef Documentation</h2>
 <a id="af0ee555533d7e023871bafd75c90e276" name="af0ee555533d7e023871bafd75c90e276"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af0ee555533d7e023871bafd75c90e276">&#9670;&#160;</a></span>PropertyMap</h2>
@@ -152,12 +152,12 @@ struct lhf::Deduplicator&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqua
 template&lt;typename PropertyT , typename PropertyLess  = DefaultLess&lt;PropertyT&gt;, typename PropertyHash  = DefaultHash&lt;PropertyT&gt;, typename PropertyEqual  = DefaultEqual&lt;PropertyT&gt;, typename PropertyPrinter  = DefaultPrinter&lt;PropertyT&gt;&gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">using <a class="el" href="../../d0/d75/structlhf_1_1Deduplicator.html">lhf::Deduplicator</a>&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter &gt;::PropertyMap =  std::unordered_map&lt; PropertyT *, <a class="el" href="../../db/de7/namespacelhf.html#a123764939316c473285acb3243bf403a">IndexValue</a>, PropertyHash, PropertyEqual&gt;</td>
+          <td class="memname">using <a class="el" href="../../d0/d75/structlhf_1_1Deduplicator.html">lhf::Deduplicator</a>&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter &gt;::PropertyMap =  std::unordered_map&lt; PropertyT *, <a class="el" href="../../db/de7/namespacelhf.html#ac3f9d4ac7f62c36b7e290272f2e6dbd9">IndexValue</a>, PropertyHash, PropertyEqual&gt;</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01925">1925</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l02524">2524</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -196,9 +196,9 @@ template&lt;typename PropertyT , typename PropertyLess  = DefaultLess&lt;Propert
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../de/d22/structlhf_1_1Deduplicator_1_1Index.html" title="Index returned by an operation. The struct ensures type safety and possible future extensions.">Index</a> of the newly created/existing set.</dd></dl>
-<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000005">Todo:</a></b></dt><dd>Check whether the cache hit check can be removed. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="../../dd/da0/todo.html#_todo000003">Todo:</a></b></dt><dd>Check whether the cache hit check can be removed. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01947">1947</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l02546">2546</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -217,9 +217,7 @@ template&lt;typename PropertyT , typename PropertyLess  = DefaultLess&lt;Propert
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01932">1932</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01947">lhf::Deduplicator&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter &gt;::register_value()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l02531">2531</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
@@ -237,9 +235,7 @@ template&lt;typename PropertyT , typename PropertyLess  = DefaultLess&lt;Propert
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01935">1935</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01947">lhf::Deduplicator&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter &gt;::register_value()</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l02534">2534</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>

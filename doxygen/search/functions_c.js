@@ -1,12 +1,6 @@
 var searchData=
 [
-  ['set_5fdifference_0',['set_difference',['../dd/dad/classlhf_1_1LatticeHashForest.html#acffab21d3047d10eea4fffe6fedcf069',1,'lhf::LatticeHashForest']]],
-  ['set_5ffilter_1',['set_filter',['../dd/dad/classlhf_1_1LatticeHashForest.html#a9020564ce72e7b72c556545dd4d5bd66',1,'lhf::LatticeHashForest']]],
-  ['set_5finsert_5fsingle_2',['set_insert_single',['../dd/dad/classlhf_1_1LatticeHashForest.html#a29378bdf520052e37b44f8d5320368c5',1,'lhf::LatticeHashForest']]],
-  ['set_5fintersection_3',['set_intersection',['../dd/dad/classlhf_1_1LatticeHashForest.html#a7068b865849a35f4ef91d4456d39daad',1,'lhf::LatticeHashForest']]],
-  ['set_5fremove_5fsingle_4',['set_remove_single',['../dd/dad/classlhf_1_1LatticeHashForest.html#a2b6b56aa5d5a7b61a04e81a7fa0f80a0',1,'lhf::LatticeHashForest']]],
-  ['set_5fremove_5fsingle_5fkey_5',['set_remove_single_key',['../dd/dad/classlhf_1_1LatticeHashForest.html#ade133653f482ffa655451635d4a61825',1,'lhf::LatticeHashForest']]],
-  ['set_5funion_6',['set_union',['../dd/dad/classlhf_1_1LatticeHashForest.html#a9be3699d5d3c3c10be6e604584adf173',1,'lhf::LatticeHashForest']]],
-  ['size_5fof_7',['size_of',['../dd/dad/classlhf_1_1LatticeHashForest.html#a7b22da80f8872bd7e633ddd6a05fd735',1,'lhf::LatticeHashForest']]],
-  ['store_5fsubset_8',['store_subset',['../dd/dad/classlhf_1_1LatticeHashForest.html#a3750d5ffcc41989ea1461729b9ee455a',1,'lhf::LatticeHashForest']]]
+  ['register_5fset_0',['register_set',['../dd/dad/classlhf_1_1LatticeHashForest.html#a0259dc2006087b14efde06355f120e0c',1,'lhf::LatticeHashForest::register_set(const PropertySet &amp;c)'],['../dd/dad/classlhf_1_1LatticeHashForest.html#a1005e6e4e1b5c19fec9f4071d561e0bd',1,'lhf::LatticeHashForest::register_set(const PropertySet &amp;c, bool &amp;cold)'],['../dd/dad/classlhf_1_1LatticeHashForest.html#a6b5f3bc003112c838039a2f45fb4f970',1,'lhf::LatticeHashForest::register_set(PropertySet &amp;&amp;c)'],['../dd/dad/classlhf_1_1LatticeHashForest.html#a4b788c4b79910af2e4eddde6ce8db81a',1,'lhf::LatticeHashForest::register_set(PropertySet &amp;&amp;c, bool &amp;cold)'],['../dd/dad/classlhf_1_1LatticeHashForest.html#a6054e0d6e931f7cc36657b39c43a127f',1,'lhf::LatticeHashForest::register_set(Iterator begin, Iterator end)'],['../dd/dad/classlhf_1_1LatticeHashForest.html#abed479b7327106fc5b63899493124cf1',1,'lhf::LatticeHashForest::register_set(Iterator begin, Iterator end, bool &amp;cold)']]],
+  ['register_5fset_5fsingle_1',['register_set_single',['../dd/dad/classlhf_1_1LatticeHashForest.html#a59b42939a125b07b4f4ca7deaf7fe232',1,'lhf::LatticeHashForest::register_set_single(const PropertyElement &amp;c)'],['../dd/dad/classlhf_1_1LatticeHashForest.html#aef08909988dfa97447423d3f5fa5ff46',1,'lhf::LatticeHashForest::register_set_single(const PropertyElement &amp;c, bool &amp;cold)']]],
+  ['register_5fvalue_2',['register_value',['../d0/d75/structlhf_1_1Deduplicator.html#a313a2c75263142d1595b1f4abc063123',1,'lhf::Deduplicator']]]
 ];

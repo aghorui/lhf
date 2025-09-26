@@ -88,8 +88,11 @@ This graph shows which files directly or indirectly include this file:</div>
 <div class="center"><img src="../../dc/dfa/lhf__config_8hpp__dep__incl.png" border="0" usemap="#asrc_2include_2lhf_2lhf__config_8hppdep" alt=""/></div>
 <map name="asrc_2include_2lhf_2lhf__config_8hppdep" id="asrc_2include_2lhf_2lhf__config_8hppdep">
 <area shape="rect" title="Any configurable constants go into this file." alt="" coords="18,5,139,45"/>
-<area shape="rect" href="../../df/d10/lhf_8hpp.html" title="Defines the LatticeHashForest structure and related tools." alt="" coords="5,93,152,119"/>
-<area shape="poly" title=" " alt="" coords="81,59,81,93,76,93,76,59"/>
+<area shape="rect" href="../../df/d10/lhf_8hpp.html" title="Defines the LatticeHashForest structure and related tools." alt="" coords="5,167,152,192"/>
+<area shape="poly" title=" " alt="" coords="58,58,45,87,42,103,44,118,56,144,71,165,66,168,51,146,39,119,37,103,39,86,53,56"/>
+<area shape="rect" href="../../d2/de4/profiling_8hpp.html" title="Enables basic code&#45;based profiling metrics in LHF." alt="" coords="54,93,231,119"/>
+<area shape="poly" title=" " alt="" coords="105,54,135,91,131,95,101,58"/>
+<area shape="poly" title=" " alt="" coords="125,131,91,168,87,165,121,127"/>
 </map>
 </div>
 </div>
@@ -99,6 +102,10 @@ This graph shows which files directly or indirectly include this file:</div>
 Macros</h2></td></tr>
 <tr class="memitem:a2997d62e2c24dc62dabe567e53c06c25" id="r_a2997d62e2c24dc62dabe567e53c06c25"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d33/lhf__config_8hpp.html#a2997d62e2c24dc62dabe567e53c06c25">LHF_SORTED_VECTOR_BINARY_SEARCH_THRESHOLD</a>&#160;&#160;&#160;12</td></tr>
 <tr class="separator:a2997d62e2c24dc62dabe567e53c06c25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa6e67006cd059d584595280ea2a06a18" id="r_aa6e67006cd059d584595280ea2a06a18"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d33/lhf__config_8hpp.html#aa6e67006cd059d584595280ea2a06a18">LHF_DEFAULT_BLOCK_SIZE</a>&#160;&#160;&#160;(1 &lt;&lt; 5)</td></tr>
+<tr class="separator:aa6e67006cd059d584595280ea2a06a18"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdcbeddaed4dec3ced6fd18c8f1babab" id="r_acdcbeddaed4dec3ced6fd18c8f1babab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d33/lhf__config_8hpp.html#acdcbeddaed4dec3ced6fd18c8f1babab">LHF_DEFAULT_BLOCK_MASK</a>&#160;&#160;&#160;(<a class="el" href="../../d3/d33/lhf__config_8hpp.html#aa6e67006cd059d584595280ea2a06a18">LHF_DEFAULT_BLOCK_SIZE</a> - 1)</td></tr>
+<tr class="separator:acdcbeddaed4dec3ced6fd18c8f1babab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a59087eae83d2952760b18365ebb90fd1" id="r_a59087eae83d2952760b18365ebb90fd1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d3/d33/lhf__config_8hpp.html#a59087eae83d2952760b18365ebb90fd1">LHF_DISABLE_INTERNAL_INTEGRITY_CHECK</a>&#160;&#160;&#160;true</td></tr>
 <tr class="separator:a59087eae83d2952760b18365ebb90fd1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -107,6 +114,38 @@ Macros</h2></td></tr>
 
 <p class="definition">Definition in file <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html">lhf_config.hpp</a>.</p>
 </div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="acdcbeddaed4dec3ced6fd18c8f1babab" name="acdcbeddaed4dec3ced6fd18c8f1babab"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdcbeddaed4dec3ced6fd18c8f1babab">&#9670;&#160;</a></span>LHF_DEFAULT_BLOCK_MASK</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LHF_DEFAULT_BLOCK_MASK&#160;&#160;&#160;(<a class="el" href="../../d3/d33/lhf__config_8hpp.html#aa6e67006cd059d584595280ea2a06a18">LHF_DEFAULT_BLOCK_SIZE</a> - 1)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html#l00011">11</a> of file <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html">lhf_config.hpp</a>.</p>
+
+</div>
+</div>
+<a id="aa6e67006cd059d584595280ea2a06a18" name="aa6e67006cd059d584595280ea2a06a18"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa6e67006cd059d584595280ea2a06a18">&#9670;&#160;</a></span>LHF_DEFAULT_BLOCK_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LHF_DEFAULT_BLOCK_SIZE&#160;&#160;&#160;(1 &lt;&lt; 5)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html">lhf_config.hpp</a>.</p>
+
+</div>
+</div>
 <a id="a59087eae83d2952760b18365ebb90fd1" name="a59087eae83d2952760b18365ebb90fd1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a59087eae83d2952760b18365ebb90fd1">&#9670;&#160;</a></span>LHF_DISABLE_INTERNAL_INTEGRITY_CHECK</h2>
 
@@ -119,7 +158,7 @@ Macros</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html#l00010">10</a> of file <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html">lhf_config.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html#l00012">12</a> of file <a class="el" href="../../d3/d33/lhf__config_8hpp_source.html">lhf_config.hpp</a>.</p>
 
 </div>
 </div>

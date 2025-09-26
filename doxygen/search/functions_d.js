@@ -1,6 +1,13 @@
 var searchData=
 [
-  ['timer_5fend_0',['timer_end',['../dd/d7a/structlhf_1_1PerformanceStatistics.html#a5fbb9b9d480db281044ed919e1fbd249',1,'lhf::PerformanceStatistics']]],
-  ['timer_5fstart_1',['timer_start',['../dd/d7a/structlhf_1_1PerformanceStatistics.html#af522ff071db5302466309e0ccdd93015',1,'lhf::PerformanceStatistics']]],
-  ['to_5fstring_2',['to_string',['../dc/d7b/structlhf_1_1OperationNode.html#a93bc7a90a0eb85b320c0a9ed500882a4',1,'lhf::OperationNode::to_string()'],['../d6/dd0/structlhf_1_1NestingNone_1_1PropertyElement.html#add3103a736fe5fafb91d0ad603b48fd2',1,'lhf::NestingNone::PropertyElement::to_string()'],['../db/d3d/structlhf_1_1NestingBase_1_1PropertyElement.html#a0f363bdccfe2934f0fe667c51a10805f',1,'lhf::NestingBase::PropertyElement::to_string()'],['../d2/d00/structlhf_1_1OperationPerf.html#a1416868bf093caeebe39d1d161cc5f4b',1,'lhf::OperationPerf::to_string()'],['../d4/dfc/structlhf_1_1LatticeHashForest_1_1Index.html#adac54d3a0c2bf6c8be276c093a93c7d9',1,'lhf::LatticeHashForest::Index::to_string()']]]
+  ['set_5fdifference_0',['set_difference',['../dd/dad/classlhf_1_1LatticeHashForest.html#ae43572fdfee82f7fdb5cab2eaf5515c7',1,'lhf::LatticeHashForest']]],
+  ['set_5ffilter_1',['set_filter',['../dd/dad/classlhf_1_1LatticeHashForest.html#a5b415f04c1cfc885c5ad9ba68dac3c81',1,'lhf::LatticeHashForest']]],
+  ['set_5finsert_5fsingle_2',['set_insert_single',['../dd/dad/classlhf_1_1LatticeHashForest.html#a72927a4d2c74a77000dea255e96348bc',1,'lhf::LatticeHashForest']]],
+  ['set_5fintersection_3',['set_intersection',['../dd/dad/classlhf_1_1LatticeHashForest.html#a69ed244273966f40c26e0e169de9d608',1,'lhf::LatticeHashForest']]],
+  ['set_5fremove_5fsingle_4',['set_remove_single',['../dd/dad/classlhf_1_1LatticeHashForest.html#a133c84a4320cd0a792dbbdd2d0d30884',1,'lhf::LatticeHashForest']]],
+  ['set_5fremove_5fsingle_5fkey_5',['set_remove_single_key',['../dd/dad/classlhf_1_1LatticeHashForest.html#a97e98a2110c9f97aea7c53defcd34396',1,'lhf::LatticeHashForest']]],
+  ['set_5funion_6',['set_union',['../dd/dad/classlhf_1_1LatticeHashForest.html#a3f1b27b5c885657d3fa1b00f99f34b65',1,'lhf::LatticeHashForest']]],
+  ['size_7',['size',['../d7/d07/classlhf_1_1MapAdapter.html#a693352ada2f2b12a07f87751f9c821c8',1,'lhf::MapAdapter::size()'],['../d9/d8c/classlhf_1_1LatticeHashForest_1_1PropertySetStorage.html#ae391ef4814c037681040683d9653e168',1,'lhf::LatticeHashForest::PropertySetStorage::size()']]],
+  ['size_5fof_8',['size_of',['../dd/dad/classlhf_1_1LatticeHashForest.html#adaaee05b18ce9d8f802b63301800cca2',1,'lhf::LatticeHashForest']]],
+  ['store_5fsubset_9',['store_subset',['../dd/dad/classlhf_1_1LatticeHashForest.html#a3dfa1eba913472b808493e2a06d2ff92',1,'lhf::LatticeHashForest']]]
 ];

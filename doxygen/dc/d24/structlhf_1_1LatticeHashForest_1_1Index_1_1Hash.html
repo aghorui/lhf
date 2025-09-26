@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>LatticeHashForest: lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting &gt;::Index::Hash Struct Reference</title>
+<title>LatticeHashForest: lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting, BLOCK_SIZE, BLOCK_MASK &gt;::Index::Hash Struct Reference</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -77,7 +77,7 @@ $(function() {
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="../../db/d60/structlhf_1_1LatticeHashForest_1_1Index_1_1Hash-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting &gt;::Index::Hash Struct Reference</div></div>
+  <div class="headertitle"><div class="title">lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting, BLOCK_SIZE, BLOCK_MASK &gt;::Index::Hash Struct Reference</div></div>
 </div><!--header-->
 <div class="contents">
 
@@ -85,27 +85,27 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a99eb8ba8c8d24861ee29ffcf13e45c2d" id="r_a99eb8ba8c8d24861ee29ffcf13e45c2d"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d24/structlhf_1_1LatticeHashForest_1_1Index_1_1Hash.html#a99eb8ba8c8d24861ee29ffcf13e45c2d">operator()</a> (const <a class="el" href="../../d4/dfc/structlhf_1_1LatticeHashForest_1_1Index.html">Index</a> &amp;idx) const</td></tr>
-<tr class="separator:a99eb8ba8c8d24861ee29ffcf13e45c2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3870607fc5f36bb7ae43591ba1a95202" id="r_a3870607fc5f36bb7ae43591ba1a95202"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/de7/namespacelhf.html#aaec8d7d59363cbc0e6e453fa9c632c2b">Size</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/d24/structlhf_1_1LatticeHashForest_1_1Index_1_1Hash.html#a3870607fc5f36bb7ae43591ba1a95202">operator()</a> (const <a class="el" href="../../d4/dfc/structlhf_1_1LatticeHashForest_1_1Index.html">Index</a> &amp;idx) const</td></tr>
+<tr class="separator:a3870607fc5f36bb7ae43591ba1a95202"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename PropertyT, typename PropertyLess = DefaultLess&lt;PropertyT&gt;, typename PropertyHash = DefaultHash&lt;PropertyT&gt;, typename PropertyEqual = DefaultEqual&lt;PropertyT&gt;, typename PropertyPrinter = DefaultPrinter&lt;PropertyT&gt;, typename Nesting = NestingNone&lt;PropertyT&gt;&gt;<br />
-struct lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting &gt;::Index::Hash</div>
-<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00882">882</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
+<div class="textblock"><div class="compoundTemplParams">template&lt;typename PropertyT, typename PropertyLess = DefaultLess&lt;PropertyT&gt;, typename PropertyHash = DefaultHash&lt;PropertyT&gt;, typename PropertyEqual = DefaultEqual&lt;PropertyT&gt;, typename PropertyPrinter = DefaultPrinter&lt;PropertyT&gt;, typename Nesting = NestingNone&lt;PropertyT&gt;, <a class="el" href="../../db/de7/namespacelhf.html#aaec8d7d59363cbc0e6e453fa9c632c2b">Size</a> BLOCK_SIZE = LHF_DEFAULT_BLOCK_SIZE, <a class="el" href="../../db/de7/namespacelhf.html#aaec8d7d59363cbc0e6e453fa9c632c2b">Size</a> BLOCK_MASK = LHF_DEFAULT_BLOCK_MASK&gt;<br />
+struct lhf::LatticeHashForest&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting, BLOCK_SIZE, BLOCK_MASK &gt;::Index::Hash</div>
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01139">1139</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="a99eb8ba8c8d24861ee29ffcf13e45c2d" name="a99eb8ba8c8d24861ee29ffcf13e45c2d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99eb8ba8c8d24861ee29ffcf13e45c2d">&#9670;&#160;</a></span>operator()()</h2>
+<a id="a3870607fc5f36bb7ae43591ba1a95202" name="a3870607fc5f36bb7ae43591ba1a95202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3870607fc5f36bb7ae43591ba1a95202">&#9670;&#160;</a></span>operator()()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename PropertyT , typename PropertyLess  = DefaultLess&lt;PropertyT&gt;, typename PropertyHash  = DefaultHash&lt;PropertyT&gt;, typename PropertyEqual  = DefaultEqual&lt;PropertyT&gt;, typename PropertyPrinter  = DefaultPrinter&lt;PropertyT&gt;, typename Nesting  = NestingNone&lt;PropertyT&gt;&gt; </div>
+template&lt;typename PropertyT , typename PropertyLess  = DefaultLess&lt;PropertyT&gt;, typename PropertyHash  = DefaultHash&lt;PropertyT&gt;, typename PropertyEqual  = DefaultEqual&lt;PropertyT&gt;, typename PropertyPrinter  = DefaultPrinter&lt;PropertyT&gt;, typename Nesting  = NestingNone&lt;PropertyT&gt;, <a class="el" href="../../db/de7/namespacelhf.html#aaec8d7d59363cbc0e6e453fa9c632c2b">Size</a> BLOCK_SIZE = LHF_DEFAULT_BLOCK_SIZE, <a class="el" href="../../db/de7/namespacelhf.html#aaec8d7d59363cbc0e6e453fa9c632c2b">Size</a> BLOCK_MASK = LHF_DEFAULT_BLOCK_MASK&gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::size_t <a class="el" href="../../dd/dad/classlhf_1_1LatticeHashForest.html">lhf::LatticeHashForest</a>&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting &gt;::Index::Hash::operator() </td>
+          <td class="memname"><a class="el" href="../../db/de7/namespacelhf.html#aaec8d7d59363cbc0e6e453fa9c632c2b">Size</a> <a class="el" href="../../dd/dad/classlhf_1_1LatticeHashForest.html">lhf::LatticeHashForest</a>&lt; PropertyT, PropertyLess, PropertyHash, PropertyEqual, PropertyPrinter, Nesting, BLOCK_SIZE, BLOCK_MASK &gt;::Index::Hash::operator() </td>
           <td>(</td>
           <td class="paramtype">const <a class="el" href="../../d4/dfc/structlhf_1_1LatticeHashForest_1_1Index.html">Index</a> &amp;&#160;</td>
           <td class="paramname"><em>idx</em></td><td>)</td>
@@ -119,7 +119,7 @@ template&lt;typename PropertyT , typename PropertyLess  = DefaultLess&lt;Propert
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l00883">883</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="../../df/d10/lhf_8hpp_source.html#l01140">1140</a> of file <a class="el" href="../../df/d10/lhf_8hpp_source.html">lhf.hpp</a>.</p>
 
 </div>
 </div>
