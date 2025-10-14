@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.4.1
+
+- `1ac8865`
+- Bugfixes and structural improvements.
+
 ## 0.4.0
 
 - `3f430a2`

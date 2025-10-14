@@ -17,8 +17,8 @@ from jinja2 import FileSystemLoader, Environment, Template, StrictUndefined
 
 # CONSTANTS #
 
-BUILDER_VERSION = "0.1.0"
-LHF_SUPPORTED_VERSION = "0.2.0"
+BUILDER_VERSION = "0.1.1"
+LHF_SUPPORTED_VERSION = "0.4.1"
 
 INPUT_GRAMMAR_SCHEMA_PATH: str = "schema.json"
 TEMPLATE_PATH: str = 'templates'

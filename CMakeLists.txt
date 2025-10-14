@@ -1,6 +1,6 @@
 # lhf - CMake Build File
 
-set(LHF_VERSION 0.4.0)
+set(LHF_VERSION 0.4.1)
 
 cmake_minimum_required(VERSION 3.23)
 project(lhf VERSION ${LHF_VERSION} LANGUAGES CXX)
