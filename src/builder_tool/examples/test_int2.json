@@ -1,0 +1,54 @@
+{
+	"lhf_version": "0.2.0",
+	"namespace": "lfcpa",
+	"scalar_definitions": {
+		"integer": {
+			"name": "long"
+		}
+	},
+	"entity_definitions": {
+		"liveset": {
+			"name": "LiveSetStore",
+			"interface": "LiveSet",
+			"user_exposed": true,
+			"operations": []
+		},
+		"pointstoset": {
+			"name": "PointsToSetStore",
+			"interface": "PointsToSet",
+			"user_exposed": true,
+			"operations": [
+				{ "name": "update_pointees", "recursive": false }
+			]
+		},
+		"pointeeset": {
+			"name": "PointeeSetStore",
+			"interface": "PointeeSet",
+			"user_exposed": true,
+			"operations": []
+		}
+	},
+	"blueprint": [
+		{
+			"type": "set",
+			"value": {
+				"type": "scalar",
+				"value": "integer"
+			},
+			"use_as": "liveset"
+		},
+		{
+			"type": "map",
+			"key": "integer",
+			"value": {
+				"type": "set",
+				"value": {
+					"type": "scalar",
+					"value": "integer"
+				},
+				"use_as": "pointeeset"
+			},
+			"use_as": "pointstoset"
+		}
+	]
+}
