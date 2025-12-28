@@ -21,14 +21,4 @@ struct ConfigInt {
 // ...
 
 using LHF = lhf::LatticeHashForest<ConfigInt, NestingBase<ConfigInt, OtherLHF>>;
-
-// OR
-
-struct ConfigFL {
-	using Property = int;
-	using PropertyLess = lhf::DefaultLess<int>;
-	using PropertyHash = lhf::DefaultHash<int>;
-	using PropertyEqual = lhf::DefaultEqual<int>;
-	using PropertyPrinter  = lhf::DefaultPrinter<int>;
-};
 ```
