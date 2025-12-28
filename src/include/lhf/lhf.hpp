@@ -789,7 +789,7 @@ public:
 #ifdef LHF_ENABLE_TBB
 
 template<typename K, typename V>
-using  InternalMap = MapAdapter<tbb::concurrent_hash_map<K, V>>;
+using InternalMap = MapAdapter<tbb::concurrent_hash_map<K, V>>;
 
 #else
 
@@ -861,6 +861,11 @@ struct NestingBase {
 	/// This is what is used to store indices to the nested values.
 	using ChildValueList = std::tuple<typename ChildT::Index...>;
 
+	/// Gets the type of a particular index in the child value list tuple.
+	template<std::size_t ListIndex>
+	using ChildValueListIndexType =
+		typename std::tuple_element<ListIndex, ChildValueList>::type;
+
 	/**
 	 * @brief      Type for the elements for a property set in the nested. The
 	 *             template arguments are for the 'key' type.
@@ -884,15 +889,15 @@ struct NestingBase {
 		using InterfaceValueType = PropertyT;
 
 	private:
-		PropertyT key;
-		ChildValueList value;
+		PropertyT _key;
+		ChildValueList _value;
 
 	public:
 		PropertyElement(
 			const PropertyT &key,
 			const ChildValueList &value):
-			key(key),
-			value(value) {}
+			_key(key),
+			_value(value) {}
 
 		/**
 		 * @brief      Gets the 'key' value.
@@ -900,9 +905,17 @@ struct NestingBase {
 		 * @return     The key.
 		 */
 		const PropertyT &get_key() const {
-			return key;
+			return _key;
 		}
 
+		/**
+		 * @brief      Gets the 'key' value. Synonymous with get_key
+		 *
+		 * @return     The key.
+		 */
+		const PropertyT &key() const {
+			return _key;
+		}
 
 		/**
 		 * @brief      Gets the nested value. It returns a tuple of values
@@ -912,7 +925,21 @@ struct NestingBase {
 		 * @return     The value.
 		 */
 		const ChildValueList &get_value() const {
-			return value;
+			return _value;
+		}
+
+		/**
+		 * @brief      Gets the first object in the tuple of the nested values.
+		 *
+		 * @return     The value (std::get<0>)
+		 */
+		template<int ListIndex>
+		const ChildValueListIndexType<ListIndex> &value() const {
+			return std::get<ListIndex>(_value);
+		}
+
+		const ChildValueListIndexType<0> &value0() const {
+			return std::get<0>(_value);
 		}
 
 		/**
@@ -939,7 +966,7 @@ struct NestingBase {
 			std::index_sequence<Indices...>) const {
 			((Operation()(std::get<Indices>(ret),
 				std::get<Indices>(lhf),
-				std::get<Indices>(value),
+				std::get<Indices>(_value),
 				std::get<Indices>(arg_value)
 				)), ...);
 		}
@@ -964,27 +991,27 @@ struct NestingBase {
 			apply_internal<Operation>(
 				ret,
 				lhf,
-				arg.value,
+				arg._value,
 				std::make_index_sequence<num_children>{});
-			return PropertyElement(key, ret);
+			return PropertyElement(_key, ret);
 		}
 
 		bool operator<(const PropertyElement &b) const {
-			return PropertyLess()(key, b.key);
+			return PropertyLess()(_key, b._key);
 		}
 
 		bool operator==(const PropertyElement &b) const {
-			return PropertyEqual()(key, b.key);
+			return PropertyEqual()(_key, b._key);
 		}
 
 		String to_string() const {
 			std::stringstream s;
-			s << PropertyPrinter()(key);
+			s << PropertyPrinter()(_key);
 			s << " -> [ ";
 			std::apply(
 				[&s](auto&&... args) {
 					((s << args.value << ' '), ...);
-				}, value);
+				}, _value);
 			s << "]";
 			return s.str();
 		}
@@ -996,7 +1023,7 @@ struct NestingBase {
 
 		struct Hash {
 			Size operator()(const PropertyElement &p) const {
-				return PropertyHash()(p.key);
+				return PropertyHash()(p._key);
 			}
 		};
 
@@ -1008,7 +1035,7 @@ struct NestingBase {
 		 */
 		struct FullEqual {
 			bool operator()(const PropertyElement &a, const PropertyElement &b) const {
-				return PropertyEqual()(a.key, b.key) && (a.value == b.value);
+				return PropertyEqual()(a._key, b._key) && (a._value == b._value);
 			}
 		};
 	};
@@ -1067,7 +1094,6 @@ struct OperationPerf {
 #else
 #define LHF_PERF_INC(__oper, __category)
 #endif
-
 
 /**
  * @brief      The main LatticeHashForest structure.
@@ -1928,8 +1954,8 @@ public:
 			}
 		} else {
 			// Binary search implementation
-			long int low = 0;
-			long int high = s.size() - 1;
+			std::int64_t low = 0;
+			std::int64_t high = s.size() - 1;
 
 			while (low <= high) {
 				long int mid = low + (high - low) / 2;
