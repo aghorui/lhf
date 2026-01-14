@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## 0.5.0
+- `7d44cf0`
+- Overhaul deduplicator. Breaks previous API. Does not bread API of the main
+  LHF structure itself.
+
 ## 0.4.2
 - `def4715`
 - Add convenience accessor functions for PropertyElement keys and values.
