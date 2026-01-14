@@ -462,7 +462,7 @@ static inline void verify_property_set_integrity(const PropertySetT &cont) {
 
 #ifdef LHF_ENABLE_DEBUG
 
-/// Check whether the index is a valid index within the property set.
+/// Check whether the index is a valid index within the current LHF state.
 /// @note Signed/unsigned is made to be ignored here for the sanity checking.
 #define LHF_PROPERTY_SET_INDEX_VALID(__index) { \
 	_Pragma("GCC diagnostic push"); \
@@ -1677,7 +1677,7 @@ public:
 		if (!result.is_present()) {
 			LHF_PERF_INC(property_sets, cold_misses);
 
-			PropertySetHolder new_set(new PropertySet(c));
+			PropertySetHolder new_set(new PropertySet(std::move(c)));
 			Index ret = property_sets.push_back(std::move(new_set));
 			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 			return ret;
@@ -1705,7 +1705,7 @@ public:
 		if (!result.is_present()) {
 			LHF_PERF_INC(property_sets, cold_misses);
 
-			PropertySetHolder new_set(new PropertySet(c));
+			PropertySetHolder new_set(new PropertySet(std::move(c)));
 			Index ret = property_sets.push_back(std::move(new_set));
 			property_set_map.insert(std::make_pair(property_sets.at(ret).get(), ret.value));
 
@@ -1813,7 +1813,7 @@ public:
 		LHF_PROPERTY_SET_INDEX_VALID(index);
 #if defined(LHF_DEBUG) && defined(LHF_ENABLE_EVICTION)
 		if (is_evicted(index)) {
-			throw AssertError("Tried to access and evicted set");
+			throw AssertError("Tried to access an evicted set");
 		}
 #endif
 		return *property_sets.at(index.value).get();
@@ -2495,9 +2495,23 @@ public:
 
 }; // END LatticeHashForest
 
+
+/// Check whether the index is a valid index within the current state of the
+/// deduplicator
+#define LHF_PROPERTY_INDEX_VALID(__index) { \
+	_Pragma("GCC diagnostic push"); \
+	_Pragma("GCC diagnostic ignored \"-Wtype-limits\"") \
+	if ((__index.value) < 0 || ((__index.value) > property_list.size() - 1)) { \
+		throw __LHF_EXCEPT("Invalid index supplied"); \
+	} \
+	_Pragma("GCC diagnostic pop") \
+}
+
 /**
- * @brief      An LHF-like structure for scalar values. It does not implement
- *             any special operations besides deduplication.
+ * @brief      An straightforward deduplicator for scalar values. It does not
+ *             implement any special operations besides deduplication.
+ *             Unlike LHF, this does NOT enforce constness on the data items
+ *             registered. However, a mutable access must always be marked
  *
  * @tparam     PropertyT      The type of the property.
  *                            The property type must satisfy the following:
@@ -2511,21 +2525,20 @@ public:
  */
 template <
 	typename PropertyT,
-	typename PropertyLess = DefaultLess<PropertyT>,
 	typename PropertyHash = DefaultHash<PropertyT>,
 	typename PropertyEqual = DefaultEqual<PropertyT>,
 	typename PropertyPrinter = DefaultPrinter<PropertyT>>
 struct Deduplicator {
 	/**
-	 * @brief      Index returned by an operation. The struct ensures type
-	 *             safety and possible future extensions.
+	 * @brief      Index returned by the class. Being defined inside the
+	 *             class ensures type safety and possible future extensions.
 	 */
 	struct Index {
 		IndexValue value;
 
 		Index(IndexValue idx = EMPTY_SET_VALUE): value(idx) {}
 
-		bool empty() const {
+		bool is_empty() const {
 			return value == EMPTY_SET_VALUE;
 		}
 
@@ -2544,14 +2557,40 @@ struct Deduplicator {
 		bool operator>(const Index &b) const {
 			return value > b.value;
 		}
+
+		String to_string() const {
+			return std::to_string(value);
+		}
+
+		friend std::ostream& operator<<(std::ostream& os, const Index& obj) {
+			os << obj.to_string();
+			return os;
+		}
+
+		struct Hash {
+			Size operator()(const Index &idx) const {
+				return DefaultHash<IndexValue>()(idx.value);
+			}
+		};
 	};
 
+	struct PropertyPtrHash {
+		Size operator()(const PropertyT *p) const {
+			return PropertyHash()(*p);
+		}
+	};
+
+	struct PropertyPtrEqual {
+		Size operator()(const PropertyT *a, const PropertyT *b) const {
+			return PropertyEqual()(*a, *b);
+		}
+	};
 
 	using PropertyMap =
 		std::unordered_map<
 			PropertyT *, IndexValue,
-			PropertyHash,
-			PropertyEqual>;
+			PropertyPtrHash,
+			PropertyPtrEqual>;
 
 	// The property storage array.
 	Vector<UniquePointer<PropertyT>> property_list = {};
@@ -2569,23 +2608,84 @@ struct Deduplicator {
 	 *
 	 * @todo          Check whether the cache hit check can be removed.
 	 */
-	Index register_value(const PropertyT &c) {
-
-		UniquePointer<PropertyT> new_value =
-			UniquePointer<PropertyT>(new PropertyT{c});
-
-		auto cursor = property_map.find(new_value.get());
+	Index register_value(PropertyT &c) {
+		auto cursor = property_map.find(&c);
 
 		if (cursor == property_map.end()) {
-			// LHF_PERF_INC(property_sets, cold_misses);
+			UniquePointer<PropertyT> new_value =
+				UniquePointer<PropertyT>(new PropertyT(c));
 			property_list.push_back(std::move(new_value));
 			IndexValue ret = property_list.size() - 1;
 			property_map.insert(std::make_pair(property_list[ret].get(), ret));
 			return Index(ret);
 		}
-
-		// LHF_PERF_INC(property_sets, hits);
 		return Index(cursor->second);
+	}
+
+	Index register_value(PropertyT &&c) {
+		auto cursor = property_map.find(&c);
+
+		if (cursor == property_map.end()) {
+			UniquePointer<PropertyT> new_value =
+				UniquePointer<PropertyT>(new PropertyT(std::move(c)));
+			property_list.push_back(std::move(new_value));
+			IndexValue ret = property_list.size() - 1;
+			property_map.insert(std::make_pair(property_list[ret].get(), ret));
+			return Index(ret);
+		}
+		return Index(cursor->second);
+	}
+
+	/**
+	* This transfers ownership over to the deduplicator. DO NOT free or use the
+	* supplied pointer after this.
+	*
+	* Ideally, this function should not be used at all, and is present only
+	* as a workaround for integration into existing systems.
+	*/
+	Index register_ptr(PropertyT *c) {
+		auto cursor = property_map.find(c);
+
+		if (cursor == property_map.end()) {
+			UniquePointer<PropertyT> new_value = UniquePointer<PropertyT>(c);
+			property_list.push_back(std::move(new_value));
+			IndexValue ret = property_list.size() - 1;
+			property_map.insert(std::make_pair(property_list[ret].get(), ret));
+			return Index(ret);
+		}
+		delete c;
+		return Index(cursor->second);
+	}
+
+	Size get_property_count() const {
+		return property_list.size();
+	}
+
+	const PropertyT &get_value(Index id) const {
+		LHF_PROPERTY_INDEX_VALID(id);
+		return *property_list[id.value].get();
+	}
+
+	/**
+	* Ideally, this function should not be used at all, and is present only
+	* as a workaround for integration into existing systems.
+	*/
+	const PropertyT *get_value_ptr(Index id) const {
+		LHF_PROPERTY_INDEX_VALID(id);
+		return property_list[id.value].get();
+	}
+
+	std::string dump() const {
+		std::stringstream s;
+		s << "Deduplicator Stored Data: "
+		  << "(Size = " << property_list.size() <<") {" << std::endl;
+		for (Size i = 0; i < get_property_count(); i++) {
+			s << "   " << i << ": "
+			  << PropertyPrinter()(get_value(i)) << std::endl;
+		}
+		s << "}" << std::endl;
+
+		return s.str();
 	}
 
 };
