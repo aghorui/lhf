@@ -16,8 +16,6 @@
 #include <string>
 #include <thread>
 
-#include "lhf_config.hpp"
-
 namespace lhf {
 
 /**

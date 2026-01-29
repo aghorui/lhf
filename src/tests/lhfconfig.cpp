@@ -5,10 +5,10 @@
 
 struct Cmplx {
 	float real;
-	float cmplx;
+	float imag;
 
 	float magnitude() const {
-		return std::sqrt(real * real + cmplx * cmplx);
+		return std::sqrt(real * real + imag * imag);
 	}
 
 	bool operator<(const Cmplx &b) const {
@@ -21,7 +21,7 @@ struct Cmplx {
 
 	std::string to_string() const {
 		std::stringstream s;
-		s << real << "+ i" << cmplx;
+		s << real << "+i" << imag;
 		return s.str();
 	}
 
