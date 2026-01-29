@@ -3,7 +3,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
 
-using LHF = LHFVerify<int>;
+using LHF = LHFVerify<lhf::LHFConfig<int>>;
 using Index = typename LHF::Index;
 
 TEST(LHF_BasicChecks, empty_set_is_index_0) {

@@ -2,14 +2,11 @@
 #include <gtest/gtest.h>
 #include <utility>
 
-using StringLHF = lhf::LatticeHashForest<std::string>;
-using FloatLHF = lhf::LatticeHashForest<float>;
+using StringLHF = lhf::LatticeHashForest<lhf::LHFConfig<std::string>>;
+using FloatLHF = lhf::LatticeHashForest<lhf::LHFConfig<float>>;
+
 using TwoNestedLHF = lhf::LatticeHashForest<
-	int,
-	lhf::DefaultLess<int>,
-	lhf::DefaultHash<int>,
-	lhf::DefaultEqual<int>,
-	lhf::DefaultPrinter<int>,
+	lhf::LHFConfig<int>,
 	lhf::NestingBase<int, StringLHF, FloatLHF>>;
 
 TEST(LHF_NestingChecks, check_property_element_api) {

@@ -4,7 +4,7 @@
 template <typename T>
 class LHF_InitCheck : public ::testing::Test {
 public:
-	using LHF = LHFVerify<T>;
+	using LHF = LHFVerify<lhf::LHFConfig<T>>;
 	using Index = typename LHF::Index;
 	LHF l;
 };

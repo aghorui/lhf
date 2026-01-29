@@ -3,7 +3,7 @@
 #include "common.hpp"
 #include <gtest/gtest.h>
 
-using LHF = LHFVerify<int>;
+using LHF = LHFVerify<lhf::LHFConfig<int>>;
 using Index = typename LHF::Index;
 
 #if defined(LHF_ENABLE_TBB) || defined(LHF_ENABLE_PARALLEL)

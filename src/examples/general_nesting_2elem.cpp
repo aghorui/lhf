@@ -4,22 +4,18 @@
 
 int main() {
 	using Child1LHF =
-		lhf::LatticeHashForest<double>;
+		lhf::LatticeHashForest<lhf::LHFConfig<double>>;
 
 	using Child1Index = typename Child1LHF::Index;
 
 	using Child2LHF =
-		lhf::LatticeHashForest<int>;
+		lhf::LatticeHashForest<lhf::LHFConfig<double>>;
 
 	using Child2Index = typename Child2LHF::Index;
 
 	using LHF =
 		lhf::LatticeHashForest<
-			int,
-			lhf::DefaultLess<int>,
-			lhf::DefaultHash<int>,
-			lhf::DefaultEqual<int>,
-			lhf::DefaultPrinter<int>,
+			lhf::LHFConfig<double>,
 			lhf::NestingBase<int, Child1LHF, Child2LHF>>;
 
 	using Index = typename LHF::Index;

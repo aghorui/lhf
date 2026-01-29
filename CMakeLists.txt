@@ -77,6 +77,12 @@ set(
 	"Enable compilation of tests for the project.")
 
 set(
+	ENABLE_SERIALIZATION
+	OFF
+	CACHE BOOL
+	"Enable JSON-based serialization routines in LHF.")
+
+set(
 	ENABLE_EXAMPLES
 	ON
 	CACHE BOOL
@@ -112,6 +118,18 @@ endif()
 
 if(DISABLE_INTEGRITY_CHECKS)
 	target_compile_definitions(lhf INTERFACE LHF_DISABLE_INTEGRITY_CHECKS)
+endif()
+
+# Fetch the json library (nlohmann/json)
+
+if(ENABLE_SERIALIZATION)
+	target_compile_definitions(lhf INTERFACE LHF_ENABLE_SERIALIZATION)
+	FetchContent_Declare(
+		json
+		URL https://github.com/nlohmann/json/releases/download/v3.12.0/json.tar.xz
+	)
+	FetchContent_MakeAvailable(json)
+	target_link_libraries(lhf INTERFACE nlohmann_json::nlohmann_json)
 endif()
 
 # Compile every single source file in the example directory to an executable

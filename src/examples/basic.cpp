@@ -2,7 +2,7 @@
 #include "lhf/lhf.hpp"
 
 int main() {
-	using LHF = lhf::LatticeHashForest<int>;
+	using LHF = lhf::LatticeHashForest<lhf::LHFConfig<int>>;
 	using Index = LHF::Index;
 	LHF l;
 

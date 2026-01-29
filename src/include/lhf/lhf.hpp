@@ -6,9 +6,11 @@
 #ifndef LHF_HPP
 #define LHF_HPP
 
+#include "lhf/lhf_serialization.hpp"
 #include <cstddef>
 #include <iostream>
 #include <memory>
+#include <ostream>
 #include <sstream>
 #include <stdexcept>
 #include <tuple>
@@ -32,6 +34,10 @@
 #include <tbb/tbb.h>
 #include <tbb/concurrent_map.h>
 #include <tbb/concurrent_vector.h>
+#endif
+
+#ifdef LHF_ENABLE_SERIALIZATION
+#include "lhf_serialization.hpp"
 #endif
 
 #include "lhf_config.hpp"
@@ -1095,6 +1101,20 @@ struct OperationPerf {
 #define LHF_PERF_INC(__oper, __category)
 #endif
 
+template <typename T>
+struct LHFConfig {
+	using PropertyT          = T;
+	using PropertyLess       = DefaultLess<PropertyT>;
+	using PropertyHash       = DefaultHash<PropertyT>;
+	using PropertyEqual      = DefaultEqual<PropertyT>;
+	using PropertyPrinter    = DefaultPrinter<PropertyT>;
+	using PropertySerializer = DefaultValueSerializer<PropertyT>;
+
+	static constexpr Size BLOCK_SHIFT = LHF_DEFAULT_BLOCK_SHIFT;
+	static constexpr Size BLOCK_SIZE  = LHF_DEFAULT_BLOCK_SIZE;
+	static constexpr Size BLOCK_MASK  = LHF_DEFAULT_BLOCK_MASK;
+};
+
 /**
  * @brief      The main LatticeHashForest structure.
  *             This class can be used as-is with a type or derived for
@@ -1114,16 +1134,20 @@ struct OperationPerf {
  * @tparam     Nesting          Nesting behaviour of the LHF
  */
 template <
-	typename PropertyT,
-	typename PropertyLess = DefaultLess<PropertyT>,
-	typename PropertyHash = DefaultHash<PropertyT>,
-	typename PropertyEqual = DefaultEqual<PropertyT>,
-	typename PropertyPrinter = DefaultPrinter<PropertyT>,
-	typename Nesting = NestingNone<PropertyT>,
-	Size BLOCK_SIZE = LHF_DEFAULT_BLOCK_SIZE,
-	Size BLOCK_MASK = LHF_DEFAULT_BLOCK_MASK>
+	typename Config,
+	typename Nesting = NestingNone<typename Config::PropertyT>>
 class LatticeHashForest {
 public:
+	using PropertyT          = typename Config::PropertyT;
+	using PropertyLess       = typename Config::PropertyLess;
+	using PropertyHash       = typename Config::PropertyHash;
+	using PropertyEqual      = typename Config::PropertyEqual;
+	using PropertyPrinter    = typename Config::PropertyPrinter;
+	using PropertySerializer = typename Config::PropertySerializer;
+
+	static constexpr Size BLOCK_SIZE = Config::BLOCK_SIZE;
+	static constexpr Size BLOCK_MASK = Config::BLOCK_MASK;
+
 	/**
 	 * @brief      Index returned by an operation. Being defined inside the
 	 *             class ensures type safety and possible future extensions.
@@ -1375,8 +1399,10 @@ protected:
 			if (idx.value >= block_base) {
 				return data.back().at(idx.value & BLOCK_MASK);
 			} else {
-				// TODO fix this
-				return data.at((idx.value & (~BLOCK_MASK)) >> 5).at(idx.value & BLOCK_MASK);
+				return
+					data
+						.at((idx.value & (~BLOCK_MASK)) >> BLOCK_SHIFT)
+						.at(idx.value & BLOCK_MASK);
 			}
 		}
 
@@ -1385,8 +1411,10 @@ protected:
 			if (idx.value >= block_base) {
 				return data.back().at(idx.value & BLOCK_MASK);
 			} else {
-				// TODO fix this
-				return data.at((idx.value & (~BLOCK_MASK)) >> 5).at(idx.value & BLOCK_MASK);
+				return
+					data
+						.at((idx.value & (~BLOCK_MASK)) >> BLOCK_SHIFT)
+						.at(idx.value & BLOCK_MASK);
 			}
 		}
 
@@ -2355,13 +2383,8 @@ public:
 	 * @param[in]  filter_func  The filter function (can be a lambda)
 	 * @param      cache        The cache to use (possibly defined by the user)
 	 *
-	 * @tparam     is_sort_bounded  Useful for telling the function that the
-	 *                              filter criterion will have a lower and an
-	 *                              upper bound in a sorted list. This can
-	 *                              potentially result in a faster filtering.
-	 *
 	 * @todo Implement sort bound optimization
-	 * @todo Implement bounding as a separate function instead
+	 * @todo Implement bounding as a seperate function instead
 	 *
 	 * @return     Index of the filtered set.
 	 */
@@ -2431,6 +2454,17 @@ public:
 	String property_set_to_string(const Index &idx) const {
 		return property_set_to_string(get_value(idx));
 	}
+
+#ifdef LHF_ENABLE_SERIALIZATION
+
+	void to_json() {
+
+	}
+
+	void load_from_json() {
+
+	}
+#endif
 
 	/**
 	 * @brief      Dumps the current state of the LHF to a string.

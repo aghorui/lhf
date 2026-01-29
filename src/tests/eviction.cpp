@@ -1,7 +1,7 @@
 #include "common.hpp"
 #include <gtest/gtest.h>
 
-using LHF = LHFVerify<int>;
+using LHF = LHFVerify<lhf::LHFConfig<int>>;
 using Index = typename LHF::Index;
 
 #ifdef LHF_ENABLE_EVICTION

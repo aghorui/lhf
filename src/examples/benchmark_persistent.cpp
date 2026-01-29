@@ -12,7 +12,7 @@ enum Operations {
 	DECISION_MAX
 };
 
-using LHF = lhf::LatticeHashForest<int>;
+using LHF = lhf::LatticeHashForest<lhf::LHFConfig<int>>;
 using Index = LHF::Index;
 using PropertySet = LHF::PropertySet;
 
@@ -63,7 +63,7 @@ int main(int argc, char **argv) {
 	}
 
 
-	lhf::LatticeHashForest<int> l;
+	LHF l;
 
 	std::random_device rd;
 	std::mt19937 eng(rd());

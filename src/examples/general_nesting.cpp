@@ -4,17 +4,13 @@
 
 int main() {
 	using ChildLHF =
-		lhf::LatticeHashForest<double>;
+		lhf::LatticeHashForest<lhf::LHFConfig<double>>;
 
 	using ChildIndex = typename ChildLHF::Index;
 
 	using LHF =
 		lhf::LatticeHashForest<
-			int,
-			lhf::DefaultLess<int>,
-			lhf::DefaultHash<int>,
-			lhf::DefaultEqual<int>,
-			lhf::DefaultPrinter<int>,
+			lhf::LHFConfig<int>,
 			lhf::NestingBase<int, ChildLHF>>;
 
 	using Index = typename LHF::Index;
@@ -23,8 +19,9 @@ int main() {
 	LHF l(LHF::RefList{cl});
 
 	ChildIndex a = cl.register_set_single(212);
-	ChildIndex b = cl.register_set({22, 33, 33});
-	ChildIndex g = cl.register_set({ 34});
+	std::set acc = {22, 33, 33};
+	ChildIndex b = cl.register_set(acc.begin(), acc.end());
+	ChildIndex g = cl.register_set({ 34 });
 
 	Index c = l.register_set_single({12, {a}});
 	Index f = l.register_set_single({12, {b}});
