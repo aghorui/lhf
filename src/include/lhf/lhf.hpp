@@ -6,23 +6,13 @@
 #ifndef LHF_HPP
 #define LHF_HPP
 
+#include "lhf_common.hpp"
 #include "lhf/lhf_serialization.hpp"
-#include <cstddef>
-#include <iostream>
-#include <memory>
-#include <ostream>
-#include <sstream>
-#include <stdexcept>
+#include "profiling.hpp"
+
 #include <tuple>
 #include <utility>
-#include <vector>
-#include <map>
-#include <unordered_map>
-#include <set>
-#include <unordered_set>
-#include <functional>
 #include <algorithm>
-#include <string>
 
 #ifdef LHF_ENABLE_PARALLEL
 #include <atomic>
@@ -40,181 +30,7 @@
 #include "lhf_serialization.hpp"
 #endif
 
-#include "lhf_config.hpp"
-#include "profiling.hpp"
-
 namespace lhf {
-
-#ifdef LHF_ENABLE_DEBUG
-#define LHF_DEBUG(x) { x };
-#else
-#define LHF_DEBUG(x)
-#endif
-
-using Size = std::size_t;
-
-using String = std::string;
-
-#ifdef LHF_ENABLE_PARALLEL
-
-using RWMutex = std::shared_mutex;
-
-using ReadLock = std::shared_lock<RWMutex>;
-
-using WriteLock = std::lock_guard<RWMutex>;
-
-#endif
-
-using IndexValue = Size;
-
-template<typename T>
-using UniquePointer = std::unique_ptr<T>;
-
-template<typename T>
-using Vector = std::vector<T>;
-
-template<typename K, typename V>
-using HashMap = std::unordered_map<K, V>;
-
-template<typename K, typename V>
-using OrderedMap = std::map<K, V>;
-
-template<typename T>
-using HashSet = std::unordered_set<T>;
-
-template<typename T>
-using OrderedSet = std::set<T>;
-
-template<typename T>
-using DefaultLess = std::less<T>;
-
-template<typename T>
-using DefaultHash = std::hash<T>;
-
-template<typename T>
-using DefaultEqual = std::equal_to<T>;
-
-template<typename T>
-struct DefaultPrinter {
-	String operator()(T x) {
-		std::stringstream s;
-		s << x;
-		return s.str();
-	}
-};
-
-/**
- * @brief      Thrown if an Optional is accessed when the value is absent.
- */
-struct AbsentValueAccessError : public std::invalid_argument {
-	AbsentValueAccessError(const std::string &message):
-		std::invalid_argument(message.c_str()) {}
-};
-
-/**
- * @brief      Describes an optional reference of some type T. The value may
- *             either be present or absent.
- *
- * @tparam     T    The type.
- */
-template<typename T>
-class OptionalRef {
-	const T *value = nullptr;
-	OptionalRef(): value(nullptr) {}
-
-public:
-	OptionalRef(const T &value): value(&value) {}
-
-	/// Explicitly creates an absent value.
-	static OptionalRef absent() {
-		return OptionalRef();
-	}
-
-	/// Informs if the value is present.
-	bool is_present() const {
-		return value != nullptr;
-	}
-
-	/// Gets the underlying value. Throws an exception if it is absent.
-	const T &get() {
-		if (value) {
-			return *value;
-		} else {
-			throw AbsentValueAccessError("Tried to access an absent value. "
-				                         "A check is likely missing.");
-		}
-	}
-};
-
-/**
- * @brief      Describes an optional of some type T. The value may  either be
- *             present or absent.
- *
- * @tparam     T    The type.
- */
-template<typename T>
-class Optional {
-	const T value{};
-	const bool present;
-
-	Optional(): present(false) {}
-
-public:
-	Optional(const T &value): value(value), present(true) {}
-
-	/// Explicitly creates an absent value.
-	static Optional absent() {
-		return Optional();
-	}
-
-	/// Informs if the value is present.
-	bool is_present() {
-		return present;
-	}
-
-	/// Gets the underlying value. Throws an exception if it is absent.
-	const T &get() {
-		if (present) {
-			return value;
-		} else {
-			throw AbsentValueAccessError("Tried to access an absent value. "
-				                         "A check is likely missing.");
-		}
-	}
-};
-
-/**
- * @brief      Used to store a subset relation between two set indices.
- *             Because the index pair must be in sorted order to prevent
- *             duplicates, it necessitates this enum.
- */
-enum SubsetRelation {
-	UNKNOWN  = 0,
-	SUBSET   = 1,
-	SUPERSET = 2
-};
-
-
-// The index of the empty set. The first set that will ever be inserted
-// in the property set value storage is the empty set.
-static const constexpr Size EMPTY_SET_VALUE = 0;
-
-/**
- * @brief      Composes a preexisting hash with another variable. Useful for
- *             Hashing containers. Adapted from `boost::hash_combine`.
- *
- * @param[in]  prev  The current hash
- * @param[in]  next  The value to compose with the current hash
- *
- * @tparam     T     Value type
- * @tparam     Hash  Hash for the value type
- *
- * @return     The composed hash
- */
-template<typename T, typename Hash = DefaultHash<T>>
-inline Size compose_hash(const Size prev, T next) {
-	return prev ^ (Hash()(next) + 0x9e3779b9 + (prev << 6) + (prev >> 2));
-}
 
 /**
  * @brief      This struct contains the information about the operands of an
@@ -243,7 +59,7 @@ inline std::ostream &operator<<(std::ostream &os, const OperationNode &op) {
 	return os << op.to_string();
 }
 
-};
+} // END namespace lhf
 
 /************************** START GLOBAL NAMESPACE ****************************/
 
@@ -400,8 +216,6 @@ struct Unreachable : public std::runtime_error {
 		std::runtime_error(message.c_str()) {}
 };
 
-#define ____LHF__STR(x) #x
-#define __LHF_STR(x) ____LHF__STR(x)
 #define __LHF_EXCEPT(x) AssertError(x " [At: " __FILE__ ":" __LHF_STR(__LINE__) "]")
 
 /**
@@ -557,16 +371,12 @@ struct NestingNone {
 	/// Compile-time value that says there are no nested children.
 	static constexpr Size num_children = 0;
 
-	/// Placeholder value to mark the reference lists and value lists as empty.
-	struct Empty {
-		Empty() {}
-	};
 
 	/// Reference list. In the base case, there are no child LHFs.
-	using LHFReferenceList = Empty;
+	using LHFReferenceList =  std::tuple<>;
 
 	/// Child value list. In the base case, there are no child LHFs.
-	using ChildValueList = Empty;
+	using ChildValueList = std::tuple<>;
 
 	/**
 	 * @brief      Base-case type for the elements for a property set. The
@@ -665,151 +475,6 @@ struct NestingNone {
 	};
 
 };
-
-/**
- * @def        MapAdapter
- * @brief      Enables the interface used by LHF for using a map data structure
- *             for any given map implementation. This preprocessor if-ladder
- *             should be expanded as needed for any newer implementations.
- *
- * @tparam     MapClass The Map implementation to adapt.
- */
-
-#ifdef LHF_ENABLE_TBB
-
-template<typename MapClass>
-class MapAdapter {
-public:
-	using Map = MapClass;
-	using Key = typename Map::key_type;
-	using MappedType = typename Map::mapped_type;
-	using KeyValuePair = typename Map::value_type;
-
-protected:
-	using Accessor = typename Map::const_accessor;
-	Map data;
-
-public:
-	Optional<MappedType> find(const Key &key) const {
-		Accessor acc;
-		bool found = data.find(acc, key);
-		if (!found) {
-			return Optional<MappedType>::absent();
-		} else {
-			return acc->second;
-		}
-	}
-
-	void insert(KeyValuePair &&v) {
-		data.insert(std::move(v));
-	}
-
-	Size size() const {
-		return data.size();
-	}
-
-	typename Map::const_iterator begin() const {
-		return data.begin();
-	}
-
-	typename Map::const_iterator end() const {
-		return data.end();
-	}
-
-	String to_string() const {
-		std::stringstream s;
-
-		for (auto i : data) {
-			s << "      {" << i.first << " -> " << i.second << "} \n";
-		}
-
-		return s.str();
-	}
-
-};
-
-#else
-
-template<typename MapClass>
-class MapAdapter {
-public:
-	using Map = MapClass;
-	using Key = typename Map::key_type;
-	using MappedType = typename Map::mapped_type;
-	using KeyValuePair = typename Map::value_type;
-
-protected:
-	Map data;
-	LHF_PARALLEL(mutable RWMutex mutex;)
-
-public:
-	Optional<MappedType> find(const Key &key) const {
-		LHF_PARALLEL(ReadLock m(mutex);)
-		auto value = data.find(key);
-		if (value == data.end()) {
-			return Optional<MappedType>::absent();
-		} else {
-			return value->second;
-		}
-	}
-
-	void insert(KeyValuePair &&v) {
-		LHF_PARALLEL(WriteLock m(mutex);)
-		data.insert(std::move(v));
-	}
-
-	Size size() const {
-		LHF_PARALLEL(ReadLock m(mutex);)
-		return data.size();
-	}
-
-	typename Map::const_iterator begin() const {
-		return data.begin();
-	}
-
-	typename Map::const_iterator end() const {
-		return data.end();
-	}
-
-	String to_string() const {
-		LHF_PARALLEL(ReadLock m(mutex);)
-		std::stringstream s;
-
-		for (auto i : data) {
-			s << "      {" << i.first << " -> " << i.second << "} \n";
-		}
-
-		return s.str();
-	}
-
-};
-
-#endif
-
-
-/**
- * @def        InternalMap
- * @brief      Convenience declaration for using simple maps in LHF.
- */
-
-#ifdef LHF_ENABLE_TBB
-
-template<typename K, typename V>
-using InternalMap = MapAdapter<tbb::concurrent_hash_map<K, V>>;
-
-#else
-
-template<typename K, typename V>
-using InternalMap = MapAdapter<HashMap<K, V>>;
-
-#endif
-
-/**
- * Defines the map of operations in LHF. Template parameter can be used to set
- * an operation of any arity.
- */
-template<typename T>
-using OperationMap =  InternalMap<T, IndexValue>;
 
 
 /**
@@ -1047,6 +712,161 @@ struct NestingBase {
 	};
 };
 
+
+/**
+ * @def        MapAdapter
+ * @brief      Enables the interface used by LHF for using a map data structure
+ *             for any given map implementation. This preprocessor if-ladder
+ *             should be expanded as needed for any newer implementations.
+ *
+ * @tparam     MapClass The Map implementation to adapt.
+ */
+
+#ifdef LHF_ENABLE_TBB
+
+template<typename MapClass>
+class MapAdapter {
+public:
+	using Map = MapClass;
+	using Key = typename Map::key_type;
+	using MappedType = typename Map::mapped_type;
+	using KeyValuePair = typename Map::value_type;
+
+protected:
+	using Accessor = typename Map::const_accessor;
+	Map data;
+
+public:
+	Optional<MappedType> find(const Key &key) const {
+		Accessor acc;
+		bool found = data.find(acc, key);
+		if (!found) {
+			return Optional<MappedType>::absent();
+		} else {
+			return acc->second;
+		}
+	}
+
+	void insert(KeyValuePair &&v) {
+		data.insert(std::move(v));
+	}
+
+	void clear() {
+		data.clear();
+	}
+
+	Size size() const {
+		return data.size();
+	}
+
+	typename Map::const_iterator begin() const {
+		return data.begin();
+	}
+
+	typename Map::const_iterator end() const {
+		return data.end();
+	}
+
+	String to_string() const {
+		std::stringstream s;
+
+		for (auto i : data) {
+			s << "      {" << i.first << " -> " << i.second << "} \n";
+		}
+
+		return s.str();
+	}
+
+};
+
+#else
+
+template<typename MapClass>
+class MapAdapter {
+public:
+	using Map = MapClass;
+	using Key = typename Map::key_type;
+	using MappedType = typename Map::mapped_type;
+	using KeyValuePair = typename Map::value_type;
+
+protected:
+	Map data;
+	LHF_PARALLEL(mutable RWMutex mutex;)
+
+public:
+	Optional<MappedType> find(const Key &key) const {
+		LHF_PARALLEL(ReadLock m(mutex);)
+		auto value = data.find(key);
+		if (value == data.end()) {
+			return Optional<MappedType>::absent();
+		} else {
+			return value->second;
+		}
+	}
+
+	void insert(KeyValuePair &&v) {
+		LHF_PARALLEL(WriteLock m(mutex);)
+		data.insert(std::move(v));
+	}
+
+	void clear() {
+		LHF_PARALLEL(WriteLock m(mutex);)
+		data.clear();
+	}
+
+	Size size() const {
+		LHF_PARALLEL(ReadLock m(mutex);)
+		return data.size();
+	}
+
+	typename Map::const_iterator begin() const {
+		return data.begin();
+	}
+
+	typename Map::const_iterator end() const {
+		return data.end();
+	}
+
+	String to_string() const {
+		LHF_PARALLEL(ReadLock m(mutex);)
+		std::stringstream s;
+
+		for (auto i : data) {
+			s << "      {" << i.first << " -> " << i.second << "} \n";
+		}
+
+		return s.str();
+	}
+
+};
+
+#endif
+
+
+/**
+ * @def        InternalMap
+ * @brief      Convenience declaration for using simple maps in LHF.
+ */
+
+#ifdef LHF_ENABLE_TBB
+
+template<typename K, typename V>
+using InternalMap = MapAdapter<tbb::concurrent_hash_map<K, V>>;
+
+#else
+
+template<typename K, typename V>
+using InternalMap = MapAdapter<HashMap<K, V>>;
+
+#endif
+
+/**
+ * Defines the map of operations in LHF. Template parameter can be used to set
+ * an operation of any arity.
+ */
+template<typename T>
+using OperationMap =  InternalMap<T, IndexValue>;
+
 /**
  * @brief      Operation performance Statistics.
  */
@@ -1103,12 +923,14 @@ struct OperationPerf {
 
 template <typename T>
 struct LHFConfig {
+	static constexpr const char* name = "";
+
 	using PropertyT          = T;
 	using PropertyLess       = DefaultLess<PropertyT>;
 	using PropertyHash       = DefaultHash<PropertyT>;
 	using PropertyEqual      = DefaultEqual<PropertyT>;
 	using PropertyPrinter    = DefaultPrinter<PropertyT>;
-	using PropertySerializer = DefaultValueSerializer<PropertyT>;
+	using PropertySerializer = slz::DefaultValueSerializer<PropertyT>;
 
 	static constexpr Size BLOCK_SHIFT = LHF_DEFAULT_BLOCK_SHIFT;
 	static constexpr Size BLOCK_SIZE  = LHF_DEFAULT_BLOCK_SIZE;
@@ -1131,11 +953,11 @@ struct LHFConfig {
  * @tparam     PropertyHash     Custom hasher (if required)
  * @tparam     PropertyEqual    Custom equality comaparator (if required)
  * @tparam     PropertyPrinter  PropertyT string representation generator
- * @tparam     Nesting          Nesting behaviour of the LHF
+ * @tparam     NestingT         Nesting behaviour of the LHF
  */
 template <
 	typename Config,
-	typename Nesting = NestingNone<typename Config::PropertyT>>
+	typename NestingT = NestingNone<typename Config::PropertyT>>
 class LatticeHashForest {
 public:
 	using PropertyT          = typename Config::PropertyT;
@@ -1144,7 +966,9 @@ public:
 	using PropertyEqual      = typename Config::PropertyEqual;
 	using PropertyPrinter    = typename Config::PropertyPrinter;
 	using PropertySerializer = typename Config::PropertySerializer;
+	using Nesting            = NestingT;
 
+	static constexpr const char *name = Config::name;
 	static constexpr Size BLOCK_SIZE = Config::BLOCK_SIZE;
 	static constexpr Size BLOCK_MASK = Config::BLOCK_MASK;
 
@@ -1359,9 +1183,15 @@ protected:
 			return it - data.begin();
 		}
 
+		void clear() {
+			data.clear();
+		}
+
 		Size size() const {
 			return data.size();
 		}
+
+
 	};
 
 #elif defined(LHF_ENABLE_PARALLEL)
@@ -1431,6 +1261,13 @@ protected:
 			return Index(total_elems - 1);
 		}
 
+		void clear() {
+			WriteLock m(mutex);
+			data.clear();
+			total_elems = 0;
+			block_base = 0;
+		}
+
 		Size size() const {
 			return total_elems;
 		}
@@ -1468,6 +1305,10 @@ protected:
 			return data.size() - 1;
 		}
 
+		void clear() {
+			data.clear();
+		}
+
 		Size size() const {
 			return data.size();
 		}
@@ -1486,6 +1327,18 @@ protected:
 	BinaryOperationMap differences = {};
 
 	InternalMap<OperationNode, SubsetRelation> subsets = {};
+
+	/**
+	 * @brief      Resets the state of the LHF to default.
+	 */
+	void clear() {
+		property_sets.clear();
+		property_set_map.clear();
+		unions.clear();
+		intersections.clear();
+		differences.clear();
+		subsets.clear();
+	}
 
 	/**
 	 * @brief      Stores index `a` as the subset of index `b` if a < b,
@@ -2455,15 +2308,65 @@ public:
 		return property_set_to_string(get_value(idx));
 	}
 
+#define LHF_ENABLE_SERIALIZATION
+
 #ifdef LHF_ENABLE_SERIALIZATION
 
-	void to_json() {
+public:
 
+	const RefList &get_reflist() const {
+		return reflist;
 	}
 
-	void load_from_json() {
+// protected:
 
+	virtual slz::JSON operations_to_json() const {
+		slz::JSON ret = slz::JSON::object();
+		ret["unions"]        = slz::binary_operation_map_to_json(unions);
+		ret["intersections"] = slz::binary_operation_map_to_json(intersections);
+		ret["differences"]   = slz::binary_operation_map_to_json(differences);
+		ret["subsets"]       = slz::binary_operation_map_to_json(subsets);
+		return ret;
 	}
+
+	virtual void operations_from_json(const slz::JSON &obj) {
+		std::cout << obj.dump() << std::endl;
+		slz::binary_operation_map_from_json(unions, obj["unions"]);
+		slz::binary_operation_map_from_json(intersections, obj["intersections"]);
+		slz::binary_operation_map_from_json(differences, obj["differences"]);
+		slz::binary_operation_map_from_json(subsets, obj["subsets"]);
+	}
+
+	slz::JSON to_json() const {
+		slz::JSON ret = slz::JSON::object();
+
+		auto prop = PropertySerializer();
+
+		if constexpr (Nesting::is_nested) {
+			ret["property_sets"] =
+				slz::storage_array_to_json_nested(property_sets, prop);
+		} else {
+			ret["property_sets"] =
+				slz::storage_array_to_json(property_sets, prop);
+		}
+
+		ret["operations"] = operations_to_json();
+
+		return ret;
+	}
+
+	void load_from_json(const slz::JSON &obj) {
+		clear();
+		auto prop = PropertySerializer();
+		operations_from_json(obj["operations"]);
+		if constexpr (Nesting::is_nested) {
+			slz::register_storage_from_json_nested(*this, obj["property_sets"], prop);
+		} else {
+			slz::register_storage_from_json(*this, obj["property_sets"], prop);
+		}
+	}
+
+public:
 #endif
 
 	/**
