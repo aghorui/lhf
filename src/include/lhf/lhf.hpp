@@ -7,7 +7,7 @@
 #define LHF_HPP
 
 #include "lhf_common.hpp"
-#include "lhf/lhf_serialization.hpp"
+#include "lhf_serialization.hpp"
 #include "profiling.hpp"
 
 #include <tuple>

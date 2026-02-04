@@ -13,7 +13,7 @@
 #ifndef LHF_SERIALIZATION_H
 #define LHF_SERIALIZATION_H
 
-#include "lhf/lhf_common.hpp"
+#include "lhf_common.hpp"
 #include <fstream>
 #include <nlohmann/json.hpp>
 
