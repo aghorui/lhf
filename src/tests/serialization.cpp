@@ -3,6 +3,8 @@
 #include <cmath>
 #include <sstream>
 
+#ifdef LHF_ENABLE_SERIALIZATION
+
 using LHF = LHFVerify<lhf::LHFConfig<int>>;
 using Index = typename LHF::Index;
 
@@ -44,3 +46,5 @@ TEST(LHF_SerializationChecks, check_lhf_walk) {
 
 	ASSERT_EQ(l.dump(), l2.dump());
 }
+
+#endif

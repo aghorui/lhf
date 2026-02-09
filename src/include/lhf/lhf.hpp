@@ -930,7 +930,6 @@ struct LHFConfig {
 	using PropertyHash       = DefaultHash<PropertyT>;
 	using PropertyEqual      = DefaultEqual<PropertyT>;
 	using PropertyPrinter    = DefaultPrinter<PropertyT>;
-	using PropertySerializer = slz::DefaultValueSerializer<PropertyT>;
 
 	static constexpr Size BLOCK_SHIFT = LHF_DEFAULT_BLOCK_SHIFT;
 	static constexpr Size BLOCK_SIZE  = LHF_DEFAULT_BLOCK_SIZE;
@@ -965,7 +964,6 @@ public:
 	using PropertyHash       = typename Config::PropertyHash;
 	using PropertyEqual      = typename Config::PropertyEqual;
 	using PropertyPrinter    = typename Config::PropertyPrinter;
-	using PropertySerializer = typename Config::PropertySerializer;
 	using Nesting            = NestingT;
 
 	static constexpr const char *name = Config::name;
@@ -2317,17 +2315,11 @@ public:
 		return property_set_to_string(get_value(idx));
 	}
 
-#define LHF_ENABLE_SERIALIZATION
-
 #ifdef LHF_ENABLE_SERIALIZATION
-
-public:
 
 	const RefList &get_reflist() const {
 		return reflist;
 	}
-
-// protected:
 
 	virtual slz::JSON operations_to_json() const {
 		slz::JSON ret = slz::JSON::object();
@@ -2346,17 +2338,17 @@ public:
 		slz::binary_operation_map_from_json(subsets, obj["subsets"]);
 	}
 
-	slz::JSON to_json() const {
+	template<typename Serializer =
+		slz::DefaultValueSerializer<PropertyT>>
+	slz::JSON to_json(Serializer &s) const {
 		slz::JSON ret = slz::JSON::object();
-
-		auto prop = PropertySerializer();
 
 		if constexpr (Nesting::is_nested) {
 			ret["property_sets"] =
-				slz::storage_array_to_json_nested(property_sets, prop);
+				slz::storage_array_to_json_nested(property_sets, s);
 		} else {
 			ret["property_sets"] =
-				slz::storage_array_to_json(property_sets, prop);
+				slz::storage_array_to_json(property_sets, s);
 		}
 
 		ret["operations"] = operations_to_json();
@@ -2364,18 +2356,32 @@ public:
 		return ret;
 	}
 
-	void load_from_json(const slz::JSON &obj) {
+	template<typename Serializer =
+		slz::DefaultValueSerializer<PropertyT>>
+	slz::JSON to_json() const {
+		auto s = Serializer();
+		return to_json(s);
+	}
+
+	template<typename Serializer =
+		slz::DefaultValueSerializer<PropertyT>>
+	void load_from_json(const slz::JSON &obj, Serializer &s) {
 		clear();
-		auto prop = PropertySerializer();
 		operations_from_json(obj["operations"]);
 		if constexpr (Nesting::is_nested) {
-			slz::register_storage_from_json_nested(*this, obj["property_sets"], prop);
+			slz::register_storage_from_json_nested(*this, obj["property_sets"], s);
 		} else {
-			slz::register_storage_from_json(*this, obj["property_sets"], prop);
+			slz::register_storage_from_json(*this, obj["property_sets"], s);
 		}
 	}
 
-public:
+	template<typename Serializer =
+		slz::DefaultValueSerializer<PropertyT>>
+	void load_from_json(const slz::JSON &obj) {
+		auto s = Serializer();
+		load_from_json(obj, s);
+	}
+
 #endif
 
 	/**
