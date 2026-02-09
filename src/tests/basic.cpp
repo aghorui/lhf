@@ -295,6 +295,20 @@ TEST(LHF_BasicChecks, register_set_iter_test) {
 	ASSERT_EQ(a, b);
 }
 
+TEST(LHF_BasicChecks, lhf_clear_test) {
+	LHF l;
+
+	l.register_set({ -123, 1, 3, 4, 9, 21313222 });
+	l.register_set({ -123, 3, 4, 9, 21313222 });
+	l.register_set({ -123, 3, 4, 21313222 });
+	l.register_set({ -123, 3, 4 });
+	l.register_set({ 3, 4 });
+	l.register_set({ 3 });
+	ASSERT_EQ(l.property_set_count(), 6 + 1);
+	l.clear_and_initialize();
+	ASSERT_EQ(l.property_set_count(), 1);
+}
+
 
 #ifdef LHF_ENABLE_DEBUG
 TEST(LHF_BasicChecks, property_set_out_of_bounds_throws_exception) {

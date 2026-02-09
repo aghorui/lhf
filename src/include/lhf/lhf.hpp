@@ -1346,16 +1346,6 @@ protected:
 		}
 	}
 
-public:
-	explicit LatticeHashForest(RefList reflist = {}): reflist(reflist) {
-		// INSERT EMPTY SET AT INDEX 0
-		register_set({ });
-	}
-
-	inline bool is_empty(const Index &i) const {
-		return i.is_empty();
-	}
-
 	/**
 	 * @brief      Removes all data from the LHF.
 	 */
@@ -1368,6 +1358,16 @@ public:
 		subsets.clear();
 	}
 
+public:
+	explicit LatticeHashForest(RefList reflist = {}): reflist(reflist) {
+		// INSERT EMPTY SET AT INDEX 0
+		register_set({ });
+	}
+
+	inline bool is_empty(const Index &i) const {
+		return i.is_empty();
+	}
+
 	/**
 	 * @brief      Resets state of the LHF to the default.
 	 */
@@ -1375,7 +1375,6 @@ public:
 		clear();
 		register_set({});
 	}
-
 
 	/**
 	 * @brief      Returns whether we currently know whether a is a subset or a
