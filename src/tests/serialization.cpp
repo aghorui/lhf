@@ -27,11 +27,20 @@ using PointerLHF = lhf::LatticeHashForest<
 TEST(LHF_SerializationChecks, check_lhf_walk) {
 	PointeeLHF p;
 	PointerLHF l({p, p});
-	lhf::slz::JSON data = lhf::slz::to_json(l);
+	auto a = p.register_set({1, 2, 3});
+	auto b = p.register_set({4, 5, 6});
+	p.set_union(a, b);
+
+	l.register_set({{2, {a, b}}});
+
+	lhf::slz::JSON data = lhf::slz::lhf_to_json(l);
 	std::cout << data << std::endl;
 
-	PointerLHF l2({p, p});
-	lhf::slz::load_from_json(l2, data);
+	PointeeLHF p2;
+	PointerLHF l2({p2, p2});
+	lhf::slz::lhf_from_json(l2, data);
 
 	std::cout << l2.dump() << std::endl;
+
+	ASSERT_EQ(l.dump(), l2.dump());
 }

@@ -1329,18 +1329,6 @@ protected:
 	InternalMap<OperationNode, SubsetRelation> subsets = {};
 
 	/**
-	 * @brief      Resets the state of the LHF to default.
-	 */
-	void clear() {
-		property_sets.clear();
-		property_set_map.clear();
-		unions.clear();
-		intersections.clear();
-		differences.clear();
-		subsets.clear();
-	}
-
-	/**
 	 * @brief      Stores index `a` as the subset of index `b` if a < b,
 	 *             else stores index `a` as the superset of index `b`
 	 *
@@ -1369,6 +1357,27 @@ public:
 	inline bool is_empty(const Index &i) const {
 		return i.is_empty();
 	}
+
+	/**
+	 * @brief      Removes all data from the LHF.
+	 */
+	virtual void clear() {
+		property_sets.clear();
+		property_set_map.clear();
+		unions.clear();
+		intersections.clear();
+		differences.clear();
+		subsets.clear();
+	}
+
+	/**
+	 * @brief      Resets state of the LHF to the default.
+	 */
+	void clear_and_initialize() {
+		clear();
+		register_set({});
+	}
+
 
 	/**
 	 * @brief      Returns whether we currently know whether a is a subset or a
