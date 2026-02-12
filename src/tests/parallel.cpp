@@ -48,7 +48,6 @@ TEST(LHF_ParallelChecks, parallel_stress_test) {
 	t4.join();
 
 	std::cout << l.dump() << std::endl;
-	std::cout << l.dump_perf() << std::endl;
 }
 
 #endif

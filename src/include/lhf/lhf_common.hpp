@@ -20,6 +20,22 @@
 #include <functional>
 #include <string>
 
+#ifdef LHF_ENABLE_PARALLEL
+#include <atomic>
+#include <mutex>
+#include <shared_mutex>
+#endif
+
+#ifdef LHF_ENABLE_TBB
+#include <tbb/tbb.h>
+#include <tbb/concurrent_map.h>
+#include <tbb/concurrent_vector.h>
+#endif
+
+#ifdef LHF_ENABLE_SERIALIZATION
+#include "lhf_serialization.hpp"
+#endif
+
 #define LHF_VERSION_MAJOR "0"
 #define LHF_VERSION_MINOR "6"
 #define LHF_VERSION_PATCH "0"

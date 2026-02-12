@@ -7,28 +7,11 @@
 #define LHF_HPP
 
 #include "lhf_common.hpp"
-#include "lhf_serialization.hpp"
 #include "profiling.hpp"
 
 #include <tuple>
 #include <utility>
 #include <algorithm>
-
-#ifdef LHF_ENABLE_PARALLEL
-#include <atomic>
-#include <mutex>
-#include <shared_mutex>
-#endif
-
-#ifdef LHF_ENABLE_TBB
-#include <tbb/tbb.h>
-#include <tbb/concurrent_map.h>
-#include <tbb/concurrent_vector.h>
-#endif
-
-#ifdef LHF_ENABLE_SERIALIZATION
-#include "lhf_serialization.hpp"
-#endif
 
 namespace lhf {
 
@@ -216,7 +199,15 @@ struct Unreachable : public std::runtime_error {
 		std::runtime_error(message.c_str()) {}
 };
 
-#define __LHF_EXCEPT(x) AssertError(x " [At: " __FILE__ ":" __LHF_STR(__LINE__) "]")
+#define __LHF_EXCEPT(__msg) AssertError(__msg " [At: " __FILE__ ":" __LHF_STR(__LINE__) "]")
+
+#ifdef LHF_DEBUG
+#define __LHF_ASSERT(__cond, __msg_arg) \
+	{ if (!(__cond)) { __LHF_EXCEPT(__msg_arg); } }
+#else
+#define __LHF_ASSERT(__cond, __msg_arg)
+#endif
+
 
 /**
  * @brief      Checks whether the the given container matches the expected
@@ -969,6 +960,7 @@ public:
 	static constexpr const char *name = Config::name;
 	static constexpr Size BLOCK_SIZE = Config::BLOCK_SIZE;
 	static constexpr Size BLOCK_MASK = Config::BLOCK_MASK;
+	static constexpr Size BLOCK_SHIFT = Config::BLOCK_SHIFT;
 
 	/**
 	 * @brief      Index returned by an operation. Being defined inside the
@@ -1118,31 +1110,22 @@ protected:
 #ifdef LHF_ENABLE_EVICTION
 
 		void evict() {
-#if LHF_DEBUG
-			if (!is_present()) {
-				throw AssertError("Tried to evict an already absent property set");
-			}
-#endif
+			__LHF_ASSERT(is_present(),
+				"Tried to evict an already absent property set")
 			ptr.release();
 		}
 
 		void reassign(Ptr &&p) {
-#if LHF_DEBUG
-			if (is_present()) {
-				throw AssertError("Tried to reassign when a property set is already present");
-			}
-#endif
+			__LHF_ASSERT(!is_present(),
+				"Tried to reassign when a property set is already present");
 			ptr.reset(p);
 		}
 
 		void swap(PropertySetHolder &p) {
-#if LHF_DEBUG
-			if (is_present()) {
-				throw AssertError("Tried to reassign when a property set is already present");
-			} else if (!p.is_present()) {
-				throw AssertError("Attempted to swap to a null pointer");
-			}
-#endif
+			__LHF_ASSERT(!is_present(),
+				"Tried to reassign when a property set is already present");
+			__LHF_ASSERT(p.is_present(),
+				"Attempted to swap to a null pointer");
 			ptr.swap(p.ptr);
 		}
 
@@ -1248,6 +1231,7 @@ protected:
 
 		Index push_back(PropertySetHolder &&p) {
 			WriteLock m(mutex);
+			__LHF_ASSERT(!data.empty(), "Internal error: no storage blocks avaialable.");
 			if (data.back().size() >= BLOCK_SIZE) {
 				WriteLock r(realloc_mutex);
 				data.push_back({});
@@ -1262,6 +1246,7 @@ protected:
 		void clear() {
 			WriteLock m(mutex);
 			data.clear();
+			data.push_back({});
 			total_elems = 0;
 			block_base = 0;
 		}
@@ -1373,7 +1358,7 @@ public:
 	 */
 	void clear_and_initialize() {
 		clear();
-		register_set({});
+		register_set({ });
 	}
 
 	/**
@@ -1680,11 +1665,8 @@ public:
 
 #ifdef LHF_ENABLE_EVICTION
 	void evict_set(const Index &index) {
-#ifdef LHF_DEBUG
-		if (index.is_empty()) {
-			throw AssertError("Tried to evict the empty set");
-		}
-#endif
+		__LHF_ASSERT(!index.is_empty(),
+			"Tried to evict the empty set");
 		property_sets.at_mutable(index.value).evict();
 	}
 #endif
@@ -1699,9 +1681,8 @@ public:
 	inline const PropertySet &get_value(const Index &index) const {
 		LHF_PROPERTY_SET_INDEX_VALID(index);
 #if defined(LHF_DEBUG) && defined(LHF_ENABLE_EVICTION)
-		if (is_evicted(index)) {
-			throw AssertError("Tried to access an evicted set");
-		}
+		__LHF_ASSERT(!is_evicted(index),
+			"Tried to access an evicted set");
 #endif
 		return *property_sets.at(index.value).get();
 	}
