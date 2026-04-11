@@ -1,3 +1,11 @@
+# Deprecation Notice
+
+LHF has been superseded by [Multilevel Deduplication Engine](https://aghorui.github.io/mde),
+a continuation of LHF with the same API. All future development will happen on
+MDE. This project has been archived.
+
+--------------------------------------------------------------------------------
+
 # LatticeHashForest
 
 LatticeHashForest (LHF) is a data representation caching mechanism that is meant
